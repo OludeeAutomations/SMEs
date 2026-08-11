@@ -24,7 +24,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const router = useRouter();
   const segments = useSegments();
-  const { user, setSession, isLoading, setLoading } = useAuthStore();
+  const { user, business, setSession, isLoading, setLoading } = useAuthStore();
 
   // Listen to Supabase auth events
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function RootLayout() {
               fullName: session.user.user_metadata?.full_name || 'Ease User',
               email: session.user.email || '',
             },
-            null
+            business
           );
         } else {
           setSession(null, null);
@@ -64,7 +64,7 @@ export default function RootLayout() {
               fullName: session.user.user_metadata?.full_name || 'Ease User',
               email: session.user.email || '',
             },
-            null
+            business
           );
         } else {
           setSession(null, null);
@@ -87,11 +87,11 @@ export default function RootLayout() {
     if (!user && inAppGroup && !__DEV__) {
       // Redirect to onboarding if not signed in and not in auth group
       router.replace('/(auth)/onboarding');
-    } else if (user && (inAuthGroup || (segments[0] as string) === 'index' || segments[0] === undefined)) {
+    } else if (user && business && (inAuthGroup || (segments[0] as string) === 'index' || segments[0] === undefined)) {
       // Redirect to home if signed in and in auth group or splash
       router.replace('/(app)/(tabs)/home');
     }
-  }, [user, segments, isLoading]);
+  }, [user, business, segments, isLoading]);
 
   return (
     <QueryClientProvider client={queryClient}>

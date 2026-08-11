@@ -1,157 +1,55 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
-import Badge from '@/components/Badge';
-import StatWidget from '@/components/StatWidget';
-import ProgressBar from '@/components/ProgressBar';
-
-
-
+import { Bell, Bot, FileText, Package, ReceiptText, ShoppingCart, Sparkles, Users, WalletCards } from 'lucide-react-native';
+import { BarChart, colors, GradientCard, ListRow, MetricCard, QuickAction, SurfaceCard } from '@/components/dashboard-ui';
 
 export default function EaseHomeScreen() {
   const router = useRouter();
-  const hasForm = false;
-
-  
-
   return (
-    <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark">
-      <ScrollView contentContainerStyle={{ padding: 20 }} className="flex-1">
-        
-        {/* Header */}
-        <View className="mb-6 flex-row items-center justify-between">
-          <View className="flex-1">
-            <Text className="text-xs font-bold uppercase tracking-widest text-accent-blue font-inter mb-1">
-              EASE HOME
-            </Text>
-            <Text className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark font-inter">
-              {"Lagos HQ • Active"}
-            </Text>
+    <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
+      <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center gap-2.5 rounded-[18px] border border-[#DCE3EE] bg-white px-3.5 py-2.5">
+            <View className="h-8 w-8 items-center justify-center rounded-xl bg-[#E8FBF4]"><Text className="text-[13px] font-bold text-[#10B981]">ER</Text></View>
+            <View><Text className="text-xs font-bold text-[#0F172A]">Ease Retail</Text><Text className="text-[10px] text-[#475569]">Lagos HQ • Active</Text></View>
           </View>
+          <Pressable onPress={() => router.push('/(app)/settings/notifications')}><Bell size={24} color={colors.text} /></Pressable>
         </View>
 
-        
+        <SurfaceCard className="min-h-44 gap-2">
+          <Text className="text-[11px] font-bold text-[#2563EB]">BUSINESS OVERVIEW</Text>
+          <Text className="text-2xl font-bold text-[#0F172A]">₦4.2M</Text>
+          <Text className="text-[13px] text-[#475569]">Monthly revenue across all branches</Text>
+          <BarChart heights={[18, 36, 24, 44, 30, 50, 38, 46]} compact />
+        </SurfaceCard>
 
-        {/* Form Fields */}
-        {hasForm ? (
-          <View className="mb-6">
-    
-          </View>
-        ) : null}
+        <View className="flex-row gap-3"><MetricCard label="Today" value="₦286k" color={colors.blue} /><MetricCard label="Profit" value="₦1.08M" color={colors.green} /></View>
+        <View className="flex-row gap-3"><MetricCard label="Due" value="₦820k" color={colors.amber} className="min-h-[110px]" /><MetricCard label="Stock" value="₦3.6M" className="min-h-[110px]" /></View>
 
-        {/* Stat Widgets */}
-        {true ? (
-          <View className="flex-row flex-wrap gap-3 mb-6">
-              <StatWidget
-            title="Stat"
-            value="9:41 AM"
-            className="mb-3"
-          />
-          <StatWidget
-            title="₦286k"
-            value="Today"
-            className="mb-3"
-          />
-          <StatWidget
-            title="₦1.08M"
-            value="Profit"
-            className="mb-3"
-          />
-          <StatWidget
-            title="₦820k"
-            value="Due"
-            className="mb-3"
-          />
-          <StatWidget
-            title="₦3.6M"
-            value="Stock"
-            className="mb-3"
-          />
-          <StatWidget
-            title="94"
-            value="AI BUSINESS HEALTH"
-            className="mb-3"
-          />
-          </View>
-        ) : null}
+        <GradientCard className="gap-2.5">
+          <Text className="text-[11px] font-bold text-white">AI BUSINESS HEALTH</Text><Text className="font-mono text-[22px] font-bold text-white">94</Text>
+          <Text className="text-[13px] leading-5 text-white">Cash flow is stable. You can stock up on rice and beverages before the weekend spike.</Text>
+          <View className="flex-row items-center gap-2 rounded-2xl bg-white/15 px-3 py-2.5"><Sparkles size={18} color="white" /><Text className="text-xs font-semibold text-white">Reorder 18 fast-moving items today.</Text></View>
+        </GradientCard>
 
-        {/* General Screen Info */}
-        {true ? (
-          <Card className="mb-6">
-            <Text className="text-xs font-bold uppercase tracking-wider text-text-secondary-light dark:text-text-secondary-dark mb-3">
-              Designed Layout Highlights
-            </Text>
-            <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"ER"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Ease Retail"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"BUSINESS OVERVIEW"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"₦4.2M"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Monthly revenue across all branches"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"QUICK ACTIONS"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"New Sale"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Invoice"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Add Stock"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Customers"}
-        </Text>
-          </Card>
-        ) : null}
-
-        {/* Actions */}
-        <View className="mt-4">
-          
-                  <Button
-          title="Home"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/home')}
-          className="mb-3"
-        />
-        <Button
-          title="Sales"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/sales')}
-          className="mb-3"
-        />
-        <Button
-          title="AI"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/ai')}
-          className="mb-3"
-        />
-        <Button
-          title="Reports"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/reports')}
-          className="mb-3"
-        />
-        <Button
-          title="More"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/hub')}
-          className="mb-3"
-        />
+        <Text className="text-xs font-bold text-[#475569]">QUICK ACTIONS</Text>
+        <View className="flex-row flex-wrap justify-between gap-y-2.5">
+          <QuickAction label="New Sale" icon={ShoppingCart} onPress={() => router.push('/(app)/sales/record')} />
+          <QuickAction label="Invoice" icon={FileText} onPress={() => router.push('/(app)/invoices/create')} />
+          <QuickAction label="Add Stock" icon={Package} onPress={() => router.push('/(app)/inventory/add')} />
+          <QuickAction label="Customers" icon={Users} onPress={() => router.push('/(app)/customers')} />
+          <QuickAction label="Expense" icon={WalletCards} onPress={() => router.push('/(app)/expenses/add')} />
+          <QuickAction label="Ask AI" icon={Bot} onPress={() => router.push('/(app)/(tabs)/ai')} />
         </View>
 
+        <Text className="text-xs font-bold text-[#475569]">RECENT ACTIVITY</Text>
+        <SurfaceCard className="py-0">
+          <ListRow title="Sale recorded" subtitle="Market stall - Ikeja" value="₦48k" icon={ReceiptText} tint="#E8FBF4" />
+          <View className="h-px bg-[#DCE3EE]" /><ListRow title="Invoice paid" subtitle="Blue Nile Foods" value="₦120k" icon={FileText} />
+          <View className="h-px bg-[#DCE3EE]" /><ListRow title="Low stock alert" subtitle="Tomatoes and cooking oil" value="18 left" icon={Package} tint="#FFF7ED" />
+        </SurfaceCard>
       </ScrollView>
     </SafeAreaView>
   );

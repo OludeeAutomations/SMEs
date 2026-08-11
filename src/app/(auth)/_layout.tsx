@@ -10,6 +10,7 @@ export default function AuthLayout() {
       <Stack.Screen name="reset" />
       <Stack.Screen name="otp" />
       <Stack.Screen name="business-profile" />
+      <Stack.Screen name="google-business-profile" />
     </Stack>
   );
 }

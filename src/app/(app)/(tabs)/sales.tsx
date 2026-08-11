@@ -1,142 +1,30 @@
-import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
-import Badge from '@/components/Badge';
-import StatWidget from '@/components/StatWidget';
-import ProgressBar from '@/components/ProgressBar';
-
-
-
+import { BarChart, colors, ListRow, SurfaceCard } from '@/components/dashboard-ui';
 
 export default function EaseSalesDashboardScreen() {
   const router = useRouter();
-  const hasForm = false;
-
-  
-
+  const [filter, setFilter] = useState('All');
   return (
-    <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark">
-      <ScrollView contentContainerStyle={{ padding: 20 }} className="flex-1">
-        
-        {/* Header */}
-        <View className="mb-6 flex-row items-center justify-between">
-          <View className="flex-1">
-            <Text className="text-xs font-bold uppercase tracking-widest text-accent-blue font-inter mb-1">
-              EASE SALES DASHBOARD
-            </Text>
-            <Text className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark font-inter">
-              {"Track transactions, payments, and today’s performance."}
-            </Text>
-          </View>
+    <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
+      <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
+        <Text className="text-2xl font-bold text-[#0F172A]">Sales</Text>
+        <Text className="-mt-2 text-[13px] text-[#475569]">Track transactions, payments, and today’s performance.</Text>
+        <SurfaceCard className="gap-2">
+          <Text className="text-[11px] text-[#475569]">Today</Text><Text className="font-mono text-lg font-bold text-[#2563EB]">₦286k</Text>
+          <Text className="text-[11px] text-[#475569]">Orders</Text><Text className="font-mono text-lg font-bold text-[#10B981]">84</Text>
+          <BarChart heights={[22, 14, 31, 25, 48, 31, 42]} compact />
+        </SurfaceCard>
+        <View className="flex-row gap-2">
+          {['All', 'Cash', 'Transfer'].map((item) => <Pressable key={item} onPress={() => setFilter(item)} className={`rounded-full px-4 py-2 ${filter === item ? 'bg-[#2563EB]' : 'border border-[#DCE3EE] bg-white'}`}><Text className={`text-xs font-semibold ${filter === item ? 'text-white' : 'text-[#0F172A]'}`}>{item}</Text></Pressable>)}
         </View>
-
-        
-
-        {/* Form Fields */}
-        {hasForm ? (
-          <View className="mb-6">
-    
-          </View>
-        ) : null}
-
-        {/* Stat Widgets */}
-        {true ? (
-          <View className="flex-row flex-wrap gap-3 mb-6">
-              <StatWidget
-            title="Stat"
-            value="9:41 AM"
-            className="mb-3"
-          />
-          <StatWidget
-            title="₦286k"
-            value="Today"
-            className="mb-3"
-          />
-          <StatWidget
-            title="84"
-            value="Orders"
-            className="mb-3"
-          />
-          </View>
-        ) : null}
-
-        {/* General Screen Info */}
-        {true ? (
-          <Card className="mb-6">
-            <Text className="text-xs font-bold uppercase tracking-wider text-text-secondary-light dark:text-text-secondary-dark mb-3">
-              Designed Layout Highlights
-            </Text>
-            <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Sales"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"All "}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Cash"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Transfer"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"POS-2041"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Laptop bag and charger"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"₦82k"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"POS-2040"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"Wholesale rice order"}
-        </Text>
-        <Text className="text-sm font-inter text-text-secondary-light dark:text-text-secondary-dark mb-2">
-          • {"₦140k"}
-        </Text>
-          </Card>
-        ) : null}
-
-        {/* Actions */}
-        <View className="mt-4">
-          
-                  <Button
-          title="Home"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/home')}
-          className="mb-3"
-        />
-        <Button
-          title="Sales"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/sales')}
-          className="mb-3"
-        />
-        <Button
-          title="AI"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/ai')}
-          className="mb-3"
-        />
-        <Button
-          title="Reports"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/reports')}
-          className="mb-3"
-        />
-        <Button
-          title="More"
-          variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/hub')}
-          className="mb-3"
-        />
-        </View>
-
+        <SurfaceCard className="py-0">
+          <ListRow title="POS-2041" subtitle="Laptop bag and charger" value="₦82k" onPress={() => router.push('/(app)/sales/demo-sale')} />
+          <View className="h-px bg-[#DCE3EE]" /><ListRow title="POS-2040" subtitle="Wholesale rice order" value="₦140k" onPress={() => router.push('/(app)/sales/demo-sale')} tint="#E8FBF4" />
+          <View className="h-px bg-[#DCE3EE]" /><ListRow title="POS-2039" subtitle="Card payment confirmed" value="₦64k" onPress={() => router.push('/(app)/sales/demo-sale')} />
+        </SurfaceCard>
       </ScrollView>
     </SafeAreaView>
   );

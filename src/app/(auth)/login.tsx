@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { Alert, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
@@ -9,6 +9,8 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Svg, { Path } from 'react-native-svg';
 import AuthBackButton from '@/components/AuthBackButton';
+import { signInWithGoogle } from '@/services/googleAuth';
+import { supabase } from '@/services/supabase';
 
 const GoogleIcon = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24">
@@ -40,7 +42,8 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function EaseLoginScreen() {
   const router = useRouter();
-  const hasForm = true;
+  const [isSigningIn, setIsSigningIn] = React.useState(false);
+  const [googleLoading, setGoogleLoading] = React.useState(false);
 
   const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -50,9 +53,29 @@ export default function EaseLoginScreen() {
     }
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log('Submitted login:', data);
-    router.push('/(app)/(tabs)/home');
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsSigningIn(true);
+      const { error } = await supabase.auth.signInWithPassword(data);
+      if (error) throw error;
+      router.replace('/(app)/(tabs)/home');
+    } catch (error) {
+      Alert.alert('Sign in failed', error instanceof Error ? error.message : 'Please try again.');
+    } finally {
+      setIsSigningIn(false);
+    }
+  };
+
+  const continueWithGoogle = async () => {
+    try {
+      setGoogleLoading(true);
+      const completed = await signInWithGoogle();
+      if (completed) router.replace('/(app)/(tabs)/home');
+    } catch (error) {
+      Alert.alert('Google sign-in failed', error instanceof Error ? error.message : 'Please try again.');
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -127,6 +150,7 @@ export default function EaseLoginScreen() {
             title="Sign in"
             variant="primary"
             onPress={handleSubmit(onSubmit)}
+            isLoading={isSigningIn}
             className="h-[56px] justify-center"
           />
 
@@ -142,7 +166,8 @@ export default function EaseLoginScreen() {
             title="Continue with Google"
             variant="secondary"
             icon={<GoogleIcon />}
-            onPress={() => console.log('Continue with Google')}
+            onPress={continueWithGoogle}
+            isLoading={googleLoading}
             className="h-[56px] justify-center border border-border-light dark:border-border-dark bg-white dark:bg-surface-dark"
             textClassName="text-text-primary-light dark:text-text-primary-dark"
           />
