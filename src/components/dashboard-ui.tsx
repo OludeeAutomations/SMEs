@@ -46,9 +46,16 @@ export function BarChart({ heights, compact = false }: { heights: number[]; comp
 
 export function GradientCard({ children, className = '' }: React.PropsWithChildren<{ className?: string }>) {
   return (
-    <LinearGradient colors={['#2563EB', '#10B981']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} className={`overflow-hidden rounded-3xl p-4 ${className}`}>
-      {children}
-    </LinearGradient>
+    <View className="w-full overflow-hidden rounded-3xl">
+      <LinearGradient
+        colors={['#2563EB', '#10B981']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={{ width: '100%', padding: 16 }}
+      >
+        <View className={`w-full ${className}`}>{children}</View>
+      </LinearGradient>
+    </View>
   );
 }
 

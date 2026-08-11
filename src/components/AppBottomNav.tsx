@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { usePathname, useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BarChart3, Bot, Home, MoreHorizontal, ReceiptText } from 'lucide-react-native';
 import { colors } from './dashboard-ui';
 
@@ -14,14 +15,42 @@ const tabs = [
 
 export default function AppBottomNav() {
   const router = useRouter();
+  const pathname = usePathname();
+  const insets = useSafeAreaInsets();
+
+  const activeLabel = pathname.startsWith('/sales')
+    ? 'Sales'
+    : pathname.endsWith('/ai')
+      ? 'AI'
+      : pathname.endsWith('/reports')
+        ? 'Reports'
+        : pathname.endsWith('/home')
+          ? 'Home'
+          : 'More';
+
   return (
-    <View className="absolute bottom-3 left-4 right-4 h-[70px] flex-row rounded-[26px] border border-[#DCE3EE] bg-white px-2 py-2 shadow-lg">
+    <View
+      className="absolute left-5 right-5 h-[78px] flex-row rounded-[28px] border border-[#DCE3EE] bg-white p-2"
+      style={{
+        bottom: Math.max(insets.bottom, 12),
+        zIndex: 100,
+        elevation: 18,
+        shadowColor: '#0F172A',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.16,
+        shadowRadius: 18,
+      }}
+    >
       {tabs.map(({ label, route, icon: Icon }) => {
-        const active = label === 'More';
+        const active = label === activeLabel;
         return (
-          <Pressable key={label} onPress={() => router.replace(route)} className={`flex-1 items-center justify-center gap-1 rounded-[18px] ${active ? 'bg-[#F2F5FA]' : ''}`}>
-            <Icon size={21} color={active ? colors.blue : colors.muted} />
-            <Text className={`text-[10px] ${active ? 'font-bold text-[#2563EB]' : 'text-[#94A3B8]'}`}>{label}</Text>
+          <Pressable
+            key={label}
+            onPress={() => router.replace(route)}
+            className={`flex-1 items-center justify-center gap-1 rounded-[22px] ${active ? 'bg-[#F2F5FA]' : ''}`}
+          >
+            <Icon size={23} strokeWidth={active ? 2.4 : 2} color={active ? colors.blue : colors.muted} />
+            <Text className={`text-[11px] ${active ? 'font-bold text-[#2563EB]' : 'font-medium text-[#94A3B8]'}`}>{label}</Text>
           </Pressable>
         );
       })}

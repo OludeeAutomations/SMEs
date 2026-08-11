@@ -1,11 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Stack, useSegments } from 'expo-router';
+import { Stack } from 'expo-router';
 import AppBottomNav from '@/components/AppBottomNav';
 
 export default function AppLayout() {
-  const segments = useSegments();
-  const inTabs = segments.some((segment) => (segment as string) === '(tabs)');
   return (
     <View className="flex-1 bg-[#F5F7FB]">
       <Stack screenOptions={{ headerShown: false }}>
@@ -20,7 +18,7 @@ export default function AppLayout() {
         <Stack.Screen name="automation" />
         <Stack.Screen name="projects" />
       </Stack>
-      {!inTabs ? <AppBottomNav /> : null}
+      <AppBottomNav />
     </View>
   );
 }
