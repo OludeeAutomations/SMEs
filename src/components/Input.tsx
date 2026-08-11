@@ -40,18 +40,18 @@ export const Input: React.FC<InputProps> = ({
   return (
     <View className={`w-full flex-col gap-1.5 ${containerClassName}`}>
       {label && (
-        <Text className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark font-inter ml-1">
+        <Text className="ml-1 font-inter text-xs font-semibold text-[#334155] dark:text-[#CBD5E1]">
           {label}
         </Text>
       )}
       
       <View
-        className={`flex-row items-center w-full px-4 bg-surface-2-light dark:bg-surface-2-dark border rounded-2xl h-[52px] transition-all ${
+        className={`h-[56px] w-full flex-row items-center rounded-2xl border-2 bg-white px-4 dark:bg-[#162235] ${
           error
-            ? 'border-danger'
+            ? 'border-[#DC2626]'
             : isFocused
-            ? 'border-accent-blue bg-surface-light dark:bg-surface-dark'
-            : 'border-transparent'
+            ? 'border-[#2563EB]'
+            : 'border-[#CBD5E1] dark:border-[#334155]'
         }`}
       >
         {leftIcon && <View className="mr-3 opacity-60">{leftIcon}</View>}
@@ -60,7 +60,7 @@ export const Input: React.FC<InputProps> = ({
           secureTextEntry={isPasswordInput && !showPassword}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          placeholderTextColor="#94A3B8"
+          placeholderTextColor="#64748B"
           className={`flex-1 text-sm text-text-primary-light dark:text-text-primary-dark font-inter h-full py-0 ${inputClassName}`}
           style={{ textAlignVertical: 'center' }}
           {...props}
