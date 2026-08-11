@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
+import AuthBackButton from '@/components/AuthBackButton';
 
 const formSchema = z.object({
   fullname: z.string().min(2, 'Full name is required'),
@@ -42,6 +43,8 @@ export default function EaseSignUpScreen() {
         contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 20, paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
       >
+        <AuthBackButton fallback="/(auth)/onboarding" />
+
         <Text className="text-[28px] font-bold text-text-primary-light dark:text-text-primary-dark leading-[36px] mb-3">
           Set up your business account.
         </Text>

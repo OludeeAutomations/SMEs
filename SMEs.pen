@@ -772,6 +772,19 @@
               "fontFamily": "Inter",
               "fontSize": 12,
               "fontWeight": "normal"
+            },
+            {
+              "type": "icon",
+              "id": "FZg54",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }
@@ -1121,6 +1134,19 @@
                   "fontWeight": "700"
                 }
               ]
+            },
+            {
+              "type": "icon",
+              "id": "n4HeTp",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }
@@ -1484,6 +1510,19 @@
               "fontFamily": "Inter",
               "fontSize": 12,
               "fontWeight": "normal"
+            },
+            {
+              "type": "icon",
+              "id": "K7iogq",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }
@@ -1727,6 +1766,19 @@
                   "fontWeight": "normal"
                 }
               ]
+            },
+            {
+              "type": "icon",
+              "id": "LYQ5A",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }
@@ -2050,6 +2102,19 @@
               "fontFamily": "Inter",
               "fontSize": 13,
               "fontWeight": "600"
+            },
+            {
+              "type": "icon",
+              "id": "usEfv",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }
@@ -2447,6 +2512,19 @@
                   "fontWeight": "700"
                 }
               ]
+            },
+            {
+              "type": "icon",
+              "id": "WCViH",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }

@@ -11,6 +11,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Input from '@/components/Input';
+import AuthBackButton from '@/components/AuthBackButton';
 
 
 const formSchema = z.object({
@@ -41,6 +42,7 @@ export default function EaseBusinessProfileScreen() {
   return (
     <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark">
       <ScrollView contentContainerStyle={{ padding: 20 }} className="flex-1">
+        <AuthBackButton fallback="/(auth)/signup" />
         
         {/* Header */}
         <View className="mb-6 flex-row items-center justify-between">

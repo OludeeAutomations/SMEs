@@ -8,6 +8,7 @@ import { z } from 'zod';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Svg, { Path } from 'react-native-svg';
+import AuthBackButton from '@/components/AuthBackButton';
 
 const GoogleIcon = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24">
@@ -60,6 +61,8 @@ export default function EaseLoginScreen() {
         contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 20, paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
       >
+        <AuthBackButton fallback="/(auth)/onboarding" />
+
         <Text className="text-xs font-bold tracking-widest text-accent-blue uppercase mb-2">
           SECURE SIGN IN
         </Text>

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import Button from '@/components/Button';
 import { LinearGradient } from 'expo-linear-gradient';
+import AuthBackButton from '@/components/AuthBackButton';
 
 export default function EaseOnboardingScreen() {
   const router = useRouter();
@@ -14,6 +15,8 @@ export default function EaseOnboardingScreen() {
         contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 20, paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
       >
+        <AuthBackButton fallback="/" />
+
         <Text className="text-xs font-bold tracking-widest text-accent-blue uppercase mb-2">
           NEXT-GEN SME OPERATIONS
         </Text>

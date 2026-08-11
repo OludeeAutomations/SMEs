@@ -7,6 +7,7 @@ import Card from '@/components/Card';
 import Badge from '@/components/Badge';
 import StatWidget from '@/components/StatWidget';
 import ProgressBar from '@/components/ProgressBar';
+import AuthBackButton from '@/components/AuthBackButton';
 
 
 
@@ -20,6 +21,7 @@ export default function EaseOTPScreen() {
   return (
     <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark">
       <ScrollView contentContainerStyle={{ padding: 20 }} className="flex-1">
+        <AuthBackButton fallback="/(auth)/reset" />
         
         {/* Header */}
         <View className="mb-6 flex-row items-center justify-between">
