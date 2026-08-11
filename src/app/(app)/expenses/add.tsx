@@ -26,6 +26,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function EaseAddExpenseScreen() {
   const router = useRouter();
+  const hasForm = true;
 
   const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema),

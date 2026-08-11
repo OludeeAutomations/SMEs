@@ -13,6 +13,7 @@ import ProgressBar from '@/components/ProgressBar';
 
 export default function EaseSalesHistoryTransferScreen() {
   const router = useRouter();
+  const hasForm = false;
 
   
 

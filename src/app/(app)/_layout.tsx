@@ -3,9 +3,16 @@ import { Stack } from 'expo-router';
 
 export default function AppLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerBackTitle: 'Back',
+        headerTitle: '',
+        headerShadowVisible: false,
+      }}
+    >
       {/* Bottom Tabs Container */}
-      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       
       {/* Sub-Feature Stack Routes */}
       <Stack.Screen name="sales" />

@@ -10,7 +10,7 @@
       "clip": true,
       "width": 390,
       "height": 844,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -229,7 +229,7 @@
       "name": "Ease Onboarding",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -798,7 +798,7 @@
       "name": "Ease Login",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -1116,10 +1116,14 @@
                   "name": "Google Mark",
                   "width": 20,
                   "height": 20,
-                  "fill": "#FFFFFF",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "../google-logo-removebg-preview.png",
+                    "mode": "fit"
+                  },
                   "cornerRadius": 999,
                   "stroke": "#DCE3EE",
-                  "strokeWidth": 1,
                   "justifyContent": "center",
                   "alignItems": "center"
                 },
@@ -1160,7 +1164,7 @@
       "name": "Ease Sign Up",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -1266,7 +1270,7 @@
               "fill": "$text-secondary",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "content": "Create your Ease workspace, invite your team, and track everything from day one.",
+              "content": "Create your Ease workspace with Google or email, then complete your business profile.",
               "lineHeight": 1.45,
               "fontFamily": "Inter",
               "fontSize": 15,
@@ -1498,6 +1502,96 @@
               ]
             },
             {
+              "type": "frame",
+              "id": "IeNro",
+              "name": "Google Sign Up",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Dzv7F",
+                  "name": "Divider Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "QnPHO",
+                      "name": "Divider Left",
+                      "width": 96,
+                      "height": 1,
+                      "fill": "$border"
+                    },
+                    {
+                      "type": "text",
+                      "id": "RvBQI",
+                      "name": "Divider Text",
+                      "fill": "$text-muted",
+                      "content": "or",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "fkNZy",
+                      "name": "Divider Right",
+                      "width": 96,
+                      "height": 1,
+                      "fill": "$border"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GIvmH",
+                  "name": "Continue with Google Button",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$surface",
+                  "cornerRadius": 18,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "gap": 10,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "RZYjA",
+                      "name": "Google Mark",
+                      "width": 20,
+                      "height": 20,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "../google-logo-removebg-preview.png",
+                        "mode": "fit"
+                      },
+                      "cornerRadius": 999,
+                      "stroke": "#DCE3EE",
+                      "justifyContent": "center",
+                      "alignItems": "center"
+                    },
+                    {
+                      "type": "text",
+                      "id": "eS75Y",
+                      "name": "Continue with Google Label",
+                      "fill": "$text-primary",
+                      "content": "Continue with Google",
+                      "fontFamily": "Geist",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "type": "text",
               "id": "a1KMIr",
               "name": "Terms Note",
@@ -1536,7 +1630,7 @@
       "name": "Ease Reset",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -1792,7 +1886,7 @@
       "name": "Ease OTP",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -2128,7 +2222,7 @@
       "name": "Ease Business Profile",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -2538,7 +2632,7 @@
       "name": "Ease Home",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -4054,7 +4148,7 @@
       "name": "Ease Sales Dashboard",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -4910,7 +5004,7 @@
       "name": "Ease Customers",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -5663,7 +5757,7 @@
       "name": "Ease Customer Profile",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -6348,7 +6442,7 @@
       "name": "Ease Inventory Dashboard",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -7146,7 +7240,7 @@
       "name": "Ease Product Details",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -8013,7 +8107,7 @@
       "name": "Ease Invoice Dashboard",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -8826,7 +8920,7 @@
       "name": "Ease Create Invoice",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -9565,7 +9659,7 @@
       "name": "Ease Expense Dashboard",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -10324,7 +10418,7 @@
       "name": "Ease Supplier List",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -10919,7 +11013,7 @@
       "name": "Ease Supplier Profile",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -11566,7 +11660,7 @@
       "name": "Ease Sales Detail",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -12174,7 +12268,7 @@
       "name": "Ease Receipt Preview",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -12418,7 +12512,7 @@
       "name": "Ease Payment Confirmation",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -12777,7 +12871,7 @@
       "name": "Ease Invoice Details",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -13189,7 +13283,7 @@
       "name": "Ease AI Assistant",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -13859,7 +13953,7 @@
       "name": "Ease Reports",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -14387,7 +14481,7 @@
       "name": "Ease Automation",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -15020,7 +15114,7 @@
       "name": "Ease Settings",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -15732,7 +15826,7 @@
       "name": "Ease Notifications Center",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -16552,7 +16646,7 @@
       "name": "Ease Add Product",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -17010,7 +17104,7 @@
       "name": "Ease Add Expense",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -17419,7 +17513,7 @@
       "name": "Ease Design System Showcase",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -18016,7 +18110,7 @@
       "name": "Ease Sales History",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -18965,7 +19059,7 @@
       "name": "Ease Record Sale",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -19515,7 +19609,7 @@
       "name": "Ease Add Customer",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -19876,7 +19970,7 @@
       "name": "Ease Inventory Categories",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -20365,7 +20459,7 @@
       "name": "Ease Invoice History",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -20915,7 +21009,7 @@
       "name": "Ease Expense Analytics",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -21378,7 +21472,7 @@
       "name": "Ease Supplier Bills",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -21857,7 +21951,7 @@
       "name": "Ease Sales History Cash",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -22806,7 +22900,7 @@
       "name": "Ease Sales History Transfer",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -23755,7 +23849,7 @@
       "name": "Ease More Hub",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -24890,7 +24984,7 @@
       "name": "Ease Draft Sales",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -25378,7 +25472,7 @@
       "name": "Ease Inventory Stock Adjustments",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -25734,7 +25828,7 @@
       "name": "Ease Low-Stock Alert Monitor",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -26131,7 +26225,7 @@
       "name": "Ease Debtor Book",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -26537,7 +26631,7 @@
       "name": "Ease Receipts Template Editor",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -26843,7 +26937,7 @@
       "name": "Ease Expense Categories Registry",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -27245,7 +27339,7 @@
       "name": "Ease Projects & Tasks",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -27649,7 +27743,7 @@
       "name": "Ease Business & Branch Configuration",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -27968,7 +28062,7 @@
       "name": "Ease User Roles & Permissions Access Matrix",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -28293,7 +28387,7 @@
       "name": "Ease Payment Integration Gateway Setup",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -28576,7 +28670,7 @@
       "name": "Ease Custom Templates",
       "clip": true,
       "width": 390,
-      "fill": "$bg",
+      "fill": "#FAFAFA",
       "cornerRadius": 32,
       "layout": "vertical",
       "padding": [
@@ -28843,6 +28937,416 @@
                   "fontWeight": "700"
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ZB2Q0",
+      "x": 2290,
+      "y": 900,
+      "name": "Ease Google Business Setup",
+      "clip": true,
+      "width": 390,
+      "fill": "#FAFAFA",
+      "cornerRadius": 32,
+      "layout": "vertical",
+      "padding": [
+        0,
+        0,
+        24,
+        0
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "V5Ww6R",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "height": 62,
+          "fill": "$surface",
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "pr1mL",
+              "name": "Time",
+              "fill": "$text-primary",
+              "content": "9:41 AM",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "QBOzi",
+              "name": "Indicators",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "tTQGg",
+                  "name": "Signal",
+                  "fill": "$text-primary",
+                  "width": 18,
+                  "height": 10
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "tYcjo",
+                  "name": "WiFi",
+                  "fill": "$text-primary",
+                  "width": 14,
+                  "height": 10
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "c6Opb",
+                  "name": "Battery",
+                  "fill": "$text-primary",
+                  "width": 24,
+                  "height": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "LZ3Uh",
+          "name": "Profile Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            24,
+            20,
+            0,
+            20
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Y6kQXr",
+              "name": "Title",
+              "fill": "$text-primary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Set up your business.",
+              "lineHeight": 1.1,
+              "fontFamily": "Geist",
+              "fontSize": 28,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "IMOOF",
+              "name": "Subtitle",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Your Google account is connected. Add your business details to finish setting up Ease.",
+              "lineHeight": 1.45,
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "WCXTA",
+              "name": "Business name Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "XnSp0",
+                  "name": "Business name Label",
+                  "fill": "$text-secondary",
+                  "content": "Business name",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "OY8ww",
+                  "name": "Business name Input",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$surface-2",
+                  "cornerRadius": 16,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Zr01Y",
+                      "name": "Business name Placeholder",
+                      "fill": "$text-muted",
+                      "content": "Ease Retail Limited",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "CRPkn",
+              "name": "Category Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HL6AE",
+                  "name": "Category Label",
+                  "fill": "$text-secondary",
+                  "content": "Category",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "AzH57",
+                  "name": "Category Input",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$surface-2",
+                  "cornerRadius": 16,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VcVSQ",
+                      "name": "Category Placeholder",
+                      "fill": "$text-muted",
+                      "content": "Retail / Wholesale",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fAW3A",
+              "name": "Country Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "GCQq3",
+                  "name": "Country Label",
+                  "fill": "$text-secondary",
+                  "content": "Country",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "wOT3L",
+                  "name": "Country Input",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$surface-2",
+                  "cornerRadius": 16,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GinGq",
+                      "name": "Country Placeholder",
+                      "fill": "$text-muted",
+                      "content": "Nigeria",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "K8MOgC",
+              "name": "Currency Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i6AUH9",
+                  "name": "Currency Label",
+                  "fill": "$text-secondary",
+                  "content": "Currency",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "KTIKq",
+                  "name": "Currency Input",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$surface-2",
+                  "cornerRadius": 16,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "H8QAwa",
+                      "name": "Currency Placeholder",
+                      "fill": "$text-muted",
+                      "content": "NGN - Nigerian Naira",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yBPbL",
+              "name": "Branch name Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Y8StrN",
+                  "name": "Branch name Label",
+                  "fill": "$text-secondary",
+                  "content": "Branch name",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "Fxhkk",
+                  "name": "Branch name Input",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$surface-2",
+                  "cornerRadius": 16,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "c7GdKH",
+                      "name": "Branch name Placeholder",
+                      "fill": "$text-muted",
+                      "content": "Head office",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "IxMwn",
+              "name": "Finish setup Button",
+              "width": "fill_container",
+              "height": 56,
+              "fill": "$accent-blue",
+              "cornerRadius": 18,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#2563EB24",
+                "offset": {
+                  "x": 0,
+                  "y": 10
+                },
+                "blur": 24
+              },
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "DsGd9",
+                  "name": "Finish setup Label",
+                  "fill": "#FFFFFF",
+                  "content": "Finish setup",
+                  "fontFamily": "Geist",
+                  "fontSize": 16,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "icon",
+              "id": "iCQE3",
+              "layoutPosition": "absolute",
+              "x": 20,
+              "y": 0,
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
             }
           ]
         }

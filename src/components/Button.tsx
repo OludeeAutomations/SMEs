@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator, View, TouchableOpacityProps } from 'react-native';
+import { useRouter } from 'expo-router';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -22,6 +23,30 @@ export const Button: React.FC<ButtonProps> = ({
   onPress,
   ...props
 }) => {
+  const router = useRouter();
+
+  const navigationRoutes: Record<string, string> = {
+    Home: '/(app)/(tabs)/home',
+    Sales: '/(app)/(tabs)/sales',
+    AI: '/(app)/(tabs)/ai',
+    Reports: '/(app)/(tabs)/reports',
+    More: '/(app)/(tabs)/hub',
+    'All Sales': '/(app)/sales/history',
+    Cash: '/(app)/sales/history-cash',
+    Transfer: '/(app)/sales/history-transfer',
+    'Resume Checkout': '/(app)/sales/record',
+    'Complete sale': '/(app)/sales/payment-confirmation',
+  };
+
+  const handlePress: TouchableOpacityProps['onPress'] = (event) => {
+    const route = navigationRoutes[title];
+    if (route) {
+      router.push(route as never);
+      return;
+    }
+    onPress?.(event);
+  };
+
   // Styles for different button variants
   const variantStyles = {
     primary: 'bg-accent-blue active:bg-blue-700',
@@ -57,7 +82,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={handlePress}
       disabled={isDisabled}
       className={`flex-row items-center justify-center transition-all ${sizeStyles[size]} ${variantStyles[variant]} ${
         isDisabled ? 'opacity-50' : ''

@@ -13,6 +13,7 @@ import ProgressBar from '@/components/ProgressBar';
 
 export default function EaseReportsScreen() {
   const router = useRouter();
+  const hasForm = false;
 
   
 
@@ -87,25 +88,25 @@ export default function EaseReportsScreen() {
         <Button
           title="Sales"
           variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/home')}
+          onPress={() => router.push('/(app)/(tabs)/sales')}
           className="mb-3"
         />
         <Button
           title="AI"
           variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/home')}
+          onPress={() => router.push('/(app)/(tabs)/ai')}
           className="mb-3"
         />
         <Button
           title="Reports"
           variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/home')}
+          onPress={() => router.push('/(app)/(tabs)/reports')}
           className="mb-3"
         />
         <Button
           title="More"
           variant="secondary"
-          onPress={() => router.push('/(app)/(tabs)/home')}
+          onPress={() => router.push('/(app)/(tabs)/hub')}
           className="mb-3"
         />
         </View>

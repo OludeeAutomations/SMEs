@@ -13,6 +13,7 @@ import ProgressBar from '@/components/ProgressBar';
 
 export default function EaseProductDetailsScreen() {
   const router = useRouter();
+  const hasForm = false;
 
   
 

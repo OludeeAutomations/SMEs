@@ -22,6 +22,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function EaseCustomersScreen() {
   const router = useRouter();
+  const hasForm = true;
 
   const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema),

@@ -84,7 +84,7 @@ export default function RootLayout() {
     const inAuthGroup = segments[0] === '(auth)';
     const inAppGroup = segments[0] === '(app)';
 
-    if (!user && !inAuthGroup && (segments[0] as string) !== 'index' && segments[0] !== undefined) {
+    if (!user && inAppGroup && !__DEV__) {
       // Redirect to onboarding if not signed in and not in auth group
       router.replace('/(auth)/onboarding');
     } else if (user && (inAuthGroup || (segments[0] as string) === 'index' || segments[0] === undefined)) {
