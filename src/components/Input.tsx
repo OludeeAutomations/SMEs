@@ -46,12 +46,12 @@ export const Input: React.FC<InputProps> = ({
       )}
       
       <View
-        className={`h-[56px] w-full flex-row items-center rounded-2xl border-2 bg-white px-4 dark:bg-[#162235] ${
+        className={`h-[56px] w-full flex-row items-center rounded-2xl border bg-white px-4 dark:bg-[#162235] ${
           error
             ? 'border-[#DC2626]'
             : isFocused
             ? 'border-[#2563EB]'
-            : 'border-[#CBD5E1] dark:border-[#334155]'
+            : 'border-[#E7EBF1] dark:border-[#334155]'
         }`}
       >
         {leftIcon && <View className="mr-3 opacity-60">{leftIcon}</View>}
