@@ -26,7 +26,7 @@ export default function EaseAIAssistantScreen() {
           <View className="h-px bg-[#DCE3EE]" />
           <View className="flex-row items-center gap-3 py-3"><View className="h-9 w-9 rounded-[14px] bg-[#E8FBF4]" /><View className="flex-1"><Text className="text-xs font-semibold text-[#0F172A]">Ease</Text><Text className="mt-1 text-[11px] text-[#475569]">{answer || 'Ask a question to get an insight.'}</Text></View><Text className="font-mono text-xs font-bold text-[#0F172A]">₦5.1M</Text></View>
         </SurfaceCard>
-        <View className="rounded-3xl border border-[#BFDBFE] bg-[#EFF6FF] p-4"><Text className="text-[10px] font-bold text-[#2563EB]">SMART RECOMMENDATION</Text><Text className="mt-2 text-xs leading-[18px] text-[#0F172A]">Send a weekly report every Friday at 5pm and remind overdue customers automatically.</Text></View>
+        <View className="rounded-[5px] border border-[#BFDBFE] bg-[#EFF6FF] p-4"><Text className="text-[10px] font-bold text-[#2563EB]">SMART RECOMMENDATION</Text><Text className="mt-2 text-xs leading-[18px] text-[#0F172A]">Send a weekly report every Friday at 5pm and remind overdue customers automatically.</Text></View>
       </ScrollView>
     </SafeAreaView>
   );

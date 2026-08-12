@@ -46,7 +46,7 @@ export const Input: React.FC<InputProps> = ({
       )}
       
       <View
-        className={`h-[56px] w-full flex-row items-center rounded-2xl border bg-white px-4 dark:bg-[#162235] ${
+        className={`h-[56px] w-full flex-row items-center rounded-[5px] border bg-white px-4 dark:bg-[#162235] ${
           error
             ? 'border-[#DC2626]'
             : isFocused

@@ -11,7 +11,7 @@ export default function EaseHomeScreen() {
     <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
       <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
         <View className="flex-row items-center justify-between">
-          <View className="flex-row items-center gap-2.5 rounded-[18px] border border-[#DCE3EE] bg-white px-3.5 py-2.5">
+          <View className="flex-row items-center gap-2.5 rounded-[5px] border border-[#DCE3EE] bg-white px-3.5 py-2.5">
             <View className="h-8 w-8 items-center justify-center rounded-xl bg-[#E8FBF4]"><Text className="text-[13px] font-bold text-[#10B981]">ER</Text></View>
             <View><Text className="text-xs font-bold text-[#0F172A]">Ease Retail</Text><Text className="text-[10px] text-[#475569]">Lagos HQ • Active</Text></View>
           </View>

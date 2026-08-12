@@ -20,7 +20,7 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <View
-      className={`p-4 rounded-3xl overflow-hidden ${variantStyles[variant]} ${className}`}
+      className={`p-4 rounded-[5px] overflow-hidden ${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}

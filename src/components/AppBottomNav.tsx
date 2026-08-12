@@ -47,7 +47,7 @@ export default function AppBottomNav() {
           <Pressable
             key={label}
             onPress={() => router.replace(route)}
-            className={`flex-1 items-center justify-center gap-1 rounded-[22px] ${active ? 'bg-[#F2F5FA]' : ''}`}
+            className={`flex-1 items-center justify-center gap-1 rounded-[18px] ${active ? 'bg-[#F2F5FA]' : ''}`}
           >
             <Icon size={23} strokeWidth={active ? 2.4 : 2} color={active ? colors.blue : colors.muted} />
             <Text className={`text-[11px] ${active ? 'font-bold text-[#2563EB]' : 'font-medium text-[#94A3B8]'}`}>{label}</Text>

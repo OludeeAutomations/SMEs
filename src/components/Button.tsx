@@ -42,9 +42,9 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const sizeStyles = {
-    sm: 'py-2 px-4 rounded-xl',
-    md: 'py-3.5 px-6 rounded-2xl',
-    lg: 'py-4 px-8 rounded-2xl w-full',
+    sm: 'py-2 px-4 rounded-[5px]',
+    md: 'py-3.5 px-6 rounded-[5px]',
+    lg: 'py-4 px-8 rounded-[5px] w-full',
   };
 
   const textSizeStyles = {

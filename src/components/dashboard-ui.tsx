@@ -18,7 +18,7 @@ export const colors = {
 };
 
 export function SurfaceCard({ children, className = '' }: React.PropsWithChildren<{ className?: string }>) {
-  return <View className={`rounded-3xl border border-[#DCE3EE] bg-white p-4 ${className}`}>{children}</View>;
+  return <View className={`rounded-[5px] border border-[#DCE3EE] bg-white p-4 ${className}`}>{children}</View>;
 }
 
 export function MetricCard({ label, value, color = colors.text, className = '' }: { label: string; value: string; color?: string; className?: string }) {
@@ -46,7 +46,7 @@ export function BarChart({ heights, compact = false }: { heights: number[]; comp
 
 export function GradientCard({ children, className = '' }: React.PropsWithChildren<{ className?: string }>) {
   return (
-    <View className="w-full overflow-hidden rounded-3xl">
+    <View className="w-full overflow-hidden rounded-[5px]">
       <LinearGradient
         colors={['#2563EB', '#10B981']}
         start={{ x: 0, y: 0 }}
@@ -61,7 +61,7 @@ export function GradientCard({ children, className = '' }: React.PropsWithChildr
 
 export function QuickAction({ label, icon: Icon, onPress }: { label: string; icon: LucideIcon; onPress: () => void }) {
   return (
-    <Pressable onPress={onPress} className="h-[92px] w-[31%] items-center justify-center gap-2 rounded-[22px] border border-[#DCE3EE] bg-white p-3">
+    <Pressable onPress={onPress} className="h-[92px] w-[31%] items-center justify-center gap-2 rounded-[5px] border border-[#DCE3EE] bg-white p-3">
       <View className="h-10 w-10 items-center justify-center rounded-[14px] bg-[#F2F5FA]">
         <Icon size={21} color={colors.blue} />
       </View>
@@ -89,7 +89,7 @@ export function ListRow({ title, subtitle, value, icon: Icon, tint = '#EAF2FF', 
 
 export function MoreTile({ title, subtitle, icon: Icon, color, tint, onPress }: { title: string; subtitle: string; icon: LucideIcon; color: string; tint: string; onPress: () => void }) {
   return (
-    <Pressable onPress={onPress} className="h-[124px] w-[48%] rounded-[22px] border border-[#DCE3EE] bg-white p-3.5">
+    <Pressable onPress={onPress} className="h-[124px] w-[48%] rounded-[5px] border border-[#DCE3EE] bg-white p-3.5">
       <View className="h-[38px] w-[38px] items-center justify-center rounded-[14px]" style={{ backgroundColor: tint }}>
         <Icon size={18} color={color} />
       </View>

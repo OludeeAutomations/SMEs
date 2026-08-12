@@ -27,6 +27,6 @@ export default function EaseBusinessProfileScreen() {
     <Text className="mt-1 text-[28px] font-bold leading-[31px] text-[#0F172A]">Create your business profile.</Text>
     <Text className="mt-3 text-[15px] leading-[22px] text-[#475569]">Tell Ease about your company so reports, invoices, and reminders are set up correctly.</Text>
     <View className="mt-4 gap-4"><Input label="Business name" placeholder="Ease Retail Limited" value={businessName} onChangeText={setBusinessName}/><Input label="Category" placeholder="Retail / Wholesale" value={category} onChangeText={setCategory}/><Input label="Country" placeholder="Nigeria" value={country} onChangeText={setCountry}/><Input label="Currency" placeholder="NGN - Nigerian Naira" value={currency} onChangeText={setCurrency}/><Input label="Branch name" placeholder="Head office" value={branchName} onChangeText={setBranchName}/></View>
-    <Button title="Finish setup" onPress={finish} className="mt-4 h-14 rounded-[18px]" />
+    <Button title="Finish setup" onPress={finish} className="mt-4 h-14 rounded-[5px]" />
   </ScrollView></SafeAreaView>;
 }

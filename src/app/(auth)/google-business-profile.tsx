@@ -49,7 +49,7 @@ export default function GoogleBusinessProfileScreen() {
           <Input label="Currency" placeholder="NGN - Nigerian Naira" value={currency} onChangeText={setCurrency} />
           <Input label="Branch name" placeholder="Head office" value={branchName} onChangeText={setBranchName} />
         </View>
-        <Button title="Finish setup" onPress={finish} className="mt-4 h-14 rounded-[18px]" />
+        <Button title="Finish setup" onPress={finish} className="mt-4 h-14 rounded-[5px]" />
       </ScrollView>
     </SafeAreaView>
   );

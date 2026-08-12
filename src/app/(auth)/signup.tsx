@@ -78,7 +78,7 @@ export default function EaseSignUpScreen() {
           <Input label="Company size" placeholder="1-10 employees" value={companySize} onChangeText={setCompanySize} />
         </View>
 
-        <Button title="Create account" onPress={continueWithEmail} isLoading={emailLoading} className="mt-4 h-14 rounded-[18px]" />
+        <Button title="Create account" onPress={continueWithEmail} isLoading={emailLoading} className="mt-4 h-14 rounded-[5px]" />
 
         <View className="my-3 flex-row items-center justify-center gap-3">
           <View className="h-px w-24 bg-[#DCE3EE]" />
@@ -92,7 +92,7 @@ export default function EaseSignUpScreen() {
           icon={<GoogleMark />}
           isLoading={googleLoading}
           onPress={continueWithGoogle}
-          className="h-14 rounded-[18px] border border-[#DCE3EE] bg-white"
+          className="h-14 rounded-[5px] border border-[#DCE3EE] bg-white"
         />
         <Text className="mt-4 text-center text-xs leading-[17px] text-[#94A3B8]">
           By continuing, you agree to the Terms and Privacy Policy.
