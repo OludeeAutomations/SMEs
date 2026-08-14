@@ -7,6 +7,7 @@ import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from '../store/authStore';
 import { useBusinessStore } from '../store/businessStore';
+import { useBusinessSync } from '../hooks/useBusinessSync';
 import { supabase } from '../services/supabase';
 import '../global.css';
 
@@ -22,6 +23,7 @@ const queryClient = new QueryClient({
 });
 
 export default function RootLayout() {
+  useBusinessSync();
   const colorScheme = useColorScheme();
   const router = useRouter();
   const segments = useSegments();

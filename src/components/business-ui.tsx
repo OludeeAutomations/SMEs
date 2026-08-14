@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { Plus } from 'lucide-react-native';
 import { colors, SurfaceCard } from './dashboard-ui';
+import { useSyncStore } from '@/store/syncStore';
 
 export function ScreenHeader({ title, subtitle, actionLabel, onAction }: { title: string; subtitle?: string; actionLabel?: string; onAction?: () => void }) {
   return <View className="flex-row items-start justify-between gap-3">
@@ -30,6 +31,34 @@ export function Divider() { return <View className="h-px bg-[#DCE3EE]" />; }
 
 export function ChoiceChips({ options, value, onChange }: { options: string[]; value: string; onChange: (value: string) => void }) {
   return <View className="flex-row flex-wrap gap-2">{options.map((option) => <Pressable key={option} onPress={() => onChange(option)} className={`rounded-full px-4 py-2 ${value === option ? 'bg-[#2563EB]' : 'border border-[#DCE3EE] bg-white'}`}><Text className={`text-xs font-semibold ${value === option ? 'text-white' : 'text-[#0F172A]'}`}>{option}</Text></Pressable>)}</View>;
+}
+
+export function SyncStatusPill() {
+  const { status, error } = useSyncStore();
+  const previousStatus = useRef(status);
+  const [showSaved, setShowSaved] = useState(false);
+
+  useEffect(() => {
+    const completedSave = previousStatus.current === 'saving' && status === 'synced';
+    previousStatus.current = status;
+    if (status === 'saving') setShowSaved(false);
+    if (!completedSave) return;
+    setShowSaved(true);
+    const timer = setTimeout(() => setShowSaved(false), 1800);
+    return () => clearTimeout(timer);
+  }, [status]);
+
+  if (status === 'offline' || status === 'error') {
+    return <View className="rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-3 py-2.5">
+      <Text accessibilityHint={error ?? undefined} className="text-[11px] font-medium leading-4 text-[#92400E]">
+        Saved on this device. We’ll sync when you’re online.
+      </Text>
+    </View>;
+  }
+  if (!showSaved) return null;
+  return <View className="self-start rounded-full bg-[#E8FBF4] px-3 py-1.5">
+    <Text className="text-[10px] font-semibold text-[#047857]">Saved</Text>
+  </View>;
 }
 
 export { colors };

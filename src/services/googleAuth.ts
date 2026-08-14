@@ -5,7 +5,7 @@ import { supabase } from './supabase';
 WebBrowser.maybeCompleteAuthSession();
 
 export async function signInWithGoogle() {
-  const redirectTo = Linking.createURL('auth/callback');
+  const redirectTo = process.env.EXPO_PUBLIC_AUTH_REDIRECT_URL?.trim() || Linking.createURL('auth/callback');
   console.info('Google OAuth redirect URL:', redirectTo);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
@@ -24,6 +24,10 @@ export async function signInWithGoogle() {
 
   const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
   if (result.type !== 'success') return false;
+
+  if (result.url.startsWith('http://localhost') || result.url.startsWith('https://localhost')) {
+    throw new Error(`Google sign-in returned to localhost. Add ${redirectTo} to Supabase Authentication > URL Configuration > Redirect URLs.`);
+  }
 
   const parsed = Linking.parse(result.url);
   const code = typeof parsed.queryParams?.code === 'string' ? parsed.queryParams.code : null;

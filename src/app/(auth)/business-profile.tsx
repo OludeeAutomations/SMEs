@@ -19,7 +19,8 @@ export default function EaseBusinessProfileScreen() {
     if (![businessName, category, country, currency, branchName].every((value) => value.trim())) {
       Alert.alert('Complete your business profile', 'All business details are required.'); return;
     }
-    const account = user ?? { id: `local_${Date.now()}`, fullName: 'Ease User', email: '' };
+    if (!user) { Alert.alert('Sign in required', 'Please sign in again before creating your business.'); router.replace('/(auth)/login'); return; }
+    const account = user;
     setSession(account, { id: `business_${account.id}`, name: businessName.trim(), category: category.trim(), country: country.trim(), currency: currency.trim(), branchName: branchName.trim() });
     router.replace('/(app)/(tabs)/home');
   };

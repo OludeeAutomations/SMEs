@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Bell, Bot, FileText, Package, ReceiptText, ShoppingCart, Users, WalletCards } from 'lucide-react-native';
 import { BarChart, colors, ListRow, MetricCard, QuickAction, SurfaceCard } from '@/components/dashboard-ui';
-import { EmptyState } from '@/components/business-ui';
+import { EmptyState, SyncStatusPill } from '@/components/business-ui';
 import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatMoney, todayKey } from '@/utils/format';
@@ -25,6 +25,7 @@ export default function EaseHomeScreen() {
   ].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3);
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
     <View className="flex-row items-center justify-between"><Pressable onPress={() => router.push('/(app)/settings/business-config')} className="flex-row items-center gap-2.5 rounded-[5px] border border-[#DCE3EE] bg-white px-3.5 py-2.5"><View className="h-8 w-8 items-center justify-center rounded-xl bg-[#E8FBF4]"><Text className="text-[13px] font-bold text-[#10B981]">{(business?.name || 'E').slice(0, 2).toUpperCase()}</Text></View><View><Text className="text-xs font-bold text-[#0F172A]">{business?.name || 'Your business'}</Text><Text className="text-[10px] text-[#475569]">{business?.branchName || 'Primary branch'} • Active</Text></View></Pressable><Pressable onPress={() => router.push('/(app)/settings/notifications')}><Bell size={24} color={colors.text} /></Pressable></View>
+    <SyncStatusPill />
     <SurfaceCard className="min-h-40 gap-2" onPress={() => router.push('/(app)/(tabs)/reports')}><Text className="text-[11px] font-bold text-[#2563EB]">THIS MONTH</Text><Text className="text-2xl font-bold text-[#0F172A]">{formatMoney(monthlyRevenue, currency)}</Text><Text className="text-[13px] text-[#475569]">Revenue from {monthlySales.length} completed {monthlySales.length === 1 ? 'sale' : 'sales'}</Text><BarChart heights={monthlySales.length ? [14, 22, 18, 30, 25, 36, 28] : [2, 2, 2, 2, 2, 2, 2]} compact /></SurfaceCard>
     <View className="flex-row gap-3"><MetricCard label="Today" value={formatMoney(todayRevenue, currency)} color={colors.blue} /><MetricCard label="Net" value={formatMoney(monthlyRevenue - expenses, currency)} color={colors.green} /></View>
     <View className="flex-row gap-3"><MetricCard label="Invoice due" value={formatMoney(due, currency)} color={colors.amber} /><MetricCard label="Stock value" value={formatMoney(stockValue, currency)} /></View>

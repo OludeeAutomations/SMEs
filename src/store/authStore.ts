@@ -9,6 +9,7 @@ export interface BusinessProfile { id: string; name: string; category: string; c
 interface AuthState {
   user: UserProfile | null;
   business: BusinessProfile | null;
+  businesses: Record<string, BusinessProfile>;
   isAuthenticated: boolean;
   isLoading: boolean;
   hasHydrated: boolean;
@@ -22,15 +23,26 @@ interface AuthState {
 export const useAuthStore = create<AuthState>()(persist((set, get) => ({
   user: null,
   business: null,
+  businesses: {},
   isAuthenticated: false,
   isLoading: false,
   hasHydrated: false,
   setSession: (user, business) => {
     if (!user) return set({ user: null, business: null, isAuthenticated: false, isLoading: false });
-    const existingBusiness = get().user?.id === user.id ? get().business : null;
-    set({ user, business: business === undefined ? existingBusiness : business, isAuthenticated: true, isLoading: false });
+    const savedBusiness = (get().businesses ?? {})[user.id] ?? (get().user?.id === user.id ? get().business : null);
+    const nextBusiness = business === undefined ? savedBusiness : business;
+    set((state) => ({
+      user,
+      business: nextBusiness,
+      businesses: nextBusiness ? { ...(state.businesses ?? {}), [user.id]: nextBusiness } : (state.businesses ?? {}),
+      isAuthenticated: true,
+      isLoading: false,
+    }));
   },
-  updateBusiness: (business) => set({ business }),
+  updateBusiness: (business) => set((state) => ({
+    business,
+    businesses: state.user ? { ...(state.businesses ?? {}), [state.user.id]: business } : (state.businesses ?? {}),
+  })),
   setLoading: (isLoading) => set({ isLoading }),
   setHasHydrated: (hasHydrated) => set({ hasHydrated }),
   logout: async () => {
@@ -41,6 +53,6 @@ export const useAuthStore = create<AuthState>()(persist((set, get) => ({
 }), {
   name: 'ease-auth-v2',
   storage: createJSONStorage(() => AsyncStorage),
-  partialize: ({ user, business, isAuthenticated }) => ({ user, business, isAuthenticated }),
+  partialize: ({ user, business, businesses, isAuthenticated }) => ({ user, business, businesses, isAuthenticated }),
   onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
 }));

@@ -45,6 +45,12 @@ export default function EaseSignUpScreen() {
       });
       if (error) throw error;
       if (!data.user) throw new Error('Your account could not be created.');
+      if (!data.session) {
+        Alert.alert('Check your email', 'Confirm your email address, then sign in to finish creating your business.', [
+          { text: 'Go to sign in', onPress: () => router.replace('/(auth)/login') },
+        ]);
+        return;
+      }
       setSession({ id: data.user.id, fullName: fullName.trim(), email: email.trim() }, null);
       router.push('/(auth)/business-profile');
     } catch (error) {

@@ -6,6 +6,7 @@ import AuthBackButton from '@/components/AuthBackButton';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { useAuthStore } from '@/store/authStore';
+import { supabase } from '@/services/supabase';
 
 export default function GoogleBusinessProfileScreen() {
   const router = useRouter();
@@ -16,15 +17,20 @@ export default function GoogleBusinessProfileScreen() {
   const [currency, setCurrency] = useState('');
   const [branchName, setBranchName] = useState('');
 
-  const finish = () => {
+  const finish = async () => {
     if (![businessName, category, country, currency, branchName].every((value) => value.trim())) {
       Alert.alert('Complete your business profile', 'All business details are required.');
       return;
     }
 
-    const currentUser = user ?? { id: 'google-user', fullName: 'Ease User', email: '' };
+    let currentUser = user;
+    if (!currentUser) {
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) { Alert.alert('Sign in required', 'Reconnect your Google account and try again.'); return; }
+      currentUser = { id: data.user.id, fullName: data.user.user_metadata?.full_name || 'Ease User', email: data.user.email || '' };
+    }
     setSession(currentUser, {
-      id: 'primary-business',
+      id: `business_${currentUser.id}`,
       name: businessName.trim(),
       category: category.trim(),
       country: country.trim(),

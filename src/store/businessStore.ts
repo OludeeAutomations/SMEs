@@ -19,7 +19,7 @@ type SupplierInput = Omit<Supplier, 'id' | 'createdAt' | 'outstandingBalance'> &
 type SaleInput = Omit<Sale, 'id' | 'createdAt'>;
 
 interface BusinessState {
-  activeUserId: string | null; workspaces: Record<string, WorkspaceData>; hasHydrated: boolean;
+  activeUserId: string | null; workspaces: Record<string, WorkspaceData>; dirtyUsers: Record<string, boolean>; hasHydrated: boolean;
   setActiveUser: (userId: string | null) => void; setHasHydrated: (value: boolean) => void;
   addProduct: (input: ProductInput) => Product; adjustStock: (productId: string, quantity: number) => void;
   addCustomer: (input: CustomerInput) => Customer; addExpense: (input: ExpenseInput) => Expense;
@@ -30,6 +30,8 @@ interface BusinessState {
   setAutomation: (key: string, enabled: boolean) => void; clearWorkspace: () => void;
   addTeamMember: (name: string, email: string, role: string) => void;
   setPreference: (key: string, value: string | boolean) => void;
+  replaceWorkspace: (userId: string, workspace: WorkspaceData) => void;
+  markSynced: (userId: string) => void;
 }
 
 export const emptyWorkspace = (): WorkspaceData => ({
@@ -42,15 +44,20 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
   const update = (recipe: (workspace: WorkspaceData) => WorkspaceData) => {
     const userId = get().activeUserId;
     if (!userId) return;
-    set((state) => ({ workspaces: { ...state.workspaces, [userId]: recipe(state.workspaces[userId] ?? emptyWorkspace()) } }));
+    set((state) => ({
+      workspaces: { ...state.workspaces, [userId]: recipe(state.workspaces[userId] ?? emptyWorkspace()) },
+      dirtyUsers: { ...state.dirtyUsers, [userId]: true },
+    }));
   };
   return {
-    activeUserId: null, workspaces: {}, hasHydrated: false,
+    activeUserId: null, workspaces: {}, dirtyUsers: {}, hasHydrated: false,
     setHasHydrated: (hasHydrated) => set({ hasHydrated }),
     setActiveUser: (activeUserId) => set((state) => ({
       activeUserId,
       workspaces: activeUserId && !state.workspaces[activeUserId] ? { ...state.workspaces, [activeUserId]: emptyWorkspace() } : state.workspaces,
     })),
+    replaceWorkspace: (userId, workspace) => set((state) => ({ workspaces: { ...state.workspaces, [userId]: normalizeWorkspace(workspace) }, dirtyUsers: { ...state.dirtyUsers, [userId]: false } })),
+    markSynced: (userId) => set((state) => ({ dirtyUsers: { ...state.dirtyUsers, [userId]: false } })),
     addProduct: (input) => {
       const product = { ...input, id: makeId('product'), createdAt: new Date().toISOString() };
       update((workspace) => ({ ...workspace, products: [product, ...workspace.products] })); return product;
@@ -92,13 +99,22 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     setAutomation: (key, enabled) => update((workspace) => ({ ...workspace, automations: { ...workspace.automations, [key]: enabled } })),
     addTeamMember: (name, email, role) => update((workspace) => ({ ...workspace, teamMembers: [{ id: makeId('member'), name, email, role, createdAt: new Date().toISOString() }, ...(workspace.teamMembers ?? [])] })),
     setPreference: (key, value) => update((workspace) => ({ ...workspace, preferences: { ...(workspace.preferences ?? {}), [key]: value } })),
-    clearWorkspace: () => { const userId = get().activeUserId; if (userId) set((state) => ({ workspaces: { ...state.workspaces, [userId]: emptyWorkspace() } })); },
+    clearWorkspace: () => { const userId = get().activeUserId; if (userId) set((state) => ({ workspaces: { ...state.workspaces, [userId]: emptyWorkspace() }, dirtyUsers: { ...state.dirtyUsers, [userId]: true } })); },
   };
 }, {
   name: 'ease-business-data-v2', storage: createJSONStorage(() => AsyncStorage),
-  partialize: ({ workspaces }) => ({ workspaces }),
+  partialize: ({ workspaces, dirtyUsers }) => ({ workspaces, dirtyUsers }),
   onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
 }));
+
+export const normalizeWorkspace = (workspace?: Partial<WorkspaceData> | null): WorkspaceData => ({
+  ...emptyWorkspace(), ...workspace,
+  products: workspace?.products ?? [], customers: workspace?.customers ?? [], sales: workspace?.sales ?? [],
+  invoices: workspace?.invoices ?? [], expenses: workspace?.expenses ?? [], suppliers: workspace?.suppliers ?? [],
+  projects: workspace?.projects ?? [], expenseCategories: workspace?.expenseCategories ?? [],
+  inventoryCategories: workspace?.inventoryCategories ?? [], automations: workspace?.automations ?? {},
+  teamMembers: workspace?.teamMembers ?? [], preferences: workspace?.preferences ?? {},
+});
 
 const EMPTY = emptyWorkspace();
 export const useWorkspace = () => useBusinessStore((state) => state.activeUserId ? state.workspaces[state.activeUserId] ?? EMPTY : EMPTY);

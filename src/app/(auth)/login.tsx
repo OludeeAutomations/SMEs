@@ -11,6 +11,7 @@ import Svg, { Path } from 'react-native-svg';
 import AuthBackButton from '@/components/AuthBackButton';
 import { signInWithGoogle } from '@/services/googleAuth';
 import { supabase } from '@/services/supabase';
+import { useAuthStore } from '@/store/authStore';
 
 const GoogleIcon = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24">
@@ -44,6 +45,7 @@ export default function EaseLoginScreen() {
   const router = useRouter();
   const [isSigningIn, setIsSigningIn] = React.useState(false);
   const [googleLoading, setGoogleLoading] = React.useState(false);
+  const setSession = useAuthStore((state) => state.setSession);
 
   const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -56,8 +58,14 @@ export default function EaseLoginScreen() {
   const onSubmit = async (data: FormData) => {
     try {
       setIsSigningIn(true);
-      const { error } = await supabase.auth.signInWithPassword(data);
+      const { data: sessionData, error } = await supabase.auth.signInWithPassword(data);
       if (error) throw error;
+      if (!sessionData.user) throw new Error('No user session was returned.');
+      setSession({
+        id: sessionData.user.id,
+        fullName: sessionData.user.user_metadata?.full_name || 'Ease User',
+        email: sessionData.user.email || data.email,
+      });
       router.replace('/(app)/(tabs)/home');
     } catch (error) {
       Alert.alert('Sign in failed', error instanceof Error ? error.message : 'Please try again.');
