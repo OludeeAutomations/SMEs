@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from '../store/authStore';
+import { useBusinessStore } from '../store/businessStore';
 import { supabase } from '../services/supabase';
 import '../global.css';
 
@@ -24,7 +25,10 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const router = useRouter();
   const segments = useSegments();
-  const { user, business, setSession, isLoading, setLoading } = useAuthStore();
+  const { user, business, setSession, isLoading, setLoading, hasHydrated } = useAuthStore();
+  const setActiveUser = useBusinessStore((state) => state.setActiveUser);
+
+  useEffect(() => { setActiveUser(user?.id ?? null); }, [user?.id, setActiveUser]);
 
   // Listen to Supabase auth events
   useEffect(() => {
@@ -40,15 +44,14 @@ export default function RootLayout() {
               fullName: session.user.user_metadata?.full_name || 'Ease User',
               email: session.user.email || '',
             },
-            business
+            undefined
           );
-        } else {
+        } else if (hasHydrated && !useAuthStore.getState().user) {
           setSession(null, null);
         }
       })
       .catch((err) => {
         console.warn("Supabase session initialization failed (using offline state):", err);
-        setSession(null, null);
       })
       .finally(() => {
         setLoading(false);
@@ -64,9 +67,9 @@ export default function RootLayout() {
               fullName: session.user.user_metadata?.full_name || 'Ease User',
               email: session.user.email || '',
             },
-            business
+            undefined
           );
-        } else {
+        } else if (event === 'SIGNED_OUT') {
           setSession(null, null);
         }
       }
@@ -75,11 +78,11 @@ export default function RootLayout() {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [hasHydrated, setLoading, setSession]);
 
   // Handle router redirects based on authentication
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || !hasHydrated) return;
 
     const inAuthGroup = segments[0] === '(auth)';
     const inAppGroup = segments[0] === '(app)';
@@ -91,7 +94,7 @@ export default function RootLayout() {
       // Redirect to home if signed in and in auth group or splash
       router.replace('/(app)/(tabs)/home');
     }
-  }, [user, business, segments, isLoading]);
+  }, [user, business, segments, isLoading, hasHydrated, router]);
 
   return (
     <QueryClientProvider client={queryClient}>

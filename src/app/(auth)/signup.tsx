@@ -8,6 +8,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { signInWithGoogle } from '@/services/googleAuth';
 import { supabase } from '@/services/supabase';
+import { useAuthStore } from '@/store/authStore';
 
 function GoogleMark() {
   return (
@@ -28,6 +29,7 @@ export default function EaseSignUpScreen() {
   const [companySize, setCompanySize] = useState('');
   const [googleLoading, setGoogleLoading] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
+  const setSession = useAuthStore((state) => state.setSession);
 
   const continueWithEmail = async () => {
     if (!fullName.trim() || !email.includes('@') || password.length < 6 || !companySize.trim()) {
@@ -36,12 +38,14 @@ export default function EaseSignUpScreen() {
     }
     try {
       setEmailLoading(true);
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: { data: { full_name: fullName.trim(), company_size: companySize.trim() } },
       });
       if (error) throw error;
+      if (!data.user) throw new Error('Your account could not be created.');
+      setSession({ id: data.user.id, fullName: fullName.trim(), email: email.trim() }, null);
       router.push('/(auth)/business-profile');
     } catch (error) {
       Alert.alert('Account creation failed', error instanceof Error ? error.message : 'Please try again.');

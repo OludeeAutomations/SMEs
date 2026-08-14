@@ -17,8 +17,9 @@ export const colors = {
   purple: '#7C3AED',
 };
 
-export function SurfaceCard({ children, className = '' }: React.PropsWithChildren<{ className?: string }>) {
-  return <View className={`rounded-[5px] border border-[#DCE3EE] bg-white p-4 ${className}`}>{children}</View>;
+export function SurfaceCard({ children, className = '', onPress }: React.PropsWithChildren<{ className?: string; onPress?: () => void }>) {
+  const content = <View className={`rounded-[5px] border border-[#DCE3EE] bg-white p-4 ${className}`}>{children}</View>;
+  return onPress ? <Pressable accessibilityRole="button" onPress={onPress}>{content}</Pressable> : content;
 }
 
 export function MetricCard({ label, value, color = colors.text, className = '' }: { label: string; value: string; color?: string; className?: string }) {

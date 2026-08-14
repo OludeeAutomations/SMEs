@@ -1,1 +1,1 @@
-import React from 'react'; import FeaturePage from '@/components/FeaturePage'; import { featureScreens } from '@/constants/featureScreens'; export default function Screen(){return <FeaturePage config={featureScreens.receiptTemplate}/>}
+import React from 'react'; import { Redirect } from 'expo-router'; export default function Screen(){return <Redirect href="/(app)/settings"/>}

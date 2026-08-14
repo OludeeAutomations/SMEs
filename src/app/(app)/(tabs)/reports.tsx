@@ -1,19 +1,2 @@
-import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { BarChart, colors, MetricCard, SurfaceCard } from '@/components/dashboard-ui';
-
-export default function EaseReportsScreen() {
-  return (
-    <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-      <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
-        <Text className="text-2xl font-bold text-[#0F172A]">Reports</Text>
-        <View className="flex-row gap-3"><MetricCard label="Revenue" value="₦4.2M" color={colors.blue} /><MetricCard label="Profit" value="₦1.08M" color={colors.green} /></View>
-        <SurfaceCard className="gap-5">
-          <Text className="text-xs font-bold text-[#475569]">MONTHLY PERFORMANCE</Text>
-          <BarChart heights={[38, 72, 46, 88, 60, 110]} />
-        </SurfaceCard>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+import React from'react'; import{ScrollView,Text,View}from'react-native'; import{SafeAreaView}from'react-native-safe-area-context'; import{BarChart,MetricCard,SurfaceCard,colors}from'@/components/dashboard-ui'; import{EmptyState,ScreenHeader}from'@/components/business-ui'; import{useAuthStore}from'@/store/authStore'; import{useWorkspace}from'@/store/businessStore'; import{formatMoney,todayKey}from'@/utils/format';
+export default function ReportsScreen(){const w=useWorkspace(),currency=useAuthStore(s=>s.business?.currency??'NGN'),month=todayKey().slice(0,7);const sales=w.sales.filter(s=>s.createdAt.startsWith(month)),revenue=sales.reduce((n,s)=>n+s.total,0),expenses=w.expenses.filter(e=>e.date.startsWith(month)).reduce((n,e)=>n+e.amount,0),profit=revenue-expenses,receivables=w.invoices.filter(i=>i.status!=='PAID').reduce((n,i)=>n+i.total,0);return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5"><ScreenHeader title="Reports" subtitle="Calculated from your sales, expenses, and invoices."/><View className="flex-row gap-3"><MetricCard label="Revenue" value={formatMoney(revenue,currency)} color={colors.blue}/><MetricCard label="Net" value={formatMoney(profit,currency)} color={profit>=0?colors.green:colors.amber}/></View><View className="flex-row gap-3"><MetricCard label="Expenses" value={formatMoney(expenses,currency)}/><MetricCard label="Receivables" value={formatMoney(receivables,currency)} color={colors.amber}/></View>{sales.length?<SurfaceCard className="gap-5"><Text className="text-xs font-bold text-[#475569]">MONTHLY ACTIVITY</Text><BarChart heights={[12,24,18,32,22,40,Math.min(100,Math.max(8,sales.length*8))]}/><Text className="text-xs text-[#475569]">{sales.length} completed {sales.length===1?'sale':'sales'} this month</Text></SurfaceCard>:<EmptyState title="Nothing to report yet" message="Reports appear automatically after your first sale or expense."/>}</ScrollView></SafeAreaView>}

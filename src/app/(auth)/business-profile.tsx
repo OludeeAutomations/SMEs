@@ -19,7 +19,8 @@ export default function EaseBusinessProfileScreen() {
     if (![businessName, category, country, currency, branchName].every((value) => value.trim())) {
       Alert.alert('Complete your business profile', 'All business details are required.'); return;
     }
-    setSession(user ?? { id: 'new-user', fullName: 'Ease User', email: '' }, { id: 'primary-business', name: businessName.trim(), category: category.trim(), country: country.trim(), currency: currency.trim(), branchName: branchName.trim() });
+    const account = user ?? { id: `local_${Date.now()}`, fullName: 'Ease User', email: '' };
+    setSession(account, { id: `business_${account.id}`, name: businessName.trim(), category: category.trim(), country: country.trim(), currency: currency.trim(), branchName: branchName.trim() });
     router.replace('/(app)/(tabs)/home');
   };
   return <SafeAreaView className="flex-1 bg-[#FAFAFA]"><ScrollView contentContainerClassName="px-5 pb-6" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
