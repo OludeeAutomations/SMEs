@@ -4,7 +4,7 @@ import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { ImagePlus, Upload } from 'lucide-react-native';
 import { supabase } from '@/services/supabase';
-import { uploadBusinessLogo } from '@/services/businessLogo';
+import { BusinessLogoUploadError, uploadBusinessLogo } from '@/services/businessLogo';
 
 export default function BusinessLogoPicker({ value, onChange }: { value?: string; onChange: (uri: string) => void }) {
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,12 @@ export default function BusinessLogoPicker({ value, onChange }: { value?: string
       onChange(publicUrl);
     } catch (error) {
       console.warn('Business logo upload failed:', error);
-      Alert.alert('Couldn\'t upload logo', 'Check your internet connection and try again.');
+      const message = error instanceof BusinessLogoUploadError && error.reason === 'storage-not-ready'
+        ? 'Logo uploads are not set up yet. Please try again after the app has been updated.'
+        : error instanceof Error
+          ? error.message
+          : 'Please try again.';
+      Alert.alert('Couldn\'t upload logo', message);
     } finally {
       setLoading(false);
     }

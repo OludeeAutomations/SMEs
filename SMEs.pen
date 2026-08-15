@@ -2980,16 +2980,6 @@
                       "alignItems": "center"
                     },
                     {
-                      "type": "text",
-                      "id": "I6ea8",
-                      "name": "Avatar Text",
-                      "fill": "$accent-emerald",
-                      "content": "ER",
-                      "fontFamily": "Geist",
-                      "fontSize": 13,
-                      "fontWeight": "700"
-                    },
-                    {
                       "type": "frame",
                       "id": "c4Kkm",
                       "name": "Business Copy",

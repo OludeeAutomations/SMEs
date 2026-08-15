@@ -36,7 +36,6 @@ export default function EaseHomeScreen() {
           <View className="h-8 w-8 overflow-hidden items-center justify-center rounded-[12px] bg-[#E8FBF4]">
             {business?.logoUrl ? <Image source={{ uri: business.logoUrl }} style={{ width: 32, height: 32 }} contentFit="cover" /> : null}
           </View>
-          <Text className="text-[13px] font-bold text-[#10B981]">{(business?.name || 'E').slice(0, 2).toUpperCase()}</Text>
           <View className="gap-0.5"><Text className="text-xs font-bold text-[#0F172A]">{business?.name || 'Your business'}</Text><Text className="text-[10px] text-[#475569]">{business?.branchName || 'Primary branch'} • Active</Text></View>
         </Pressable>
         <Pressable accessibilityRole="button" accessibilityLabel="Notifications" hitSlop={10} onPress={() => router.push('/(app)/settings/notifications')}><Bell size={24} color={colors.text} /></Pressable>
