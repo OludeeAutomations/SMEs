@@ -12,6 +12,7 @@ export const colors = {
   secondary: '#475569',
   muted: '#94A3B8',
   blue: '#2563EB',
+  deepBlue: '#0B1F5E',
   green: '#10B981',
   amber: '#F59E0B',
   purple: '#7C3AED',
@@ -62,11 +63,11 @@ export function GradientCard({ children, className = '' }: React.PropsWithChildr
 
 export function QuickAction({ label, icon: Icon, onPress }: { label: string; icon: LucideIcon; onPress: () => void }) {
   return (
-    <Pressable onPress={onPress} className="h-[92px] w-[31%] items-center justify-center gap-2 rounded-[5px] border border-[#DCE3EE] bg-white p-3">
-      <View className="h-10 w-10 items-center justify-center rounded-[14px] bg-[#F2F5FA]">
-        <Icon size={21} color={colors.blue} />
+    <Pressable accessibilityRole="button" onPress={onPress} className="h-[92px] w-[31%] items-center justify-center gap-2 rounded-[5px] border border-[#1E3A8A] bg-[#0B1F5E] p-3 active:opacity-90">
+      <View className="h-10 w-10 items-center justify-center rounded-[14px] bg-[#1D4ED8]">
+        <Icon size={21} color="#BFDBFE" />
       </View>
-      <Text className="text-[11px] font-semibold text-[#0F172A]">{label}</Text>
+      <Text className="text-[11px] font-semibold text-white">{label}</Text>
     </Pressable>
   );
 }

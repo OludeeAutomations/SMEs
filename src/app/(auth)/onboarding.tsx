@@ -112,9 +112,9 @@ export default function EaseOnboardingScreen() {
         <View className="w-full items-center gap-3">
           <Pressable
             onPress={() => router.push('/(auth)/signup')}
-            className="h-14 w-full items-center justify-center rounded-[5px] bg-[#2563EB] active:bg-[#1D4ED8]"
+            className="h-14 w-full items-center justify-center rounded-[5px] bg-[#0B1F5E] active:bg-[#071845]"
             style={{
-              shadowColor: '#2563EB',
+              shadowColor: '#0B1F5E',
               shadowOffset: { width: 0, height: 8 },
               shadowOpacity: 0.14,
               shadowRadius: 20,

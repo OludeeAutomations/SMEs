@@ -24,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   // Styles for different button variants
   const variantStyles = {
-    primary: 'bg-accent-blue active:bg-blue-700',
+    primary: 'bg-[#0B1F5E] active:bg-[#071845]',
     secondary: 'bg-surface-2-light dark:bg-surface-2-dark active:opacity-80',
     outline: 'border border-accent-blue bg-transparent active:bg-accent-blue/10',
     ghost: 'bg-transparent active:bg-surface-2-light dark:active:bg-surface-2-dark',

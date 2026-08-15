@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { supabase } from '../services/supabase';
 
 export interface UserProfile { id: string; fullName: string; email: string }
-export interface BusinessProfile { id: string; name: string; category: string; country: string; currency: string; branchName: string }
+export interface BusinessProfile { id: string; name: string; category: string; country: string; currency: string; branchName: string; logoUrl?: string }
 
 interface AuthState {
   user: UserProfile | null;

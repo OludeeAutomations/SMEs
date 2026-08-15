@@ -37,8 +37,8 @@ export function useBusinessSync() {
       initializedUser.current = userId;
     }).catch((error) => {
       if (!active) return;
-      const message = error instanceof Error ? error.message : 'Could not sync with Supabase.';
-      useSyncStore.getState().setSyncState({ status: 'offline', error: message });
+      console.warn('Workspace load failed:', error);
+      useSyncStore.getState().setSyncState({ status: 'offline', error: 'We could not back up your changes right now.' });
       initializedUser.current = userId;
     });
 
@@ -58,7 +58,10 @@ export function useBusinessSync() {
             useBusinessStore.getState().markSynced(userId);
             useSyncStore.getState().setSyncState({ status: 'synced', lastSyncedAt: updatedAt, error: null });
           })
-          .catch((error) => useSyncStore.getState().setSyncState({ status: 'offline', error: error instanceof Error ? error.message : 'Changes are saved offline.' }));
+          .catch((error) => {
+            console.warn('Workspace save failed:', error);
+            useSyncStore.getState().setSyncState({ status: 'offline', error: 'We could not back up your changes right now.' });
+          });
       }, 700);
     });
   }, [userId, hydrated]);
@@ -70,6 +73,9 @@ export function useBusinessSync() {
     useSyncStore.getState().setSyncState({ status: 'saving', error: null });
     businessSyncService.save(userId, workspace, business)
       .then((updatedAt) => useSyncStore.getState().setSyncState({ status: 'synced', lastSyncedAt: updatedAt, error: null }))
-      .catch((error) => useSyncStore.getState().setSyncState({ status: 'offline', error: error instanceof Error ? error.message : 'Business profile is saved offline.' }));
+      .catch((error) => {
+        console.warn('Business profile save failed:', error);
+        useSyncStore.getState().setSyncState({ status: 'offline', error: 'We could not back up your changes right now.' });
+      });
   }, [business, userId]);
 }

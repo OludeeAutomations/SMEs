@@ -849,8 +849,9 @@
                   "name": "Create account Button",
                   "width": "fill_container",
                   "height": 56,
-                  "fill": "$accent-blue",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
                   "effect": {
                     "type": "shadow",
                     "shadowType": "outer",
@@ -1153,8 +1154,9 @@
               "name": "Sign in Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1223,7 +1225,7 @@
               "name": "Continue with Google Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$surface",
+              "fill": "#FFFFFF",
               "cornerRadius": 5,
               "stroke": "$border",
               "strokeWidth": 1,
@@ -1252,7 +1254,7 @@
                   "type": "text",
                   "id": "KFCVs",
                   "name": "Continue with Google Label",
-                  "fill": "$text-primary",
+                  "fill": "#0F172A",
                   "content": "Continue with Google",
                   "fontFamily": "Geist",
                   "fontSize": 16,
@@ -1595,8 +1597,9 @@
               "name": "Create account Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1673,7 +1676,7 @@
                   "name": "Continue with Google Button",
                   "width": "fill_container",
                   "height": 56,
-                  "fill": "$surface",
+                  "fill": "#FFFFFF",
                   "cornerRadius": 5,
                   "stroke": "$border",
                   "strokeWidth": 1,
@@ -1702,7 +1705,7 @@
                       "type": "text",
                       "id": "eS75Y",
                       "name": "Continue with Google Label",
-                      "fill": "$text-primary",
+                      "fill": "#0F172A",
                       "content": "Continue with Google",
                       "fontFamily": "Geist",
                       "fontSize": 16,
@@ -1917,8 +1920,9 @@
               "name": "Send reset link Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2280,8 +2284,9 @@
               "name": "Verify code Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2454,6 +2459,110 @@
               "fontFamily": "Inter",
               "fontSize": 15,
               "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "TA4gK",
+              "name": "Company Logo Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "AGjGl",
+                  "name": "Company Logo Label",
+                  "fill": "$text-secondary",
+                  "content": "Company logo",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "M3Vtj",
+                  "name": "Logo Upload Control",
+                  "width": "fill_container",
+                  "height": 76,
+                  "fill": "$surface-2",
+                  "cornerRadius": 5,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "lc6sE",
+                      "name": "Logo Preview",
+                      "width": 44,
+                      "height": 44,
+                      "fill": "$surface",
+                      "cornerRadius": 5,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "z6gcR2",
+                          "name": "Add Logo Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "add_photo_alternate",
+                          "library": "Material Symbols Outlined",
+                          "fill": "$accent-blue"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vAygK",
+                      "name": "Upload Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "HkhXS",
+                          "name": "Upload Title",
+                          "fill": "$text-primary",
+                          "content": "Upload company logo",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "j5xQ8B",
+                          "name": "Upload Guidance",
+                          "fill": "$text-muted",
+                          "content": "PNG or JPG, up to 5 MB",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "t5ngjn",
+                      "name": "Upload Icon",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "upload",
+                      "library": "Material Symbols Outlined",
+                      "fill": "$text-secondary"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "frame",
@@ -2701,8 +2810,9 @@
               "name": "Finish setup Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -2851,15 +2961,10 @@
                   "type": "frame",
                   "id": "s2srZ",
                   "name": "Business Switcher",
-                  "fill": "$surface",
+                  "fill": "#00000000",
                   "cornerRadius": 5,
                   "stroke": "$border",
-                  "strokeWidth": 1,
                   "gap": 10,
-                  "padding": [
-                    10,
-                    14
-                  ],
                   "alignItems": "center",
                   "children": [
                     {
@@ -2930,31 +3035,51 @@
               "type": "frame",
               "id": "gDpBL",
               "name": "Overview Card",
+              "clip": true,
               "width": "fill_container",
-              "height": 176,
-              "fill": "$surface",
+              "height": 156,
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
-              "stroke": "$border",
+              "stroke": "#1E3A8A",
               "strokeWidth": 1,
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
-                "color": "#0F172A08",
+                "color": "#0B1F5E24",
                 "offset": {
                   "x": 0,
-                  "y": 6
+                  "y": 8
                 },
-                "blur": 18
+                "blur": 20
               },
               "layout": "vertical",
               "gap": 8,
               "padding": 16,
               "children": [
                 {
+                  "type": "frame",
+                  "id": "EL9tv",
+                  "layoutPosition": "absolute",
+                  "x": 163.25383364654408,
+                  "y": 76.97430317087404,
+                  "name": "Business Overview Illustration",
+                  "rotation": 21.53028728861596,
+                  "clip": true,
+                  "width": 198,
+                  "height": 215,
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "assets/business-overview-illustration.png",
+                    "mode": "fill"
+                  },
+                  "layout": "none"
+                },
+                {
                   "type": "text",
                   "id": "rO5nY",
                   "name": "Overview Eyebrow",
-                  "fill": "$accent-blue",
+                  "fill": "#93C5FD",
                   "content": "BUSINESS OVERVIEW",
                   "fontFamily": "Inter",
                   "fontSize": 11,
@@ -2964,7 +3089,7 @@
                   "type": "text",
                   "id": "Ehr7X",
                   "name": "Overview Title",
-                  "fill": "$text-primary",
+                  "fill": "#FFFFFF",
                   "content": "₦4.2M",
                   "fontFamily": "Geist",
                   "fontSize": 24,
@@ -2974,7 +3099,7 @@
                   "type": "text",
                   "id": "ESvCc",
                   "name": "Overview Subtitle",
-                  "fill": "$text-secondary",
+                  "fill": "#BFDBFE",
                   "content": "Monthly revenue across all branches",
                   "fontFamily": "Inter",
                   "fontSize": 13,
@@ -2982,90 +3107,36 @@
                 },
                 {
                   "type": "frame",
-                  "id": "SxECJ",
-                  "name": "Overview Mini Chart",
-                  "width": "fill_container",
-                  "height": 52,
-                  "gap": 8,
-                  "padding": [
-                    4,
-                    0,
-                    0,
-                    0
-                  ],
-                  "alignItems": "end",
+                  "id": "OH1f4",
+                  "name": "View Report CTA",
+                  "width": 128,
+                  "height": 38,
+                  "fill": "#0B1F5E",
+                  "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
+                  "gap": 7,
+                  "justifyContent": "center",
+                  "alignItems": "center",
                   "children": [
                     {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "MSdhp",
-                      "name": "Chart Bar",
-                      "fill": "$accent-blue",
-                      "width": 20,
-                      "height": 18
+                      "type": "text",
+                      "id": "fq7QI",
+                      "name": "View Report Label",
+                      "fill": "#FFFFFF",
+                      "content": "View report",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "700"
                     },
                     {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "do9vv",
-                      "name": "Chart Bar",
-                      "fill": "$accent-blue",
-                      "width": 20,
-                      "height": 36
-                    },
-                    {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "Q0de8z",
-                      "name": "Chart Bar",
-                      "fill": "$accent-blue",
-                      "width": 20,
-                      "height": 24
-                    },
-                    {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "CeUer",
-                      "name": "Chart Bar",
-                      "fill": "$accent-emerald",
-                      "width": 20,
-                      "height": 44
-                    },
-                    {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "Rzd2l",
-                      "name": "Chart Bar",
-                      "fill": "$accent-blue",
-                      "width": 20,
-                      "height": 30
-                    },
-                    {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "bs16X",
-                      "name": "Chart Bar",
-                      "fill": "$accent-emerald",
-                      "width": 20,
-                      "height": 50
-                    },
-                    {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "TOl0a",
-                      "name": "Chart Bar",
-                      "fill": "$accent-blue",
-                      "width": 20,
-                      "height": 38
-                    },
-                    {
-                      "type": "rectangle",
-                      "cornerRadius": 8,
-                      "id": "v8bKd",
-                      "name": "Chart Bar",
-                      "fill": "$accent-emerald",
-                      "width": 20,
-                      "height": 46
+                      "type": "icon",
+                      "id": "DF4Kh",
+                      "name": "CTA Arrow",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "arrow_forward",
+                      "library": "Material Symbols Outlined",
+                      "fill": "#FFFFFF"
                     }
                   ]
                 }
@@ -3449,9 +3520,9 @@
                       "name": "New Sale Action",
                       "width": "fill_container",
                       "height": 92,
-                      "fill": "$surface",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 5,
-                      "stroke": "$border",
+                      "stroke": "#1E3A8A",
                       "strokeWidth": 1,
                       "layout": "vertical",
                       "gap": 8,
@@ -3465,7 +3536,7 @@
                           "name": "New Sale Icon Wrap",
                           "width": 40,
                           "height": 40,
-                          "fill": "$surface-2",
+                          "fill": "#1D4ED8",
                           "cornerRadius": 14,
                           "justifyContent": "center",
                           "alignItems": "center"
@@ -3478,13 +3549,13 @@
                           "height": 22,
                           "icon": "point_of_sale",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         },
                         {
                           "type": "text",
                           "id": "S1sRAV",
                           "name": "New Sale Label",
-                          "fill": "$text-primary",
+                          "fill": "#FFFFFF",
                           "content": "New Sale",
                           "fontFamily": "Inter",
                           "fontSize": 11,
@@ -3498,9 +3569,9 @@
                       "name": "Invoice Action",
                       "width": "fill_container",
                       "height": 92,
-                      "fill": "$surface",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 5,
-                      "stroke": "$border",
+                      "stroke": "#1E3A8A",
                       "strokeWidth": 1,
                       "layout": "vertical",
                       "gap": 8,
@@ -3514,7 +3585,7 @@
                           "name": "Invoice Icon Wrap",
                           "width": 40,
                           "height": 40,
-                          "fill": "$surface-2",
+                          "fill": "#1D4ED8",
                           "cornerRadius": 14,
                           "justifyContent": "center",
                           "alignItems": "center"
@@ -3527,13 +3598,13 @@
                           "height": 22,
                           "icon": "description",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         },
                         {
                           "type": "text",
                           "id": "Ux9Ea",
                           "name": "Invoice Label",
-                          "fill": "$text-primary",
+                          "fill": "#FFFFFF",
                           "content": "Invoice",
                           "fontFamily": "Inter",
                           "fontSize": 11,
@@ -3547,9 +3618,9 @@
                       "name": "Add Stock Action",
                       "width": "fill_container",
                       "height": 92,
-                      "fill": "$surface",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 5,
-                      "stroke": "$border",
+                      "stroke": "#1E3A8A",
                       "strokeWidth": 1,
                       "layout": "vertical",
                       "gap": 8,
@@ -3563,7 +3634,7 @@
                           "name": "Add Stock Icon Wrap",
                           "width": 40,
                           "height": 40,
-                          "fill": "$surface-2",
+                          "fill": "#1D4ED8",
                           "cornerRadius": 14,
                           "justifyContent": "center",
                           "alignItems": "center"
@@ -3576,13 +3647,13 @@
                           "height": 22,
                           "icon": "inventory_2",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         },
                         {
                           "type": "text",
                           "id": "r4Vlb",
                           "name": "Add Stock Label",
-                          "fill": "$text-primary",
+                          "fill": "#FFFFFF",
                           "content": "Add Stock",
                           "fontFamily": "Inter",
                           "fontSize": 11,
@@ -3605,9 +3676,9 @@
                       "name": "Customers Action",
                       "width": "fill_container",
                       "height": 92,
-                      "fill": "$surface",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 5,
-                      "stroke": "$border",
+                      "stroke": "#1E3A8A",
                       "strokeWidth": 1,
                       "layout": "vertical",
                       "gap": 8,
@@ -3621,7 +3692,7 @@
                           "name": "Customers Icon Wrap",
                           "width": 40,
                           "height": 40,
-                          "fill": "$surface-2",
+                          "fill": "#1D4ED8",
                           "cornerRadius": 14,
                           "justifyContent": "center",
                           "alignItems": "center"
@@ -3634,13 +3705,13 @@
                           "height": 22,
                           "icon": "group",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         },
                         {
                           "type": "text",
                           "id": "r5GhW",
                           "name": "Customers Label",
-                          "fill": "$text-primary",
+                          "fill": "#FFFFFF",
                           "content": "Customers",
                           "fontFamily": "Inter",
                           "fontSize": 11,
@@ -3654,9 +3725,9 @@
                       "name": "Expense Action",
                       "width": "fill_container",
                       "height": 92,
-                      "fill": "$surface",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 5,
-                      "stroke": "$border",
+                      "stroke": "#1E3A8A",
                       "strokeWidth": 1,
                       "layout": "vertical",
                       "gap": 8,
@@ -3670,7 +3741,7 @@
                           "name": "Expense Icon Wrap",
                           "width": 40,
                           "height": 40,
-                          "fill": "$surface-2",
+                          "fill": "#1D4ED8",
                           "cornerRadius": 14,
                           "justifyContent": "center",
                           "alignItems": "center"
@@ -3683,13 +3754,13 @@
                           "height": 22,
                           "icon": "payments",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         },
                         {
                           "type": "text",
                           "id": "F56xAC",
                           "name": "Expense Label",
-                          "fill": "$text-primary",
+                          "fill": "#FFFFFF",
                           "content": "Expense",
                           "fontFamily": "Inter",
                           "fontSize": 11,
@@ -3703,9 +3774,9 @@
                       "name": "Ask AI Action",
                       "width": "fill_container",
                       "height": 92,
-                      "fill": "$surface",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 5,
-                      "stroke": "$border",
+                      "stroke": "#1E3A8A",
                       "strokeWidth": 1,
                       "layout": "vertical",
                       "gap": 8,
@@ -3719,7 +3790,7 @@
                           "name": "Ask AI Icon Wrap",
                           "width": 40,
                           "height": 40,
-                          "fill": "$surface-2",
+                          "fill": "#1D4ED8",
                           "cornerRadius": 14,
                           "justifyContent": "center",
                           "alignItems": "center"
@@ -3732,13 +3803,13 @@
                           "height": 22,
                           "icon": "smart_toy",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         },
                         {
                           "type": "text",
                           "id": "bGUwh",
                           "name": "Ask AI Label",
-                          "fill": "$text-primary",
+                          "fill": "#FFFFFF",
                           "content": "Ask AI",
                           "fontFamily": "Inter",
                           "fontSize": 11,
@@ -4355,6 +4426,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "M8Czwj",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
+            },
             {
               "type": "text",
               "id": "LWRkT",
@@ -5212,6 +5293,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "T4mH3",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "xPeo6",
               "name": "Section Title",
@@ -5968,6 +6059,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "csayO",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "frame",
               "id": "v0j90",
               "name": "Customer Header",
@@ -6652,6 +6753,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "tLGk8",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "K0n6o",
@@ -7450,6 +7561,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "aYoui",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "frame",
               "id": "jSPMg",
@@ -8318,6 +8439,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "dv4ut",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "EfUA5",
               "name": "Section Title",
@@ -9130,6 +9261,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "b4ZnF",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "AEilk",
@@ -11224,6 +11365,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "l6MYQA",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "frame",
               "id": "HtdHh",
               "name": "Supplier Header",
@@ -12479,6 +12630,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "k7L4I",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "a8hngA",
               "name": "Title",
@@ -12580,9 +12741,9 @@
                   "name": "Share Button",
                   "width": "fill_container",
                   "height": 56,
-                  "fill": "$surface",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
-                  "stroke": "$border",
+                  "stroke": "#0B1F5E",
                   "strokeWidth": 1,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -12591,7 +12752,7 @@
                       "type": "text",
                       "id": "B9KBp",
                       "name": "Share Text",
-                      "fill": "$text-primary",
+                      "fill": "#FFFFFF",
                       "content": "Share",
                       "fontFamily": "Geist",
                       "fontSize": 15,
@@ -12605,8 +12766,9 @@
                   "name": "Download Button",
                   "width": "fill_container",
                   "height": 56,
-                  "fill": "$accent-blue",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
                   "justifyContent": "center",
                   "alignItems": "center",
                   "children": [
@@ -12722,6 +12884,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "IWQkA",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "bubZM",
@@ -13082,6 +13254,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "Q4ucY",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "eTrJO",
               "name": "Title",
@@ -13351,9 +13533,9 @@
                   "name": "Share Invoice",
                   "width": "fill_container",
                   "height": 56,
-                  "fill": "$surface",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
-                  "stroke": "$border",
+                  "stroke": "#0B1F5E",
                   "strokeWidth": 1,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -13362,7 +13544,7 @@
                       "type": "text",
                       "id": "uDtkF",
                       "name": "Share Text",
-                      "fill": "$text-primary",
+                      "fill": "#FFFFFF",
                       "content": "Share",
                       "fontFamily": "Geist",
                       "fontSize": 15,
@@ -13376,8 +13558,9 @@
                   "name": "Reminder Button",
                   "width": "fill_container",
                   "height": 56,
-                  "fill": "$accent-blue",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
                   "justifyContent": "center",
                   "alignItems": "center",
                   "children": [
@@ -14692,6 +14875,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "e65R3",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "XZz2X",
               "name": "Title",
@@ -15324,6 +15517,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "Zztbu",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "tcNtI",
@@ -16036,6 +16239,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "vO8m5",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "sTmeU",
@@ -16857,6 +17070,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "m2M4NS",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "hphhX",
               "name": "Title",
@@ -17199,8 +17422,9 @@
               "name": "Save Product Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -17314,6 +17538,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "z26ch",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "WsRvU",
@@ -17608,8 +17842,9 @@
               "name": "Save Expense Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -17723,6 +17958,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "JW1QD",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
+            },
             {
               "type": "text",
               "id": "f9irh6",
@@ -17892,8 +18137,9 @@
                   "name": "Primary Button",
                   "width": "fill_container",
                   "height": 48,
-                  "fill": "$accent-blue",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
                   "justifyContent": "center",
                   "alignItems": "center",
                   "children": [
@@ -18320,6 +18566,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "N0aV5O",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "frame",
               "id": "nSWlI",
@@ -19270,6 +19526,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "rD4ol",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "x6Zu7q",
               "name": "Title",
@@ -19704,8 +19970,9 @@
               "name": "Complete Sale Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -19819,6 +20086,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "Qoczj",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "DWRSI",
@@ -20065,8 +20342,9 @@
               "name": "Save Customer Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -20180,6 +20458,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "b6qx1b",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "W9PpE",
@@ -20554,8 +20842,9 @@
               "name": "Add Category Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -20669,6 +20958,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "h3yRU",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "O5ibQR",
@@ -21104,8 +21403,9 @@
               "name": "Share Invoice Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -21219,6 +21519,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "rvy5Z",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "atIW2",
@@ -21683,6 +21993,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "Zgk6C",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "j8Uok9",
               "name": "Title",
@@ -22046,8 +22366,9 @@
               "name": "Record Payment Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -22161,6 +22482,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "xWvJT",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "frame",
               "id": "xhnxZ",
@@ -23110,6 +23441,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "fuBzs",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "frame",
               "id": "j2jSX",
@@ -25195,6 +25536,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "Vm4se",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "drSal1_title_VQia",
               "name": "Title",
@@ -25365,8 +25716,9 @@
                           "name": "Resume Button",
                           "width": "fill_container",
                           "height": 38,
-                          "fill": "$accent-blue",
+                          "fill": "#0B1F5E",
                           "cornerRadius": 5,
+                          "stroke": "#0B1F5E",
                           "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
@@ -25388,8 +25740,9 @@
                           "name": "Delete Button",
                           "width": 38,
                           "height": 38,
-                          "fill": "$surface-2",
+                          "fill": "#0B1F5E",
                           "cornerRadius": 5,
+                          "stroke": "#0B1F5E",
                           "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
@@ -25401,7 +25754,7 @@
                               "height": 18,
                               "icon": "delete",
                               "library": "Material Symbols Outlined",
-                              "fill": "$danger"
+                              "fill": "#FFFFFF"
                             }
                           ]
                         }
@@ -25513,8 +25866,9 @@
                           "name": "Resume Button 2",
                           "width": "fill_container",
                           "height": 38,
-                          "fill": "$accent-blue",
+                          "fill": "#0B1F5E",
                           "cornerRadius": 5,
+                          "stroke": "#0B1F5E",
                           "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
@@ -25536,8 +25890,9 @@
                           "name": "Delete Button 2",
                           "width": 38,
                           "height": 38,
-                          "fill": "$surface-2",
+                          "fill": "#0B1F5E",
                           "cornerRadius": 5,
+                          "stroke": "#0B1F5E",
                           "justifyContent": "center",
                           "alignItems": "center",
                           "children": [
@@ -25549,7 +25904,7 @@
                               "height": 18,
                               "icon": "delete",
                               "library": "Material Symbols Outlined",
-                              "fill": "$danger"
+                              "fill": "#FFFFFF"
                             }
                           ]
                         }
@@ -25565,9 +25920,9 @@
               "name": "Clear All Button",
               "width": "fill_container",
               "height": 50,
-              "fill": "$surface",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
-              "stroke": "$border",
+              "stroke": "#0B1F5E",
               "strokeWidth": 1,
               "justifyContent": "center",
               "alignItems": "center",
@@ -25576,7 +25931,7 @@
                   "type": "text",
                   "id": "drSal1_clear_all_text_AA80",
                   "name": "Clear All Text",
-                  "fill": "$text-secondary",
+                  "fill": "#FFFFFF",
                   "content": "Clear All Drafts",
                   "fontFamily": "Inter",
                   "fontSize": 14,
@@ -25682,6 +26037,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "LDUqC",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "stAdj2_title_dbGC",
@@ -25921,8 +26286,9 @@
                   "name": "Submit Button",
                   "width": "fill_container",
                   "height": 46,
-                  "fill": "$accent-blue",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
                   "justifyContent": "center",
                   "alignItems": "center",
                   "children": [
@@ -26038,6 +26404,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "rxiXC",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "lwStk3_title_iJPJ",
@@ -26320,8 +26696,9 @@
               "name": "Reorder All Button",
               "width": "fill_container",
               "height": 52,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -26435,6 +26812,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "p5dzs7",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "dbBok4_title_sYrv",
@@ -26726,8 +27113,9 @@
               "name": "Remind All Button",
               "width": "fill_container",
               "height": 52,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -26841,6 +27229,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "XYF1z",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "rcTpl5_title_7OwO",
@@ -27032,8 +27430,9 @@
               "name": "Save Template Button",
               "width": "fill_container",
               "height": 50,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -27148,6 +27547,16 @@
           ],
           "children": [
             {
+              "type": "icon",
+              "id": "vMp9w",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
               "type": "text",
               "id": "exCat6_title_mev0",
               "name": "Title",
@@ -27208,8 +27617,9 @@
                   "name": "Add Button",
                   "width": 46,
                   "height": 46,
-                  "fill": "$accent-blue",
+                  "fill": "#0B1F5E",
                   "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
                   "justifyContent": "center",
                   "alignItems": "center",
                   "children": [
@@ -27411,7 +27821,7 @@
                               "y": 0,
                               "name": "Progress Fill 2",
                               "fill": "$danger",
-                              "width": 320,
+                              "width": 318,
                               "height": 6
                             }
                           ]
@@ -27549,6 +27959,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "KEY2J",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "pjTsk8_title_xg4P",
@@ -27838,8 +28258,9 @@
               "name": "Add Task Button",
               "width": "fill_container",
               "height": 48,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -27953,6 +28374,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "QQk6Q",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "bbCfg9_title_KDi2",
@@ -28157,8 +28588,9 @@
               "name": "Add Branch Button",
               "width": "fill_container",
               "height": 48,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -28272,6 +28704,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "MuXvX",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "urPerA_title_SfWI",
@@ -28482,8 +28924,9 @@
               "name": "Save Matrix Button",
               "width": "fill_container",
               "height": 48,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -28597,6 +29040,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "WrY2b",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "pyGtwB_title_WdHo",
@@ -28765,8 +29218,9 @@
               "name": "Save Setup Button",
               "width": "fill_container",
               "height": 48,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -28880,6 +29334,16 @@
             20
           ],
           "children": [
+            {
+              "type": "icon",
+              "id": "oWIj9",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
             {
               "type": "text",
               "id": "csTplC_title_wpAZ",
@@ -29032,6 +29496,8 @@
                   "id": "csTplC_editor_content_text_TqAj",
                   "name": "Editor Content Text",
                   "fill": "$text-primary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
                   "content": "Dear {{customer.name}}, invoice {{invoice.number}} is 7 days overdue. Outstanding balance: ₦{{invoice.balance}}.",
                   "fontFamily": "Inter",
                   "fontSize": 12,
@@ -29045,8 +29511,9 @@
               "name": "Save Template Action Button",
               "width": "fill_container",
               "height": 48,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "justifyContent": "center",
               "alignItems": "center",
               "children": [
@@ -29185,6 +29652,110 @@
               "fontFamily": "Inter",
               "fontSize": 15,
               "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "goa5i",
+              "name": "Company Logo Field",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ISx1V",
+                  "name": "Company Logo Label",
+                  "fill": "$text-secondary",
+                  "content": "Company logo",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "J2nVS",
+                  "name": "Logo Upload Control",
+                  "width": "fill_container",
+                  "height": 76,
+                  "fill": "$surface-2",
+                  "cornerRadius": 5,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "SJcwb",
+                      "name": "Logo Preview",
+                      "width": 44,
+                      "height": 44,
+                      "fill": "$surface",
+                      "cornerRadius": 5,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "fYudX",
+                          "name": "Add Logo Icon",
+                          "width": 22,
+                          "height": 22,
+                          "icon": "add_photo_alternate",
+                          "library": "Material Symbols Outlined",
+                          "fill": "$accent-blue"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "S6THV",
+                      "name": "Upload Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 3,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "xDzFS",
+                          "name": "Upload Title",
+                          "fill": "$text-primary",
+                          "content": "Upload company logo",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "pk3tJ",
+                          "name": "Upload Guidance",
+                          "fill": "$text-muted",
+                          "content": "PNG or JPG, up to 5 MB",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "n3zTJD",
+                      "name": "Upload Icon",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "upload",
+                      "library": "Material Symbols Outlined",
+                      "fill": "$text-secondary"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "frame",
@@ -29432,8 +30003,9 @@
               "name": "Finish setup Button",
               "width": "fill_container",
               "height": 56,
-              "fill": "$accent-blue",
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
+              "stroke": "#0B1F5E",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",

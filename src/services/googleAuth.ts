@@ -26,7 +26,8 @@ export async function signInWithGoogle() {
   if (result.type !== 'success') return false;
 
   if (result.url.startsWith('http://localhost') || result.url.startsWith('https://localhost')) {
-    throw new Error(`Google sign-in returned to localhost. Add ${redirectTo} to Supabase Authentication > URL Configuration > Redirect URLs.`);
+    console.warn(`OAuth redirect is not configured. Add ${redirectTo} to the authentication redirect allow-list.`);
+    throw new Error('We could not return to the app after signing in. Please try again.');
   }
 
   const parsed = Linking.parse(result.url);

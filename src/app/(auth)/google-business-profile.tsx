@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { useAuthStore } from '@/store/authStore';
 import { supabase } from '@/services/supabase';
+import BusinessLogoPicker from '@/components/BusinessLogoPicker';
 
 export default function GoogleBusinessProfileScreen() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function GoogleBusinessProfileScreen() {
   const [country, setCountry] = useState('');
   const [currency, setCurrency] = useState('');
   const [branchName, setBranchName] = useState('');
+  const [logoUrl, setLogoUrl] = useState('');
 
   const finish = async () => {
     if (![businessName, category, country, currency, branchName].every((value) => value.trim())) {
@@ -36,6 +38,7 @@ export default function GoogleBusinessProfileScreen() {
       country: country.trim(),
       currency: currency.trim(),
       branchName: branchName.trim(),
+      logoUrl: logoUrl || undefined,
     });
     router.replace('/(app)/(tabs)/home');
   };
@@ -49,6 +52,7 @@ export default function GoogleBusinessProfileScreen() {
           Your Google account is connected. Add your business details to finish setting up Ease.
         </Text>
         <View className="mt-4 gap-4">
+          <BusinessLogoPicker value={logoUrl} onChange={setLogoUrl} />
           <Input label="Business name" placeholder="Ease Retail Limited" value={businessName} onChangeText={setBusinessName} />
           <Input label="Category" placeholder="Retail / Wholesale" value={category} onChangeText={setCategory} />
           <Input label="Country" placeholder="Nigeria" value={country} onChangeText={setCountry} />
