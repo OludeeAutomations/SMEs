@@ -11,9 +11,11 @@ interface AuthState {
   business: BusinessProfile | null;
   businesses: Record<string, BusinessProfile>;
   isAuthenticated: boolean;
+  isLaunchAuthenticated: boolean;
   isLoading: boolean;
   hasHydrated: boolean;
   setSession: (user: UserProfile | null, business?: BusinessProfile | null) => void;
+  authenticateLaunch: () => void;
   updateBusiness: (business: BusinessProfile) => void;
   logout: () => Promise<void>;
   setLoading: (loading: boolean) => void;
@@ -25,10 +27,11 @@ export const useAuthStore = create<AuthState>()(persist((set, get) => ({
   business: null,
   businesses: {},
   isAuthenticated: false,
+  isLaunchAuthenticated: false,
   isLoading: false,
   hasHydrated: false,
   setSession: (user, business) => {
-    if (!user) return set({ user: null, business: null, isAuthenticated: false, isLoading: false });
+    if (!user) return set({ user: null, business: null, isAuthenticated: false, isLaunchAuthenticated: false, isLoading: false });
     const savedBusiness = (get().businesses ?? {})[user.id] ?? (get().user?.id === user.id ? get().business : null);
     const nextBusiness = business === undefined ? savedBusiness : business;
     set((state) => ({
@@ -39,6 +42,7 @@ export const useAuthStore = create<AuthState>()(persist((set, get) => ({
       isLoading: false,
     }));
   },
+  authenticateLaunch: () => set({ isLaunchAuthenticated: true }),
   updateBusiness: (business) => set((state) => ({
     business,
     businesses: state.user ? { ...(state.businesses ?? {}), [state.user.id]: business } : (state.businesses ?? {}),
@@ -48,7 +52,7 @@ export const useAuthStore = create<AuthState>()(persist((set, get) => ({
   logout: async () => {
     set({ isLoading: true });
     try { await supabase.auth.signOut(); } catch (error) { console.warn('Supabase signout warning:', error); }
-    finally { set({ user: null, business: null, isAuthenticated: false, isLoading: false }); }
+    finally { set({ user: null, business: null, isAuthenticated: false, isLaunchAuthenticated: false, isLoading: false }); }
   },
 }), {
   name: 'ease-auth-v2',

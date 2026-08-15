@@ -63,8 +63,8 @@ export function GradientCard({ children, className = '' }: React.PropsWithChildr
 
 export function QuickAction({ label, icon: Icon, onPress }: { label: string; icon: LucideIcon; onPress: () => void }) {
   return (
-    <Pressable accessibilityRole="button" onPress={onPress} className="h-[92px] w-[31%] items-center justify-center gap-2 rounded-[5px] border border-[#1E3A8A] bg-[#0B1F5E] p-3 active:opacity-90">
-      <View className="h-10 w-10 items-center justify-center rounded-[14px] bg-[#1D4ED8]">
+    <Pressable accessibilityRole="button" onPress={onPress} className="h-[92px] w-[31%] items-center justify-center gap-2 rounded-[5px] border border-[#1D4ED8] bg-[#1D4ED8] p-3 active:opacity-90">
+      <View className="h-10 w-10 items-center justify-center rounded-[14px] bg-[#0B1F5E]">
         <Icon size={21} color="#BFDBFE" />
       </View>
       <Text className="text-[11px] font-semibold text-white">{label}</Text>

@@ -46,6 +46,7 @@ export default function EaseLoginScreen() {
   const [isSigningIn, setIsSigningIn] = React.useState(false);
   const [googleLoading, setGoogleLoading] = React.useState(false);
   const setSession = useAuthStore((state) => state.setSession);
+  const authenticateLaunch = useAuthStore((state) => state.authenticateLaunch);
 
   const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -66,7 +67,9 @@ export default function EaseLoginScreen() {
         fullName: sessionData.user.user_metadata?.full_name || 'Ease User',
         email: sessionData.user.email || data.email,
       });
-      router.replace('/(app)/(tabs)/home');
+      authenticateLaunch();
+      const business = useAuthStore.getState().business;
+      router.replace(business ? '/(app)/(tabs)/home' : '/(auth)/business-profile');
     } catch (error) {
       Alert.alert('Sign in failed', error instanceof Error ? error.message : 'Please try again.');
     } finally {
@@ -78,7 +81,18 @@ export default function EaseLoginScreen() {
     try {
       setGoogleLoading(true);
       const completed = await signInWithGoogle();
-      if (completed) router.replace('/(app)/(tabs)/home');
+      if (completed) {
+        const { data } = await supabase.auth.getUser();
+        if (!data.user) throw new Error('Google did not return a user account.');
+        setSession({
+          id: data.user.id,
+          fullName: data.user.user_metadata?.full_name || 'Ease User',
+          email: data.user.email || '',
+        });
+        authenticateLaunch();
+        const business = useAuthStore.getState().business;
+        router.replace(business ? '/(app)/(tabs)/home' : '/(auth)/google-business-profile');
+      }
     } catch (error) {
       Alert.alert('Google sign-in failed', error instanceof Error ? error.message : 'Please try again.');
     } finally {

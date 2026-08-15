@@ -32,23 +32,37 @@ export default function EaseHomeScreen() {
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
     <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
       <View className="flex-row items-center justify-between">
-        <Pressable onPress={() => router.push('/(app)/settings/business-config')} className="min-h-[52px] flex-row items-center gap-2.5 rounded-[5px] border border-[#DCE3EE] bg-white px-3.5 py-2">
-          <View className="h-9 w-9 overflow-hidden items-center justify-center rounded-[5px] bg-[#E8FBF4]">
-            {business?.logoUrl ? <Image source={{ uri: business.logoUrl }} style={{ width: 36, height: 36 }} contentFit="cover" /> : <Text className="text-[13px] font-bold text-[#10B981]">{(business?.name || 'E').slice(0, 2).toUpperCase()}</Text>}
+        <Pressable hitSlop={8} onPress={() => router.push('/(app)/settings/business-config')} className="h-[52px] flex-row items-center gap-2.5">
+          <View className="h-8 w-8 overflow-hidden items-center justify-center rounded-[12px] bg-[#E8FBF4]">
+            {business?.logoUrl ? <Image source={{ uri: business.logoUrl }} style={{ width: 32, height: 32 }} contentFit="cover" /> : null}
           </View>
-          <View><Text className="text-xs font-bold text-[#0F172A]">{business?.name || 'Your business'}</Text><Text className="text-[10px] text-[#475569]">{business?.branchName || 'Primary branch'} • Active</Text></View>
+          <Text className="text-[13px] font-bold text-[#10B981]">{(business?.name || 'E').slice(0, 2).toUpperCase()}</Text>
+          <View className="gap-0.5"><Text className="text-xs font-bold text-[#0F172A]">{business?.name || 'Your business'}</Text><Text className="text-[10px] text-[#475569]">{business?.branchName || 'Primary branch'} • Active</Text></View>
         </Pressable>
-        <Pressable accessibilityLabel="Notifications" hitSlop={8} onPress={() => router.push('/(app)/settings/notifications')} className="h-11 w-11 items-center justify-center"><Bell size={24} color={colors.text} /></Pressable>
+        <Pressable accessibilityRole="button" accessibilityLabel="Notifications" hitSlop={10} onPress={() => router.push('/(app)/settings/notifications')}><Bell size={24} color={colors.text} /></Pressable>
       </View>
 
       <SyncStatusPill />
 
       <View className="h-[156px] overflow-hidden rounded-[5px] border border-[#1E3A8A] bg-[#0B1F5E] p-4">
-        <Image source={require('../../../../assets/business-overview-illustration.png')} style={{ position: 'absolute', width: 190, height: 190, right: -12, bottom: -28 }} contentFit="contain" />
-        <View className="w-[62%] flex-1 gap-1.5">
+        <Image
+          source={require('../../../../assets/business-overview-illustration.png')}
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            left: 163.25,
+            top: 76.97,
+            width: 198,
+            height: 215,
+            transformOrigin: 'left top',
+            transform: [{ rotate: '-21.53deg' }],
+          }}
+          contentFit="cover"
+        />
+        <View className="z-10 w-[62%] flex-1 gap-1.5">
           <Text className="text-[11px] font-bold text-[#93C5FD]">BUSINESS OVERVIEW</Text>
           <Text className="text-2xl font-bold text-white">{formatMoney(monthlyRevenue, currency)}</Text>
-          <Text className="text-xs leading-4 text-[#BFDBFE]">{monthlySales.length} completed {monthlySales.length === 1 ? 'sale' : 'sales'} this month</Text>
+          <Text className="text-[13px] leading-4 text-[#BFDBFE]">Revenue across all branches</Text>
           <Pressable onPress={() => router.push('/(app)/(tabs)/reports')} className="mt-auto h-[38px] w-32 flex-row items-center justify-center gap-1.5 rounded-[5px] bg-white"><Text className="text-xs font-bold text-[#0B1F5E]">View report</Text><ArrowRight size={16} color="#2563EB" /></Pressable>
         </View>
       </View>

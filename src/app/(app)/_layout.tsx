@@ -6,11 +6,13 @@ import { useAuthStore } from '@/store/authStore';
 
 export default function AppLayout() {
   const user = useAuthStore((state) => state.user);
+  const isLaunchAuthenticated = useAuthStore((state) => state.isLaunchAuthenticated);
   const hasHydrated = useAuthStore((state) => state.hasHydrated);
   const isLoading = useAuthStore((state) => state.isLoading);
 
   if (!hasHydrated || isLoading) return null;
   if (!user) return <Redirect href="/(auth)/onboarding" />;
+  if (!isLaunchAuthenticated) return <Redirect href="/(auth)/login" />;
 
   return (
     <View className="flex-1 bg-[#F5F7FB]">

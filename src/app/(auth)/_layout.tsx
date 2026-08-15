@@ -5,11 +5,12 @@ import { useAuthStore } from '@/store/authStore';
 export default function AuthLayout() {
   const user = useAuthStore((state) => state.user);
   const business = useAuthStore((state) => state.business);
+  const isLaunchAuthenticated = useAuthStore((state) => state.isLaunchAuthenticated);
   const hasHydrated = useAuthStore((state) => state.hasHydrated);
   const isLoading = useAuthStore((state) => state.isLoading);
 
   if (!hasHydrated || isLoading) return null;
-  if (user && business) return <Redirect href="/(app)/(tabs)/home" />;
+  if (user && business && isLaunchAuthenticated) return <Redirect href="/(app)/(tabs)/home" />;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>

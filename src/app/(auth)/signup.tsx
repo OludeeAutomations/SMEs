@@ -30,6 +30,7 @@ export default function EaseSignUpScreen() {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
   const setSession = useAuthStore((state) => state.setSession);
+  const authenticateLaunch = useAuthStore((state) => state.authenticateLaunch);
 
   const continueWithEmail = async () => {
     if (!fullName.trim() || !email.includes('@') || password.length < 6 || !companySize.trim()) {
@@ -52,6 +53,7 @@ export default function EaseSignUpScreen() {
         return;
       }
       setSession({ id: data.user.id, fullName: fullName.trim(), email: email.trim() }, null);
+      authenticateLaunch();
       router.push('/(auth)/business-profile');
     } catch (error) {
       Alert.alert('Account creation failed', error instanceof Error ? error.message : 'Please try again.');
@@ -64,7 +66,17 @@ export default function EaseSignUpScreen() {
     try {
       setGoogleLoading(true);
       const completed = await signInWithGoogle();
-      if (completed) router.replace('/(auth)/google-business-profile');
+      if (completed) {
+        const { data } = await supabase.auth.getUser();
+        if (!data.user) throw new Error('Google did not return a user account.');
+        setSession({
+          id: data.user.id,
+          fullName: data.user.user_metadata?.full_name || fullName.trim() || 'Ease User',
+          email: data.user.email || email.trim(),
+        });
+        authenticateLaunch();
+        router.replace('/(auth)/google-business-profile');
+      }
     } catch (error) {
       Alert.alert('Google sign-in failed', error instanceof Error ? error.message : 'Please try again.');
     } finally {
