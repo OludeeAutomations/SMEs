@@ -1,7 +1,16 @@
 import React from 'react';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
+import { useAuthStore } from '@/store/authStore';
 
 export default function AuthLayout() {
+  const user = useAuthStore((state) => state.user);
+  const business = useAuthStore((state) => state.business);
+  const hasHydrated = useAuthStore((state) => state.hasHydrated);
+  const isLoading = useAuthStore((state) => state.isLoading);
+
+  if (!hasHydrated || isLoading) return null;
+  if (user && business) return <Redirect href="/(app)/(tabs)/home" />;
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="onboarding" />

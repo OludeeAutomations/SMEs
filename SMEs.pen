@@ -3111,9 +3111,9 @@
                   "name": "View Report CTA",
                   "width": 128,
                   "height": 38,
-                  "fill": "#0B1F5E",
+                  "fill": "#FFFFFF",
                   "cornerRadius": 5,
-                  "stroke": "#0B1F5E",
+                  "stroke": "#FFFFFF",
                   "gap": 7,
                   "justifyContent": "center",
                   "alignItems": "center",
@@ -3122,7 +3122,7 @@
                       "type": "text",
                       "id": "fq7QI",
                       "name": "View Report Label",
-                      "fill": "#FFFFFF",
+                      "fill": "#0B1F5E",
                       "content": "View report",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -3136,7 +3136,7 @@
                       "height": 16,
                       "icon": "arrow_forward",
                       "library": "Material Symbols Outlined",
-                      "fill": "#FFFFFF"
+                      "fill": "#2563EB"
                     }
                   ]
                 }

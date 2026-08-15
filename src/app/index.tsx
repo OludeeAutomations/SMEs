@@ -2,16 +2,22 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { useAuthStore } from '@/store/authStore';
 
 export default function EaseSplashScreen() {
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const business = useAuthStore((state) => state.business);
+  const hasHydrated = useAuthStore((state) => state.hasHydrated);
+  const isLoading = useAuthStore((state) => state.isLoading);
 
   useEffect(() => {
+    if (!hasHydrated || isLoading) return;
     const timer = setTimeout(() => {
-      router.replace('/(auth)/onboarding');
+      router.replace(user && business ? '/(app)/(tabs)/home' : '/(auth)/onboarding');
     }, 2500);
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [business, hasHydrated, isLoading, router, user]);
 
   return (
     <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark justify-between py-12">
