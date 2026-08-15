@@ -1,7 +1,7 @@
 import '../services/polyfill';
 import React, { useEffect } from 'react';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Stack, useRootNavigationState, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -27,6 +27,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const router = useRouter();
   const segments = useSegments();
+  const navigationState = useRootNavigationState();
   const { user, business, setSession, isLoading, setLoading, hasHydrated } = useAuthStore();
   const setActiveUser = useBusinessStore((state) => state.setActiveUser);
 
@@ -84,7 +85,7 @@ export default function RootLayout() {
 
   // Handle router redirects based on authentication
   useEffect(() => {
-    if (isLoading || !hasHydrated) return;
+    if (!navigationState?.key || isLoading || !hasHydrated) return;
 
     const inAuthGroup = segments[0] === '(auth)';
     const inAppGroup = segments[0] === '(app)';
@@ -96,7 +97,7 @@ export default function RootLayout() {
       // Redirect to home if signed in and in auth group or splash
       router.replace('/(app)/(tabs)/home');
     }
-  }, [user, business, segments, isLoading, hasHydrated, router]);
+  }, [user, business, segments, isLoading, hasHydrated, navigationState?.key, router]);
 
   return (
     <QueryClientProvider client={queryClient}>
