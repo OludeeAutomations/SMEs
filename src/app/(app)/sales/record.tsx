@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
-import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { Package } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import ProductVisual from '@/components/ProductVisual';
 import { ChoiceChips, ScreenHeader } from '@/components/business-ui';
 import { SurfaceCard } from '@/components/dashboard-ui';
 import { useAuthStore } from '@/store/authStore';
@@ -66,9 +65,7 @@ export default function RecordSaleScreen() {
             const selected = product.id === productId;
             return <Pressable key={product.id} onPress={() => selectProduct(product.id)} className={`w-[48.5%] overflow-hidden rounded-[8px] border bg-white ${selected ? 'border-[#2563EB]' : 'border-[#DCE3EE]'}`}>
               <View className="h-28 items-center justify-center overflow-hidden bg-[#F2F5FA]">
-                {product.imageUrl
-                  ? <Image source={{ uri: product.imageUrl }} style={{ width: '100%', height: 112 }} contentFit="cover" transition={150} />
-                  : <Package size={34} color="#94A3B8" />}
+                <ProductVisual imageUrl={product.imageUrl} name={product.name} category={product.category} iconSize={34} />
               </View>
               <View className="gap-1 p-3">
                 <Text className="text-sm font-bold text-[#0F172A]" numberOfLines={1}>{product.name}</Text>
@@ -82,9 +79,7 @@ export default function RecordSaleScreen() {
 
       {selectedProduct ? <SurfaceCard className="flex-row items-center gap-3 p-3">
         <View className="h-16 w-16 items-center justify-center overflow-hidden rounded-[7px] bg-[#F2F5FA]">
-          {selectedProduct.imageUrl
-            ? <Image source={{ uri: selectedProduct.imageUrl }} style={{ width: 64, height: 64 }} contentFit="cover" />
-            : <Package size={26} color="#94A3B8" />}
+          <ProductVisual imageUrl={selectedProduct.imageUrl} name={selectedProduct.name} category={selectedProduct.category} iconSize={26} />
         </View>
         <View className="flex-1">
           <Text className="text-[11px] font-bold text-[#2563EB]">ITEM ADDED</Text>

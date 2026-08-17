@@ -32,16 +32,47 @@ export function MetricCard({ label, value, color = colors.text, className = '' }
   );
 }
 
-export function BarChart({ heights, compact = false }: { heights: number[]; compact?: boolean }) {
+export function BarChart({
+  values,
+  comparison,
+  labels,
+  valueLabel,
+  comparisonLabel,
+  color = colors.blue,
+  comparisonColor = colors.amber,
+  compact = false,
+}: {
+  values: number[];
+  comparison?: number[];
+  labels: string[];
+  valueLabel: string;
+  comparisonLabel?: string;
+  color?: string;
+  comparisonColor?: string;
+  compact?: boolean;
+}) {
+  const secondary = comparison ?? [];
+  const maxValue = Math.max(1, ...values, ...secondary);
+  const chartHeight = compact ? 52 : 120;
+  const barHeight = (value: number) => value > 0 ? Math.max(6, (value / maxValue) * chartHeight) : 2;
+
   return (
-    <View className={`flex-row items-end gap-2 ${compact ? 'h-[52px]' : 'h-[120px]'}`}>
-      {heights.map((height, index) => (
-        <View
-          key={`${height}-${index}`}
-          className={`flex-1 rounded-lg ${index === 3 || index === 5 ? 'bg-[#10B981]' : 'bg-[#2563EB]'}`}
-          style={{ height }}
-        />
-      ))}
+    <View className="gap-2">
+      <View className={`flex-row items-end gap-2 border-b border-[#DCE3EE] ${compact ? 'h-[52px]' : 'h-[120px]'}`}>
+        {labels.map((label, index) => (
+          <View key={label} className="h-full flex-1 flex-row items-end justify-center gap-1">
+            <View accessibilityLabel={`${label} ${valueLabel}: ${values[index] ?? 0}`} className={`${comparison ? 'w-[36%]' : 'w-[58%]'} rounded-t-[4px]`} style={{ height: barHeight(values[index] ?? 0), backgroundColor: color }} />
+            {comparison ? <View accessibilityLabel={`${label} ${comparisonLabel}: ${comparison[index] ?? 0}`} className="w-[36%] rounded-t-[4px]" style={{ height: barHeight(comparison[index] ?? 0), backgroundColor: comparisonColor }} /> : null}
+          </View>
+        ))}
+      </View>
+      <View className="flex-row gap-2">
+        {labels.map((label) => <Text key={label} className="flex-1 text-center text-[9px] text-[#64748B]">{label}</Text>)}
+      </View>
+      <View className="flex-row items-center gap-4">
+        <View className="flex-row items-center gap-1.5"><View className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: color }} /><Text className="text-[10px] text-[#475569]">{valueLabel}</Text></View>
+        {comparison && comparisonLabel ? <View className="flex-row items-center gap-1.5"><View className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: comparisonColor }} /><Text className="text-[10px] text-[#475569]">{comparisonLabel}</Text></View> : null}
+      </View>
     </View>
   );
 }

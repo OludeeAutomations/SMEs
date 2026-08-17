@@ -1,7 +1,10 @@
 # Supabase setup
 
 The mobile app uses Supabase Auth and stores each user's complete business workspace in
-`public.business_workspaces`. Local AsyncStorage is retained as an offline cache.
+`public.business_workspaces`. Local AsyncStorage is retained as an offline cache. The relational
+data migration mirrors this workspace into `business_profiles`, `products`, `customers`, `sales`,
+`sale_items`, `invoices`, `invoice_items`, `expenses`, and `suppliers` so records are visible and
+queryable as normal Supabase rows.
 
 ## Apply the database migration
 
@@ -9,7 +12,12 @@ Either:
 
 1. Open the Supabase dashboard for this project.
 2. Go to **SQL Editor**.
-3. Paste and run `migrations/20260814000000_business_workspaces.sql`.
+3. Paste and run the migration files in timestamp order, finishing with
+   `migrations/20260818010000_extended_business_data.sql`.
+
+The extended migration also mirrors profiles, businesses, branches, members, categories,
+inventory levels and movements, payments, projects, automation rules, AI history, and supplier
+balances. Older incompatible tables are retained with a `_legacy_20260818_ext` suffix.
 
 Or, with the Supabase CLI authenticated and the project linked, run:
 

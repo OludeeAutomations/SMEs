@@ -5,11 +5,15 @@ import type { Customer, Expense, Invoice, Product, Sale, Supplier } from '@/type
 
 export interface Project { id: string; title: string; completed: boolean; createdAt: string }
 export interface TeamMember { id: string; name: string; email: string; role: string; createdAt: string }
+export interface InventoryMovement { id: string; productId: string; productName: string; quantity: number; type: 'OPENING' | 'ADJUSTMENT' | 'SALE'; createdAt: string }
+export interface AIConversation { id: string; title: string; createdAt: string }
+export interface AIMessage { id: string; conversationId: string; role: 'USER' | 'ASSISTANT'; content: string; createdAt: string }
 export interface WorkspaceData {
   products: Product[]; customers: Customer[]; sales: Sale[]; invoices: Invoice[];
   expenses: Expense[]; suppliers: Supplier[]; projects: Project[];
   expenseCategories: string[]; inventoryCategories: string[]; automations: Record<string, boolean>;
   teamMembers: TeamMember[]; preferences: Record<string, string | boolean>;
+  inventoryMovements: InventoryMovement[]; aiConversations: AIConversation[]; aiMessages: AIMessage[];
 }
 type ProductInput = Omit<Product, 'id' | 'createdAt'>;
 type CustomerInput = Omit<Customer, 'id' | 'createdAt' | 'totalBought' | 'amountOwed'> & Partial<Pick<Customer, 'totalBought' | 'amountOwed'>>;
@@ -29,6 +33,7 @@ interface BusinessState {
   addExpenseCategory: (category: string) => void; addInventoryCategory: (category: string) => void;
   setAutomation: (key: string, enabled: boolean) => void; clearWorkspace: () => void;
   addTeamMember: (name: string, email: string, role: string) => void;
+  addAIExchange: (question: string, answer: string) => void;
   setPreference: (key: string, value: string | boolean) => void;
   replaceWorkspace: (userId: string, workspace: WorkspaceData) => void;
   markSynced: (userId: string) => void;
@@ -37,6 +42,7 @@ interface BusinessState {
 export const emptyWorkspace = (): WorkspaceData => ({
   products: [], customers: [], sales: [], invoices: [], expenses: [], suppliers: [], projects: [],
   expenseCategories: [], inventoryCategories: [], automations: {}, teamMembers: [], preferences: {},
+  inventoryMovements: [], aiConversations: [], aiMessages: [],
 });
 const makeId = (prefix: string) => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
@@ -59,11 +65,26 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     replaceWorkspace: (userId, workspace) => set((state) => ({ workspaces: { ...state.workspaces, [userId]: normalizeWorkspace(workspace) }, dirtyUsers: { ...state.dirtyUsers, [userId]: false } })),
     markSynced: (userId) => set((state) => ({ dirtyUsers: { ...state.dirtyUsers, [userId]: false } })),
     addProduct: (input) => {
-      const product = { ...input, id: makeId('product'), createdAt: new Date().toISOString() };
-      update((workspace) => ({ ...workspace, products: [product, ...workspace.products] })); return product;
+      const createdAt = new Date().toISOString();
+      const product = { ...input, id: makeId('product'), createdAt };
+      update((workspace) => ({
+        ...workspace,
+        products: [product, ...workspace.products],
+        inventoryMovements: input.stockQuantity > 0 ? [{ id: makeId('movement'), productId: product.id, productName: product.name, quantity: input.stockQuantity, type: 'OPENING', createdAt }, ...(workspace.inventoryMovements ?? [])] : (workspace.inventoryMovements ?? []),
+      })); return product;
     },
     updateProductImage: (productId, imageUrl) => update((workspace) => ({ ...workspace, products: workspace.products.map((product) => product.id === productId ? { ...product, imageUrl } : product) })),
-    adjustStock: (productId, quantity) => update((workspace) => ({ ...workspace, products: workspace.products.map((product) => product.id === productId ? { ...product, stockQuantity: Math.max(0, product.stockQuantity + quantity) } : product) })),
+    adjustStock: (productId, quantity) => update((workspace) => {
+      const product = workspace.products.find((item) => item.id === productId);
+      if (!product) return workspace;
+      const nextQuantity = Math.max(0, product.stockQuantity + quantity);
+      const actualChange = nextQuantity - product.stockQuantity;
+      return {
+        ...workspace,
+        products: workspace.products.map((item) => item.id === productId ? { ...item, stockQuantity: nextQuantity } : item),
+        inventoryMovements: actualChange ? [{ id: makeId('movement'), productId, productName: product.name, quantity: actualChange, type: 'ADJUSTMENT', createdAt: new Date().toISOString() }, ...(workspace.inventoryMovements ?? [])] : (workspace.inventoryMovements ?? []),
+      };
+    }),
     addCustomer: (input) => {
       const customer = { totalBought: 0, amountOwed: 0, ...input, id: makeId('customer'), createdAt: new Date().toISOString() };
       update((workspace) => ({ ...workspace, customers: [customer, ...workspace.customers] })); return customer;
@@ -85,6 +106,7 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
       const sale = { ...input, id: makeId('sale'), createdAt: new Date().toISOString() };
       update((workspace) => ({
         ...workspace, sales: [sale, ...workspace.sales],
+        inventoryMovements: [...sale.items.filter((item) => workspace.products.some((product) => product.id === item.productId)).map((item) => ({ id: makeId('movement'), productId: item.productId, productName: item.productName, quantity: -item.quantity, type: 'SALE' as const, createdAt: sale.createdAt })), ...(workspace.inventoryMovements ?? [])],
         products: workspace.products.map((product) => { const sold = sale.items.find((item) => item.productId === product.id); return sold ? { ...product, stockQuantity: Math.max(0, product.stockQuantity - sold.quantity) } : product; }),
         customers: workspace.customers.map((customer) => customer.id === sale.customerId ? { ...customer, totalBought: customer.totalBought + sale.total } : customer),
       })); return sale;
@@ -99,6 +121,19 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     addInventoryCategory: (category) => update((workspace) => ({ ...workspace, inventoryCategories: workspace.inventoryCategories.includes(category) ? workspace.inventoryCategories : [...workspace.inventoryCategories, category] })),
     setAutomation: (key, enabled) => update((workspace) => ({ ...workspace, automations: { ...workspace.automations, [key]: enabled } })),
     addTeamMember: (name, email, role) => update((workspace) => ({ ...workspace, teamMembers: [{ id: makeId('member'), name, email, role, createdAt: new Date().toISOString() }, ...(workspace.teamMembers ?? [])] })),
+    addAIExchange: (question, answer) => update((workspace) => {
+      const createdAt = new Date().toISOString();
+      const conversationId = makeId('conversation');
+      return {
+        ...workspace,
+        aiConversations: [{ id: conversationId, title: question.slice(0, 80), createdAt }, ...(workspace.aiConversations ?? [])],
+        aiMessages: [
+          { id: makeId('message'), conversationId, role: 'USER', content: question, createdAt },
+          { id: makeId('message'), conversationId, role: 'ASSISTANT', content: answer, createdAt },
+          ...(workspace.aiMessages ?? []),
+        ],
+      };
+    }),
     setPreference: (key, value) => update((workspace) => ({ ...workspace, preferences: { ...(workspace.preferences ?? {}), [key]: value } })),
     clearWorkspace: () => { const userId = get().activeUserId; if (userId) set((state) => ({ workspaces: { ...state.workspaces, [userId]: emptyWorkspace() }, dirtyUsers: { ...state.dirtyUsers, [userId]: true } })); },
   };
@@ -115,6 +150,7 @@ export const normalizeWorkspace = (workspace?: Partial<WorkspaceData> | null): W
   projects: workspace?.projects ?? [], expenseCategories: workspace?.expenseCategories ?? [],
   inventoryCategories: workspace?.inventoryCategories ?? [], automations: workspace?.automations ?? {},
   teamMembers: workspace?.teamMembers ?? [], preferences: workspace?.preferences ?? {},
+  inventoryMovements: workspace?.inventoryMovements ?? [], aiConversations: workspace?.aiConversations ?? [], aiMessages: workspace?.aiMessages ?? [],
 });
 
 const EMPTY = emptyWorkspace();

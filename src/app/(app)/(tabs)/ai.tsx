@@ -5,7 +5,7 @@ import { Bot, Lightbulb, Send, Sparkles } from 'lucide-react-native';
 import { EmptyState, ScreenHeader } from '@/components/business-ui';
 import { SurfaceCard } from '@/components/dashboard-ui';
 import { useAuthStore } from '@/store/authStore';
-import { useWorkspace } from '@/store/businessStore';
+import { useBusinessStore, useWorkspace } from '@/store/businessStore';
 import { BusinessAdvice, getBusinessAdvice } from '@/services/businessAdvisor';
 
 const prompts = [
@@ -19,6 +19,7 @@ export default function AIScreen() {
   const workspace = useWorkspace();
   const currency = useAuthStore((state) => state.business?.currency ?? 'NGN');
   const business = useAuthStore((state) => state.business);
+  const addAIExchange = useBusinessStore((state) => state.addAIExchange);
   const [question, setQuestion] = useState('');
   const [lastQuestion, setLastQuestion] = useState('');
   const [advice, setAdvice] = useState<BusinessAdvice | null>(null);
@@ -27,8 +28,10 @@ export default function AIScreen() {
   const ask = (value = question) => {
     const cleanQuestion = value.trim();
     if (!cleanQuestion) return;
+    const nextAdvice = getBusinessAdvice(cleanQuestion, workspace, currency);
     setLastQuestion(cleanQuestion);
-    setAdvice(getBusinessAdvice(cleanQuestion, workspace, currency));
+    setAdvice(nextAdvice);
+    addAIExchange(cleanQuestion, [nextAdvice.title, nextAdvice.answer, ...nextAdvice.insights, ...nextAdvice.actions].join('\n'));
     setQuestion('');
   };
 

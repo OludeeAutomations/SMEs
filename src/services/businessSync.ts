@@ -21,13 +21,14 @@ export const businessSyncService = {
 
   async save(userId: string, workspace: WorkspaceData, business: BusinessProfile | null): Promise<string> {
     const updatedAt = new Date().toISOString();
-    const { error } = await supabase.from(TABLE).upsert({
+    const { data, error } = await supabase.from(TABLE).upsert({
       user_id: userId,
       business: business ?? {},
       data: normalizeWorkspace(workspace),
       updated_at: updatedAt,
-    }, { onConflict: 'user_id' });
+    }, { onConflict: 'user_id' }).select('updated_at').single();
     if (error) throw error;
-    return updatedAt;
+    if (!data?.updated_at) throw new Error('Supabase did not confirm the workspace save.');
+    return data.updated_at;
   },
 };
