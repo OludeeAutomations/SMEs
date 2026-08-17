@@ -11,8 +11,9 @@ export function ScreenHeader({ title, subtitle, actionLabel, onAction, showBack 
   const router = useRouter();
   const pathname = usePathname();
   const { from } = useLocalSearchParams<{ from?: string | string[] }>();
-  const openedFromMore = Array.isArray(from) ? from.includes('more') : from === 'more';
-  const canGoBack = showBack ?? (openedFromMore || !rootScreens.has(pathname));
+  const navigationOrigin = Array.isArray(from) ? from[0] : from;
+  const openedFromLauncher = navigationOrigin === 'more' || navigationOrigin === 'home';
+  const canGoBack = showBack ?? (openedFromLauncher || !rootScreens.has(pathname));
   return <View className="gap-2">
     {canGoBack ? <Pressable accessibilityRole="button" accessibilityLabel="Go back" hitSlop={4} onPress={() => router.canGoBack() ? router.back() : router.replace('/(app)/(tabs)/home')} className="h-11 w-11 items-center justify-center rounded-full bg-white">
       <ChevronLeft size={25} color="#0F172A" />

@@ -89,14 +89,14 @@ export function ListRow({ title, subtitle, value, icon: Icon, tint = '#EAF2FF', 
   );
 }
 
-export function MoreTile({ title, subtitle, icon: Icon, color, tint, onPress }: { title: string; subtitle: string; icon: LucideIcon; color: string; tint: string; onPress: () => void }) {
+export function MoreTile({ title, subtitle, icon: Icon, color, tint, onPress, dark = false }: { title: string; subtitle: string; icon: LucideIcon; color: string; tint: string; onPress: () => void; dark?: boolean }) {
   return (
-    <Pressable onPress={onPress} className="h-[124px] w-[48%] rounded-[5px] border border-[#DCE3EE] bg-white p-3.5">
+    <Pressable onPress={onPress} className={`h-[124px] w-[48%] rounded-[5px] border p-3.5 active:opacity-90 ${dark ? 'border-[#1D4ED8] bg-[#1D4ED8]' : 'border-[#DCE3EE] bg-white'}`}>
       <View className="h-[38px] w-[38px] items-center justify-center rounded-[14px]" style={{ backgroundColor: tint }}>
         <Icon size={18} color={color} />
       </View>
-      <Text className="mt-2 text-sm font-bold text-[#0F172A]">{title}</Text>
-      <Text className="mt-1 text-[11px] leading-[14px] text-[#475569]">{subtitle}</Text>
+      <Text className={`mt-2 text-sm font-bold ${dark ? 'text-white' : 'text-[#0F172A]'}`}>{title}</Text>
+      <Text className={`mt-1 text-[11px] leading-[14px] ${dark ? 'text-[#DBEAFE]' : 'text-[#475569]'}`}>{subtitle}</Text>
     </Pressable>
   );
 }

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams } from 'expo-router';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
+import ProductImagePicker from '@/components/ProductImagePicker';
 import { EmptyState, ScreenHeader } from '@/components/business-ui';
 import { MetricCard, SurfaceCard, colors } from '@/components/dashboard-ui';
 import { useAuthStore } from '@/store/authStore';
@@ -15,6 +16,7 @@ export default function ProductDetail() {
   const workspace = useWorkspace();
   const product = workspace.products.find((item) => item.id === id);
   const adjustStock = useBusinessStore((state) => state.adjustStock);
+  const updateProductImage = useBusinessStore((state) => state.updateProductImage);
   const currency = useAuthStore((state) => state.business?.currency ?? 'NGN');
   const [quantity, setQuantity] = useState('');
 
@@ -37,6 +39,7 @@ export default function ProductDetail() {
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
     <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5">
       <ScreenHeader title={product.name} subtitle={product.category} showBack />
+      <ProductImagePicker value={product.imageUrl} onChange={(imageUrl) => updateProductImage(product.id, imageUrl)} />
       <MetricCard label="In stock" value={`${product.stockQuantity} units`} color={product.stockQuantity <= product.lowStockThreshold ? colors.amber : colors.green} />
       <MetricCard label="Selling price" value={formatMoney(product.sellingPrice, currency)} color={colors.blue} />
       <SurfaceCard className="gap-3">

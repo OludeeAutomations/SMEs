@@ -24446,25 +24446,7 @@
               "id": "q6ZRBi",
               "name": "Spotlight",
               "width": "fill_container",
-              "fill": {
-                "type": "gradient",
-                "gradientType": "linear",
-                "enabled": true,
-                "rotation": 15,
-                "size": {
-                  "height": 1
-                },
-                "colors": [
-                  {
-                    "color": "#2563EB",
-                    "position": 0
-                  },
-                  {
-                    "color": "#10B981",
-                    "position": 1
-                  }
-                ]
-              },
+              "fill": "#0B1F5E",
               "cornerRadius": 5,
               "effect": {
                 "type": "shadow",
@@ -24858,9 +24840,9 @@
                   "name": "Reports Card",
                   "width": 165,
                   "height": 124,
-                  "fill": "$surface",
+                  "fill": "#1D4ED8",
                   "cornerRadius": 5,
-                  "stroke": "$border",
+                  "stroke": "#1D4ED8",
                   "strokeWidth": 1,
                   "layout": "vertical",
                   "gap": 8,
@@ -24872,7 +24854,7 @@
                       "name": "Reports Icon Wrap",
                       "width": 38,
                       "height": 38,
-                      "fill": "#E8FBF4",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 14,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -24885,7 +24867,7 @@
                           "height": 18,
                           "icon": "bar_chart",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-emerald"
+                          "fill": "#BFDBFE"
                         }
                       ]
                     },
@@ -24893,7 +24875,7 @@
                       "type": "text",
                       "id": "Qf9pW",
                       "name": "Reports Title",
-                      "fill": "$text-primary",
+                      "fill": "#FFFFFF",
                       "content": "Reports",
                       "lineHeight": 1.1,
                       "fontFamily": "Geist",
@@ -24904,7 +24886,7 @@
                       "type": "text",
                       "id": "QoXgy",
                       "name": "Reports Copy",
-                      "fill": "$text-secondary",
+                      "fill": "#DBEAFE",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "Revenue, profit, cash flow",
@@ -24921,9 +24903,9 @@
                   "name": "AI Assistant Card",
                   "width": 165,
                   "height": 124,
-                  "fill": "$surface",
+                  "fill": "#1D4ED8",
                   "cornerRadius": 5,
-                  "stroke": "$border",
+                  "stroke": "#1D4ED8",
                   "strokeWidth": 1,
                   "layout": "vertical",
                   "gap": 8,
@@ -24935,7 +24917,7 @@
                       "name": "AI Assistant Icon Wrap",
                       "width": 38,
                       "height": 38,
-                      "fill": "#F0EBFF",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 14,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -24948,7 +24930,7 @@
                           "height": 18,
                           "icon": "smart_toy",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-indigo"
+                          "fill": "#BFDBFE"
                         }
                       ]
                     },
@@ -24956,7 +24938,7 @@
                       "type": "text",
                       "id": "W7ZfoJ",
                       "name": "AI Assistant Title",
-                      "fill": "$text-primary",
+                      "fill": "#FFFFFF",
                       "content": "AI Assistant",
                       "lineHeight": 1.1,
                       "fontFamily": "Geist",
@@ -24967,7 +24949,7 @@
                       "type": "text",
                       "id": "UydZT",
                       "name": "AI Assistant Copy",
-                      "fill": "$text-secondary",
+                      "fill": "#DBEAFE",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "Ask questions, get predictions",
@@ -24993,9 +24975,9 @@
                   "name": "Automation Card",
                   "width": 165,
                   "height": 124,
-                  "fill": "$surface",
+                  "fill": "#1D4ED8",
                   "cornerRadius": 5,
-                  "stroke": "$border",
+                  "stroke": "#1D4ED8",
                   "strokeWidth": 1,
                   "layout": "vertical",
                   "gap": 8,
@@ -25007,7 +24989,7 @@
                       "name": "Automation Icon Wrap",
                       "width": 38,
                       "height": 38,
-                      "fill": "#E8FBF4",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 14,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -25020,7 +25002,7 @@
                           "height": 18,
                           "icon": "stars",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-emerald"
+                          "fill": "#BFDBFE"
                         }
                       ]
                     },
@@ -25028,7 +25010,7 @@
                       "type": "text",
                       "id": "uoReM",
                       "name": "Automation Title",
-                      "fill": "$text-primary",
+                      "fill": "#FFFFFF",
                       "content": "Automation",
                       "lineHeight": 1.1,
                       "fontFamily": "Geist",
@@ -25039,7 +25021,7 @@
                       "type": "text",
                       "id": "AEebh",
                       "name": "Automation Copy",
-                      "fill": "$text-secondary",
+                      "fill": "#DBEAFE",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "Reminders, workflows, reports",
@@ -25056,9 +25038,9 @@
                   "name": "Settings Card",
                   "width": 165,
                   "height": 124,
-                  "fill": "$surface",
+                  "fill": "#1D4ED8",
                   "cornerRadius": 5,
-                  "stroke": "$border",
+                  "stroke": "#1D4ED8",
                   "strokeWidth": 1,
                   "layout": "vertical",
                   "gap": 8,
@@ -25070,7 +25052,7 @@
                       "name": "Settings Icon Wrap",
                       "width": 38,
                       "height": 38,
-                      "fill": "#EEF2FF",
+                      "fill": "#0B1F5E",
                       "cornerRadius": 14,
                       "justifyContent": "center",
                       "alignItems": "center",
@@ -25083,7 +25065,7 @@
                           "height": 18,
                           "icon": "settings",
                           "library": "Material Symbols Outlined",
-                          "fill": "$accent-blue"
+                          "fill": "#BFDBFE"
                         }
                       ]
                     },
@@ -25091,7 +25073,7 @@
                       "type": "text",
                       "id": "qsYQ8",
                       "name": "Settings Title",
-                      "fill": "$text-primary",
+                      "fill": "#FFFFFF",
                       "content": "Settings",
                       "lineHeight": 1.1,
                       "fontFamily": "Geist",
@@ -25102,7 +25084,7 @@
                       "type": "text",
                       "id": "EfnPY",
                       "name": "Settings Copy",
-                      "fill": "$text-secondary",
+                      "fill": "#DBEAFE",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
                       "content": "Profile, branches, security",

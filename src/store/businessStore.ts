@@ -21,7 +21,7 @@ type SaleInput = Omit<Sale, 'id' | 'createdAt'>;
 interface BusinessState {
   activeUserId: string | null; workspaces: Record<string, WorkspaceData>; dirtyUsers: Record<string, boolean>; hasHydrated: boolean;
   setActiveUser: (userId: string | null) => void; setHasHydrated: (value: boolean) => void;
-  addProduct: (input: ProductInput) => Product; adjustStock: (productId: string, quantity: number) => void;
+  addProduct: (input: ProductInput) => Product; updateProductImage: (productId: string, imageUrl: string) => void; adjustStock: (productId: string, quantity: number) => void;
   addCustomer: (input: CustomerInput) => Customer; addExpense: (input: ExpenseInput) => Expense;
   addInvoice: (input: InvoiceInput) => Invoice; updateInvoiceStatus: (invoiceId: string, status: Invoice['status']) => void;
   addSale: (input: SaleInput) => Sale; addSupplier: (input: SupplierInput) => Supplier;
@@ -62,6 +62,7 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
       const product = { ...input, id: makeId('product'), createdAt: new Date().toISOString() };
       update((workspace) => ({ ...workspace, products: [product, ...workspace.products] })); return product;
     },
+    updateProductImage: (productId, imageUrl) => update((workspace) => ({ ...workspace, products: workspace.products.map((product) => product.id === productId ? { ...product, imageUrl } : product) })),
     adjustStock: (productId, quantity) => update((workspace) => ({ ...workspace, products: workspace.products.map((product) => product.id === productId ? { ...product, stockQuantity: Math.max(0, product.stockQuantity + quantity) } : product) })),
     addCustomer: (input) => {
       const customer = { totalBought: 0, amountOwed: 0, ...input, id: makeId('customer'), createdAt: new Date().toISOString() };

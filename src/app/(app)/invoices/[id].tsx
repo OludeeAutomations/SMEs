@@ -1,12 +1,13 @@
-import React from 'react';
-import { Alert, ScrollView, Share } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams } from 'expo-router';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import { DataRow, Divider, EmptyState, ScreenHeader } from '@/components/business-ui';
 import { MetricCard, SurfaceCard, colors } from '@/components/dashboard-ui';
 import { useAuthStore } from '@/store/authStore';
 import { useBusinessStore, useWorkspace } from '@/store/businessStore';
+import { shareInvoicePdf } from '@/services/invoicePdf';
 import { formatDate, formatMoney } from '@/utils/format';
 
 export default function InvoiceDetail() {
@@ -14,7 +15,10 @@ export default function InvoiceDetail() {
   const workspace = useWorkspace();
   const invoice = workspace.invoices.find((item) => item.id === id);
   const updateStatus = useBusinessStore((state) => state.updateInvoiceStatus);
-  const currency = useAuthStore((state) => state.business?.currency ?? 'NGN');
+  const business = useAuthStore((state) => state.business);
+  const user = useAuthStore((state) => state.user);
+  const currency = business?.currency ?? 'NGN';
+  const [isSharing, setIsSharing] = useState(false);
 
   if (!invoice) {
     return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
@@ -25,7 +29,27 @@ export default function InvoiceDetail() {
     </SafeAreaView>;
   }
 
-  const share = () => Share.share({ message: `Invoice for ${invoice.customerName}\n${invoice.items.map((item) => `${item.productName} x${item.quantity}: ${formatMoney(item.price * item.quantity, currency)}`).join('\n')}\nTotal: ${formatMoney(invoice.total, currency)}\nDue: ${formatDate(invoice.dueDate)}\nStatus: ${invoice.status}` });
+  const share = async () => {
+    if (!business) {
+      Alert.alert('Business profile needed', 'Complete your business profile before sharing an invoice.');
+      return;
+    }
+
+    setIsSharing(true);
+    try {
+      await shareInvoicePdf({
+        invoice,
+        business,
+        user,
+        customer: workspace.customers.find((item) => item.id === invoice.customerId),
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Please try again.';
+      Alert.alert("Couldn't share invoice", message);
+    } finally {
+      setIsSharing(false);
+    }
+  };
   const recordPayment = () => Alert.alert('Record payment', `Mark ${formatMoney(invoice.total, currency)} as paid?`, [
     { text: 'Cancel', style: 'cancel' },
     { text: 'Mark paid', onPress: () => updateStatus(invoice.id, 'PAID') },
@@ -43,7 +67,7 @@ export default function InvoiceDetail() {
         </React.Fragment>)}
       </SurfaceCard>
       {invoice.status !== 'PAID' ? <Button title="Record payment" onPress={recordPayment} /> : null}
-      <Button title="Share invoice" variant="secondary" onPress={share} />
+      <Button title={isSharing ? 'Preparing PDF...' : 'Share invoice PDF'} variant="secondary" onPress={share} isLoading={isSharing} />
     </ScrollView>
   </SafeAreaView>;
 }
