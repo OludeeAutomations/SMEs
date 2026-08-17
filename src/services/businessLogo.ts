@@ -18,7 +18,7 @@ export async function uploadBusinessLogo(userId: string, uri: string, mimeType?:
   const { error } = await supabase.storage.from(BUCKET).upload(path, body, {
     contentType: mimeType || 'image/jpeg',
     cacheControl: '3600',
-    upsert: true,
+    upsert: false,
   });
   if (error) {
     const storageNotReady = error.message.toLowerCase().includes('bucket not found');
