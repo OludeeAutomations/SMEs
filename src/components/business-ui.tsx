@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { ChevronLeft, Plus } from 'lucide-react-native';
-import { usePathname, useRouter } from 'expo-router';
+import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 import { colors, SurfaceCard } from './dashboard-ui';
 import { useSyncStore } from '@/store/syncStore';
 
@@ -10,7 +10,9 @@ const rootScreens = new Set(['/home', '/sales', '/ai', '/reports', '/hub', '/inv
 export function ScreenHeader({ title, subtitle, actionLabel, onAction, showBack }: { title: string; subtitle?: string; actionLabel?: string; onAction?: () => void; showBack?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
-  const canGoBack = showBack ?? !rootScreens.has(pathname);
+  const { from } = useLocalSearchParams<{ from?: string | string[] }>();
+  const openedFromMore = Array.isArray(from) ? from.includes('more') : from === 'more';
+  const canGoBack = showBack ?? (openedFromMore || !rootScreens.has(pathname));
   return <View className="gap-2">
     {canGoBack ? <Pressable accessibilityRole="button" accessibilityLabel="Go back" hitSlop={4} onPress={() => router.canGoBack() ? router.back() : router.replace('/(app)/(tabs)/home')} className="h-11 w-11 items-center justify-center rounded-full bg-white">
       <ChevronLeft size={25} color="#0F172A" />
