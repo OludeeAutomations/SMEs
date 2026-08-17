@@ -126,6 +126,10 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
   }
 
   if (includesAny(query, ['stock', 'inventory', 'reorder', 'restock', 'product', 'sell fast', 'best seller', 'slow moving', 'dead stock'])) {
+    const productLabel = (product: WorkspaceData['products'][number]) => {
+      const duplicateName = workspace.products.some((candidate) => candidate.id !== product.id && normalize(candidate.name) === normalize(product.name));
+      return duplicateName ? `${product.name} (${formatMoney(product.sellingPrice, currency)})` : product.name;
+    };
     const priority = lowStock
       .map((product) => {
         const demand = recentPerformance.find((item) => item.productId === product.id)?.quantity ?? 0;
@@ -142,8 +146,8 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
         slowStock.length ? `${slowStock.length} stocked ${slowStock.length === 1 ? 'product has' : 'products have'} no recorded sale in 60 days, tying up about ${formatMoney(slowStockValue, currency)} at cost.` : 'No obvious slow-moving stock was found.',
       ],
       actions: priority.length
-        ? priority.slice(0, 3).map(({ product, reorder }) => `Reorder about ${reorder} units of ${product.name}; current stock is ${product.stockQuantity}.`)
-        : slowStock.length ? [`Pause reordering ${slowStock[0].name} and consider a promotion or bundle.`] : ['Keep recording sales so reorder advice becomes more precise.'],
+        ? priority.slice(0, 3).map(({ product, reorder }) => `Reorder about ${reorder} units of ${productLabel(product)}; current stock is ${product.stockQuantity}.`)
+        : slowStock.length ? [`Pause reordering ${productLabel(slowStock[0])} and consider a promotion or bundle.`] : ['Keep recording sales so reorder advice becomes more precise.'],
       dataNote: 'Reorder quantities use recorded 60-day demand and each product’s alert level.',
     };
   }

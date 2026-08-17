@@ -7,7 +7,6 @@ import { Button } from '@/components/Button';
 import { ScreenHeader } from '@/components/business-ui';
 import { SurfaceCard, colors } from '@/components/dashboard-ui';
 import { useAuthStore } from '@/store/authStore';
-import { useBusinessStore } from '@/store/businessStore';
 
 const items = [
   ['Business profile', '/(app)/settings/business-config'],
@@ -22,15 +21,10 @@ export default function SettingsScreen() {
   const user = useAuthStore((state) => state.user);
   const business = useAuthStore((state) => state.business);
   const logout = useAuthStore((state) => state.logout);
-  const clear = useBusinessStore((state) => state.clearWorkspace);
 
   const signOut = () => Alert.alert('Sign out', 'Sign out of this device?', [
     { text: 'Cancel', style: 'cancel' },
     { text: 'Sign out', onPress: async () => { await logout(); router.replace('/(auth)/onboarding'); } },
-  ]);
-  const reset = () => Alert.alert('Delete workspace data', 'This permanently removes this user’s products, customers, transactions, invoices, and expenses from this device.', [
-    { text: 'Cancel', style: 'cancel' },
-    { text: 'Delete', style: 'destructive', onPress: clear },
   ]);
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
@@ -42,7 +36,6 @@ export default function SettingsScreen() {
         </Pressable>)}
       </SurfaceCard>
       <Button title="Sign out" variant="secondary" onPress={signOut} />
-      <Pressable onPress={reset} className="items-center py-3"><Text className="text-xs font-semibold text-[#DC2626]">Delete all workspace data</Text></Pressable>
     </ScrollView>
   </SafeAreaView>;
 }

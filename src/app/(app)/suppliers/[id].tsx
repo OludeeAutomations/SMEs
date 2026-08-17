@@ -29,7 +29,9 @@ export default function SupplierDetail() {
       <MetricCard label="Outstanding balance" value={formatMoney(supplier.outstandingBalance, currency)} color={colors.amber} />
       <SurfaceCard>
         <Text className="text-sm font-bold text-[#0F172A]">Contact</Text>
-        <Text className="mt-1 text-[13px] leading-[18px] text-[#475569]">{`${supplier.emailAddress || 'No email'}${supplier.address ? ` • ${supplier.address}` : ''}`}</Text>
+        <Text className="mt-1 text-[13px] leading-[18px] text-[#475569]">{supplier.phoneNumber}</Text>
+        {supplier.emailAddress ? <Text className="mt-1 text-[13px] leading-[18px] text-[#475569]">{supplier.emailAddress}</Text> : null}
+        {supplier.address ? <Text className="mt-1 text-[13px] leading-[18px] text-[#475569]">{supplier.address}</Text> : null}
       </SurfaceCard>
     </ScrollView>
   </SafeAreaView>;

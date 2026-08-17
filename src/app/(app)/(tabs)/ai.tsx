@@ -70,12 +70,12 @@ export default function AIScreen() {
           <Text className="text-[11px] text-[#64748B]">You asked: “{lastQuestion}”</Text>
           <Text className="text-lg font-bold text-[#0F172A]">{advice.title}</Text>
           <Text className="text-[13px] leading-5 text-[#0F172A]">{advice.answer}</Text>
-          {advice.insights.map((insight) => <View key={insight} className="flex-row gap-2"><View className="mt-2 h-1.5 w-1.5 rounded-full bg-[#2563EB]" /><Text className="flex-1 text-[12px] leading-5 text-[#475569]">{insight}</Text></View>)}
+          {advice.insights.map((insight, index) => <View key={`insight-${index}`} className="flex-row gap-2"><View className="mt-2 h-1.5 w-1.5 rounded-full bg-[#2563EB]" /><Text className="flex-1 text-[12px] leading-5 text-[#475569]">{insight}</Text></View>)}
         </SurfaceCard>
 
         <SurfaceCard className="gap-3 border-[#BFDBFE] bg-[#EFF6FF]">
           <View className="flex-row items-center gap-2"><Lightbulb size={18} color="#0B1F5E" /><Text className="text-xs font-bold text-[#0B1F5E]">RECOMMENDED NEXT STEPS</Text></View>
-          {advice.actions.map((action, index) => <View key={action} className="flex-row gap-3">
+          {advice.actions.map((action, index) => <View key={`action-${index}`} className="flex-row gap-3">
             <View className="h-6 w-6 items-center justify-center rounded-full bg-[#0B1F5E]"><Text className="text-[10px] font-bold text-white">{index + 1}</Text></View>
             <Text className="flex-1 text-[12px] leading-5 text-[#0F172A]">{action}</Text>
           </View>)}

@@ -22,10 +22,10 @@ export default function PaymentsScreen() {
       const isConnected = await checkPaymentProvider(provider);
       setConnected(isConnected);
       Alert.alert(
-        isConnected ? `${provider} connected` : `${provider} needs server setup`,
+        isConnected ? `${provider} is ready` : `${provider} is unavailable`,
         isConnected
           ? 'You can now create secure payment links from unpaid invoices.'
-          : `Add the ${provider.toUpperCase()}_SECRET_KEY to your Supabase Edge Function secrets, then deploy the payment functions.`,
+          : 'Online payments are not available yet. Please try again later or contact support.',
       );
     } catch (error) {
       setConnected(false);
@@ -53,16 +53,16 @@ export default function PaymentsScreen() {
       <SurfaceCard className="gap-3">
         <View className="flex-row items-center gap-3">
           <ShieldCheck size={21} color="#10B981" />
-          <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Secure server connection</Text><Text className="mt-1 text-[11px] leading-4 text-[#475569]">Secret keys stay in Supabase Edge Function secrets and are never stored on the phone.</Text></View>
+          <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Secure online payments</Text><Text className="mt-1 text-[11px] leading-4 text-[#475569]">Your customer completes payment securely through the selected payment provider.</Text></View>
         </View>
         {connected !== null ? <View className={`flex-row items-center gap-2 rounded-[5px] p-3 ${connected ? 'bg-[#ECFDF5]' : 'bg-[#FFF7ED]'}`}>
           {connected ? <CheckCircle2 size={17} color="#059669" /> : <View className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />}
-          <Text className={`text-xs font-semibold ${connected ? 'text-[#047857]' : 'text-[#92400E]'}`}>{connected ? `${provider} is ready` : 'Server key or function is not configured yet'}</Text>
+          <Text className={`text-xs font-semibold ${connected ? 'text-[#047857]' : 'text-[#92400E]'}`}>{connected ? `${provider} is ready` : 'Online payments are currently unavailable'}</Text>
         </View> : null}
       </SurfaceCard>
 
-      <Button title={checking ? 'Checking connection...' : 'Save and check connection'} onPress={saveAndCheck} isLoading={checking} />
-      <Text className="text-center text-[10px] leading-4 text-[#64748B]">After connection, open an unpaid invoice and tap “Create payment link”.</Text>
+      <Button title={checking ? 'Checking availability...' : 'Save payment option'} onPress={saveAndCheck} isLoading={checking} />
+      <Text className="text-center text-[10px] leading-4 text-[#64748B]">When available, open an unpaid invoice and tap “Create payment link”.</Text>
     </ScrollView>
   </SafeAreaView>;
 }
