@@ -1,137 +1,153 @@
-import React from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { ArrowLeft, ChartNoAxesCombined } from 'lucide-react-native';
+import React, { useRef, useState } from 'react';
 import {
-  ChartNoAxesCombined,
-  Package,
-  Sparkles,
-  Store,
-  TrendingUp,
-} from 'lucide-react-native';
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  ScrollView,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const salesBars = [
-  { height: 32, color: '#BFDBFE' },
-  { height: 48, color: '#93C5FD' },
-  { height: 40, color: '#60A5FA' },
-  { height: 64, color: '#2563EB' },
-  { height: 52, color: '#34D399' },
-  { height: 74, color: '#10B981' },
-  { height: 62, color: '#34D399' },
-];
-
-const previewMetrics = [
-  { label: 'Cash in', value: '₦186K', color: '#2563EB' },
-  { label: 'Invoices', value: '12 due', color: '#F59E0B' },
-  { label: 'Stock health', value: '94%', color: '#10B981' },
-];
-
-const features = [
-  { label: 'Sales', icon: Store },
-  { label: 'Inventory', icon: Package },
-  { label: 'AI insights', icon: Sparkles },
-];
+const slides = [
+  {
+    key: 'operations',
+    image: require('../../../assets/onboarding-operations.png'),
+    title: 'Know what’s in stock.',
+    description:
+      'Track products, stock levels, and restocking needs from one organized workspace.',
+  },
+  {
+    key: 'sales',
+    image: require('../../../assets/onboarding-sales.png'),
+    title: 'Keep every sale moving.',
+    description:
+      'Create invoices, record payments, and keep your cash flow clear as your business grows.',
+  },
+  {
+    key: 'insights',
+    image: require('../../../assets/onboarding-insights.png'),
+    title: 'See what’s working.',
+    description:
+      'Turn your business activity into clear insights that help you make confident decisions.',
+  },
+] as const;
 
 export default function EaseOnboardingScreen() {
   const router = useRouter();
+  const carouselRef = useRef<ScrollView>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const { width } = useWindowDimensions();
+  const slideWidth = width;
+
+  const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const nextSlide = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
+    setActiveSlide(Math.min(Math.max(nextSlide, 0), slides.length - 1));
+  };
+
+  const showSlide = (index: number) => {
+    setActiveSlide(index);
+    carouselRef.current?.scrollTo({ x: index * slideWidth, animated: true });
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-[#FAFAFA]">
-      <ScrollView
-        contentContainerClassName="gap-6 px-5 pb-6 pt-6"
-        showsVerticalScrollIndicator={false}
-      >
-        <View className="items-center gap-2.5">
+      <View className="flex-1 pb-6 pt-3">
+        <View className="h-10 flex-row items-center justify-center px-5">
+          <Pressable
+            accessibilityLabel="Go back"
+            hitSlop={12}
+            onPress={() => router.back()}
+            className="absolute left-5 h-8 w-8 items-center justify-center"
+          >
+            <ArrowLeft size={20} color="#0F172A" strokeWidth={1.8} />
+          </Pressable>
+
           <View className="flex-row items-center gap-2">
             <View className="h-7 w-7 items-center justify-center rounded-[5px] bg-[#2563EB]">
               <ChartNoAxesCombined size={17} color="#FFFFFF" strokeWidth={2.2} />
             </View>
             <Text className="text-lg font-bold text-[#0F172A]">Ease</Text>
           </View>
-
-          <Text className="w-full text-center text-[30px] font-bold leading-8 text-[#0F172A]">
-            Your business, under control.
-          </Text>
-          <Text className="w-full text-center text-[15px] leading-[22px] text-[#475569]">
-            Track sales, stock, invoices, and cash flow from one clear workspace.
-          </Text>
         </View>
 
-        <View
-          className="h-[250px] w-full gap-3 rounded-[5px] border border-[#DCE3EE] bg-white p-4"
-          style={{
-            shadowColor: '#0F172A',
-            shadowOffset: { width: 0, height: 6 },
-            shadowOpacity: 0.04,
-            shadowRadius: 18,
-            elevation: 2,
-          }}
-        >
-          <View className="flex-row items-center justify-between">
-            <View className="gap-[3px]">
-              <Text className="text-[10px] font-bold text-[#94A3B8]">TODAY&apos;S SALES</Text>
-              <Text className="font-mono text-[26px] font-bold text-[#0F172A]">₦248,600</Text>
-            </View>
-            <View className="flex-row items-center gap-1 rounded-[5px] bg-[#E8FBF4] px-2 py-1.5">
-              <TrendingUp size={14} color="#10B981" strokeWidth={2.4} />
-              <Text className="text-[11px] font-bold text-[#10B981]">+12.4%</Text>
-            </View>
-          </View>
-
-          <View className="h-[82px] w-full flex-row items-end gap-2 pt-1">
-            {salesBars.map((bar, index) => (
+        <View className="flex-1 justify-center">
+          <ScrollView
+            ref={carouselRef}
+            horizontal
+            pagingEnabled
+            bounces={false}
+            decelerationRate="fast"
+            onMomentumScrollEnd={handleScrollEnd}
+            showsHorizontalScrollIndicator={false}
+          >
+            {slides.map((slide) => (
               <View
-                key={`${bar.height}-${index}`}
-                className="flex-1 rounded-t-[4px]"
-                style={{ height: bar.height, backgroundColor: bar.color }}
+                key={slide.key}
+                className="items-center justify-center gap-3 px-5"
+                style={{ width: slideWidth }}
+              >
+                <Image
+                  accessibilityIgnoresInvertColors
+                  resizeMode="contain"
+                  source={slide.image}
+                  className="h-[250px] w-[280px]"
+                />
+                <Text className="w-full text-center text-[27px] font-bold leading-[29px] text-[#0F172A]">
+                  {slide.title}
+                </Text>
+                <Text className="w-full text-center text-sm leading-5 text-[#475569]">
+                  {slide.description}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+        <View className="items-center gap-[18px] px-5 pt-3">
+          <View className="h-[7px] flex-row items-center gap-[7px]">
+            {slides.map((slide, index) => (
+              <Pressable
+                key={slide.key}
+                accessibilityLabel={`Show onboarding page ${index + 1}`}
+                accessibilityRole="button"
+                onPress={() => showSlide(index)}
+                className={`h-[7px] rounded-full ${
+                  activeSlide === index ? 'w-[22px] bg-[#0B1F5E]' : 'w-[7px] bg-[#BFDBFE]'
+                }`}
               />
             ))}
           </View>
 
-          <View className="w-full flex-row gap-2.5">
-            {previewMetrics.map((metric) => (
-              <View key={metric.label} className="flex-1 gap-[3px] rounded-[5px] bg-[#F2F5FA] p-2.5">
-                <Text className="text-[10px] text-[#94A3B8]">{metric.label}</Text>
-                <Text className="text-sm font-bold" style={{ color: metric.color }}>
-                  {metric.value}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-        <View className="w-full flex-row justify-between">
-          {features.map(({ label, icon: Icon }) => (
-            <View key={label} className="w-24 items-center gap-1.5">
-              <Icon size={22} color="#2563EB" strokeWidth={2} />
-              <Text className="text-xs font-semibold text-[#475569]">{label}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View className="w-full items-center gap-3">
-          <Pressable
-            onPress={() => router.push('/(auth)/signup')}
-            className="h-14 w-full items-center justify-center rounded-[5px] bg-[#0B1F5E] active:bg-[#071845]"
-            style={{
-              shadowColor: '#0B1F5E',
-              shadowOffset: { width: 0, height: 8 },
-              shadowOpacity: 0.14,
-              shadowRadius: 20,
-              elevation: 4,
-            }}
-          >
-            <Text className="text-base font-bold text-white">Create account</Text>
-          </Pressable>
-
-          <View className="flex-row items-center gap-1">
-            <Text className="text-[13px] text-[#475569]">Already have an account?</Text>
-            <Pressable onPress={() => router.push('/(auth)/login')}>
-              <Text className="text-[13px] font-bold text-[#2563EB]">Sign in</Text>
+          <View className="w-full items-center gap-3">
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => router.push('/(auth)/signup')}
+              className="h-14 w-full items-center justify-center rounded-[5px] bg-[#0B1F5E] active:bg-[#071845]"
+              style={{
+                shadowColor: '#0B1F5E',
+                shadowOffset: { width: 0, height: 8 },
+                shadowOpacity: 0.13,
+                shadowRadius: 20,
+                elevation: 4,
+              }}
+            >
+              <Text className="text-base font-bold text-white">Create account</Text>
             </Pressable>
+
+            <View className="flex-row items-center gap-1">
+              <Text className="text-[13px] text-[#475569]">Already have an account?</Text>
+              <Pressable onPress={() => router.push('/(auth)/login')}>
+                <Text className="text-[13px] font-bold text-[#2563EB]">Sign in</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
