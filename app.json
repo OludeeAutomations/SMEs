@@ -21,7 +21,9 @@
     },
     "web": {
       "output": "single",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "description": "Track sales, stock, expenses, customers and invoices in one clear business workspace.",
+      "themeColor": "#082F7F"
     },
     "plugins": [
       "expo-router",
