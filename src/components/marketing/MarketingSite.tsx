@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { supabase } from '@/services/supabase';
 import {
-  ArrowDown,
   ArrowRight,
   BarChart3,
   Bot,
@@ -8,6 +8,7 @@ import {
   CalendarCheck,
   ChartNoAxesCombined,
   Check,
+  CheckCircle2,
   CircleDollarSign,
   CloudCheck,
   FileCheck,
@@ -29,9 +30,12 @@ import {
 
 const dashboardAsset = require('../../../assets/website/rekoda-home-hero-v3.png');
 const dashboardImage = typeof dashboardAsset === 'string' ? dashboardAsset : dashboardAsset?.uri;
+const logoAsset = require('../../../assets/website/rekoda-logo.png');
+const logoImage = typeof logoAsset === 'string' ? logoAsset : logoAsset?.uri;
 
 type StoreBadgeProps = {
   store: 'apple' | 'google';
+  onJoinWaitlist: () => void;
 };
 
 function AppleMark() {
@@ -56,16 +60,40 @@ function GooglePlayMark() {
   );
 }
 
-function StoreBadge({ store }: StoreBadgeProps) {
+function InstagramMark() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16Zm0-2.16C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.63 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.69 21.3.27 16.95.07 15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 12 8a4 4 0 0 1 0 8Zm6.41-11.84a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z" />
+    </svg>
+  );
+}
+
+function LinkedInMark() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.99h3.42v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V8.99H7.1v11.46ZM22.23 0H1.77A1.75 1.75 0 0 0 0 1.73v20.54C0 23.23.8 24 1.77 24h20.46A1.75 1.75 0 0 0 24 22.27V1.73A1.75 1.75 0 0 0 22.23 0Z" />
+    </svg>
+  );
+}
+
+function XMark() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.99l4.71 6.23 5.29-6.23Zm-1.16 17.52h1.83L7.24 4.13H5.28l11.8 15.64Z" />
+    </svg>
+  );
+}
+
+function StoreBadge({ store, onJoinWaitlist }: StoreBadgeProps) {
   const apple = store === 'apple';
   return (
-    <a className="store-badge" href="#download" aria-label={apple ? 'Download on the App Store' : 'Get it on Google Play'}>
+    <button className="store-badge store-badge-coming-soon" type="button" onClick={onJoinWaitlist} aria-label={`${apple ? 'App Store' : 'Google Play'} coming soon. Join the waitlist.`}>
       {apple ? <AppleMark /> : <GooglePlayMark />}
       <span className="store-copy">
-        <span className="store-overline">{apple ? 'Download on the' : 'GET IT ON'}</span>
+        <span className="store-overline">COMING SOON ON</span>
         <span className="store-name">{apple ? 'App Store' : 'Google Play'}</span>
       </span>
-    </a>
+    </button>
   );
 }
 
@@ -138,12 +166,12 @@ const benefits = [
   'Priority support when you need it',
 ];
 
-function MarketingHeader() {
+function MarketingHeader({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
       <a className="brand" href="#top" aria-label="Rekọda home">
-        <span className="brand-mark">R</span><span>Rekọda</span>
+        <img className="brand-logo" src={logoImage} alt="" />
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
         <a href="#features">Features</a>
@@ -152,7 +180,7 @@ function MarketingHeader() {
       </nav>
       <div className="desktop-actions">
         <a className="button button-secondary" href="#contact">Contact</a>
-        <a className="button button-primary" href="#features">See features <ArrowDown size={16} /></a>
+        <button className="button button-primary" type="button" onClick={onJoinWaitlist}>Join the waitlist <ArrowRight size={16} /></button>
       </div>
       <button className="mobile-menu-button" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label="Toggle navigation">
         {open ? <X size={22} /> : <Menu size={22} />}
@@ -163,9 +191,90 @@ function MarketingHeader() {
           <a href="#how-it-works" onClick={() => setOpen(false)}>How it works</a>
           <a href="#pricing" onClick={() => setOpen(false)}>Pricing</a>
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+          <button type="button" onClick={() => { setOpen(false); onJoinWaitlist(); }}>Join the waitlist</button>
         </nav>
       )}
     </header>
+  );
+}
+
+type WaitlistModalProps = {
+  open: boolean;
+  submitted: boolean;
+  onClose: () => void;
+  onSubmitted: () => void;
+};
+
+function WaitlistModal({ open, submitted, onClose, onSubmitted }: WaitlistModalProps) {
+  const [fullName, setFullName] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const submitWaitlist = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitting(true);
+    setErrorMessage('');
+
+    const { error } = await supabase.from('waitlist').insert({
+      full_name: fullName.trim(),
+      business_name: businessName.trim(),
+      email: email.trim().toLowerCase(),
+      phone: phone.trim() || null,
+    });
+
+    setSubmitting(false);
+    if (error && error.code !== '23505') {
+      setErrorMessage('We could not add you right now. Please check your details and try again.');
+      return;
+    }
+
+    onSubmitted();
+  };
+
+  return (
+    <div className="waitlist-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <section className="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-title">
+        <button className="waitlist-close" type="button" onClick={onClose} aria-label="Close waitlist form"><X size={20} /></button>
+        {submitted ? (
+          <div className="waitlist-success">
+            <span className="waitlist-success-icon"><CheckCircle2 size={32} /></span>
+            <span className="waitlist-kicker">YOU'RE ON THE LIST</span>
+            <h2 id="waitlist-title">Thanks for joining the Rekọda waitlist.</h2>
+            <p>We’ll let you know as soon as Rekọda is ready for your business.</p>
+            <button className="waitlist-submit" type="button" onClick={onClose}>Explore the website <ArrowRight size={17} /></button>
+          </div>
+        ) : (
+          <>
+            <span className="waitlist-kicker">EARLY ACCESS</span>
+            <h2 id="waitlist-title">Be among the first to run your business with Rekọda.</h2>
+            <p className="waitlist-intro">Join the waitlist for launch updates and early access.</p>
+            <form className="waitlist-form" onSubmit={submitWaitlist}>
+              <label><span>Full name</span><input autoFocus required autoComplete="name" value={fullName} onChange={(event) => setFullName(event.target.value)} placeholder="Your full name" /></label>
+              <label><span>Business name</span><input required autoComplete="organization" value={businessName} onChange={(event) => setBusinessName(event.target.value)} placeholder="Your business name" /></label>
+              <label><span>Email address</span><input required type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@business.com" /></label>
+              <label><span>Phone number <em>Optional</em></span><input type="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="+234" /></label>
+              {errorMessage && <p className="waitlist-error" role="alert">{errorMessage}</p>}
+              <button className="waitlist-submit" type="submit" disabled={submitting}>{submitting ? 'Joining…' : 'Join the waitlist'} {!submitting && <ArrowRight size={17} />}</button>
+              <button className="waitlist-later" type="button" onClick={onClose}>Maybe later — explore the website</button>
+            </form>
+          </>
+        )}
+      </section>
+    </div>
   );
 }
 
@@ -179,6 +288,19 @@ function FeatureCard({ className = '', icon, number, title, body }: { className?
 }
 
 export function MarketingSite() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+
+  useEffect(() => {
+    try {
+      const hasJoined = window.localStorage.getItem('rekoda-waitlist-joined') === 'true';
+      setWaitlistSubmitted(hasJoined);
+      setWaitlistOpen(!hasJoined);
+    } catch {
+      setWaitlistOpen(true);
+    }
+  }, []);
+
   useEffect(() => {
     document.title = 'Rekọda — Run your business with clarity';
     let description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
@@ -206,9 +328,21 @@ export function MarketingSite() {
     return () => observer.disconnect();
   }, []);
 
+  const completeWaitlist = () => {
+    try {
+      window.localStorage.setItem('rekoda-waitlist-joined', 'true');
+    } catch {
+      // The confirmation still works when browser storage is unavailable.
+    }
+    setWaitlistSubmitted(true);
+  };
+
+  const openWaitlist = () => setWaitlistOpen(true);
+
   return (
-    <div className="marketing-page" id="top">
-      <MarketingHeader />
+    <div className={`marketing-page${waitlistOpen ? ' waitlist-is-open' : ''}`} id="top">
+      <MarketingHeader onJoinWaitlist={openWaitlist} />
+      <WaitlistModal open={waitlistOpen} submitted={waitlistSubmitted} onClose={() => setWaitlistOpen(false)} onSubmitted={completeWaitlist} />
 
       <main>
         <section className="hero-section">
@@ -216,8 +350,8 @@ export function MarketingSite() {
             <div className="eyebrow"><span />Built for businesses that are building</div>
             <h1>Your business,<br />finally in one<br />clear view.</h1>
             <p>Track sales, stock, expenses, customers and invoices without the spreadsheets—or the guesswork.</p>
-            <div className="store-row"><StoreBadge store="apple" /><StoreBadge store="google" /></div>
-            <small className="trial-note">Free 30-day trial starts inside the app</small>
+            <div className="store-row"><StoreBadge store="apple" onJoinWaitlist={openWaitlist} /><StoreBadge store="google" onJoinWaitlist={openWaitlist} /></div>
+            <small className="trial-note">Apps coming soon • Join the waitlist for launch updates</small>
           </div>
           <PhoneMockup />
         </section>
@@ -290,28 +424,29 @@ export function MarketingSite() {
             <hr />
             <ul>{benefits.map((benefit) => <li key={benefit}><span><Check size={13} color="#059669" /></span>{benefit}</li>)}</ul>
             <div className="trial-card"><span><CalendarCheck size={15} color="#059669" /></span><p><strong>30-day free trial included</strong><small>Pay only if you choose to continue.</small></p></div>
+            <button className="pricing-waitlist-button" type="button" onClick={openWaitlist}>Join the waitlist <ArrowRight size={17} /></button>
             <small className="pricing-footnote">Cancel anytime. Your records stay exportable.</small>
           </article>
         </section>
 
         <section className="closing-section" id="download">
-          <span className="closing-tag"><Sparkles size={15} color="#C8F35B" /> AVAILABLE ON IOS &amp; ANDROID</span>
+          <span className="closing-tag"><Sparkles size={15} color="#C8F35B" /> COMING SOON ON IOS &amp; ANDROID</span>
           <h2>Run the business. Rekọda will help you read it.</h2>
           <p>Start with the work you already do today. The clarity follows.</p>
-          <div className="store-row"><StoreBadge store="apple" /><StoreBadge store="google" /></div>
+          <div className="store-row"><StoreBadge store="apple" onJoinWaitlist={openWaitlist} /><StoreBadge store="google" onJoinWaitlist={openWaitlist} /></div>
         </section>
       </main>
 
       <footer className="site-footer" id="contact">
         <div className="footer-main">
-          <div className="footer-brand"><a className="brand" href="#top"><span className="brand-mark">R</span><span>Rekọda</span></a><p>A clearer way to run and understand your business.</p></div>
+          <div className="footer-brand"><a className="brand" href="#top" aria-label="Rekọda home"><img className="brand-logo" src={logoImage} alt="" /></a><p>A clearer way to run and understand your business.</p></div>
           <div className="footer-links">
             <div><strong>Product</strong><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#how-it-works">How it works</a></div>
-            <div><strong>Company</strong><a href="#top">About</a><a href="mailto:hello@rekodapp.com">Contact</a><a href="mailto:support@rekodapp.com">Support</a></div>
+            <div><strong>Company</strong><a href="#top">About</a><a href="mailto:info@rekodaapp.com">info@rekodaapp.com</a></div>
             <div><strong>Legal</strong><a href="#contact">Privacy</a><a href="#contact">Terms</a><a href="#contact">Security</a></div>
           </div>
         </div>
-        <div className="footer-bottom"><span>© 2026 Rekọda. Built for the people building businesses.</span><div><a className="social-letter" href="#contact" aria-label="Instagram">ig</a><a className="social-letter" href="#contact" aria-label="LinkedIn">in</a><a className="social-letter" href="#contact" aria-label="X">x</a></div></div>
+        <div className="footer-bottom"><span>© 2026 Rekọda. Built for the people building businesses.</span><div className="social-links" aria-label="Rekọda social media"><span className="social-icon" role="img" aria-label="Instagram"><InstagramMark /></span><span className="social-icon" role="img" aria-label="LinkedIn"><LinkedInMark /></span><span className="social-icon" role="img" aria-label="X"><XMark /></span></div></div>
       </footer>
     </div>
   );
