@@ -1,4 +1,4 @@
--- Mirror the remaining Ease workspace features into normal Supabase tables.
+-- Mirror the remaining Rekọda workspace features into normal Supabase tables.
 -- Incompatible pre-existing tables are preserved, never deleted.
 
 do $$

@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useAuthStore } from '@/store/authStore';
 
-export default function EaseSplashScreen() {
+export default function RekodaSplashScreen() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const hasHydrated = useAuthStore((state) => state.hasHydrated);
@@ -39,7 +39,7 @@ export default function EaseSplashScreen() {
         </View>
 
         <Text className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark font-inter mt-2">
-          Ease
+          Rekọda
         </Text>
 
         <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark text-center leading-relaxed max-w-[260px] font-inter">

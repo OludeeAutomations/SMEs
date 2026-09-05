@@ -1,10 +1,11 @@
 # Supabase setup
 
-The mobile app uses Supabase Auth and stores each user's complete business workspace in
-`public.business_workspaces`. Local AsyncStorage is retained as an offline cache. The relational
-data migration mirrors this workspace into `business_profiles`, `products`, `customers`, `sales`,
-`sale_items`, `invoices`, `invoice_items`, `expenses`, and `suppliers` so records are visible and
-queryable as normal Supabase rows.
+The app uses Supabase Auth and treats `public.business_workspaces` as the source of truth for each
+user's complete business workspace. Every in-app mutation starts a cloud save immediately. Local
+AsyncStorage is used only as a temporary outbox after a cloud write fails, and that queued snapshot
+is retried automatically. The relational data migration mirrors each cloud save into
+`business_profiles`, `products`, `customers`, `sales`, `sale_items`, `invoices`, `invoice_items`,
+`expenses`, and `suppliers` so records are visible and queryable as normal Supabase rows.
 
 ## Apply the database migration
 
@@ -13,11 +14,12 @@ Either:
 1. Open the Supabase dashboard for this project.
 2. Go to **SQL Editor**.
 3. Paste and run the migration files in timestamp order, finishing with
-   `migrations/20260818010000_extended_business_data.sql`.
+   `migrations/20260905000000_subscriptions.sql`.
 
 The extended migration also mirrors profiles, businesses, branches, members, categories,
 inventory levels and movements, payments, projects, automation rules, AI history, and supplier
 balances. Older incompatible tables are retained with a `_legacy_20260818_ext` suffix.
+The subscription migration adds the Rekọda Pro entitlement and a database-controlled 30-day trial.
 
 Or, with the Supabase CLI authenticated and the project linked, run:
 
@@ -29,8 +31,9 @@ The migration enables row-level security. Authenticated users can only read and 
 row whose `user_id` matches their own Supabase Auth ID. The anonymous key cannot inspect or
 change another user's data.
 
-After applying it, restart Expo and sign in. Normal cloud saving is intentionally silent; the app
-only displays a plain-language notice if it has to keep changes on the device temporarily.
+After applying it, restart Expo and sign in. Any workspace left in the previous local store is
+migrated to Supabase once, then removed from that store. Normal cloud saving is intentionally
+silent; the app only displays a plain-language notice if a failed write has been queued locally.
 
 ## Configure Google mobile redirects
 

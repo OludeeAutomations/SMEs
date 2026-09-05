@@ -39,7 +39,7 @@ const workspaceTools = [
   ['Settings', 'Profile, branches, security', Settings, '#EEF2FF', '/(app)/settings'],
 ] as const;
 
-export default function EaseMoreHubScreen() {
+export default function RekodaMoreHubScreen() {
   const router = useRouter();
   const [searching, setSearching] = useState(false);
   const [query, setQuery] = useState('');

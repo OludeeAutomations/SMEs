@@ -1,6 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
 import type { Customer, Expense, Invoice, Product, Sale, Supplier } from '@/types';
 
 export interface Project { id: string; title: string; completed: boolean; createdAt: string }
@@ -46,7 +44,7 @@ export const emptyWorkspace = (): WorkspaceData => ({
 });
 const makeId = (prefix: string) => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
-export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
+export const useBusinessStore = create<BusinessState>((set, get) => {
   const update = (recipe: (workspace: WorkspaceData) => WorkspaceData) => {
     const userId = get().activeUserId;
     if (!userId) return;
@@ -56,7 +54,7 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     }));
   };
   return {
-    activeUserId: null, workspaces: {}, dirtyUsers: {}, hasHydrated: false,
+    activeUserId: null, workspaces: {}, dirtyUsers: {}, hasHydrated: true,
     setHasHydrated: (hasHydrated) => set({ hasHydrated }),
     setActiveUser: (activeUserId) => set((state) => ({
       activeUserId,
@@ -137,11 +135,7 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     setPreference: (key, value) => update((workspace) => ({ ...workspace, preferences: { ...(workspace.preferences ?? {}), [key]: value } })),
     clearWorkspace: () => { const userId = get().activeUserId; if (userId) set((state) => ({ workspaces: { ...state.workspaces, [userId]: emptyWorkspace() }, dirtyUsers: { ...state.dirtyUsers, [userId]: true } })); },
   };
-}, {
-  name: 'ease-business-data-v2', storage: createJSONStorage(() => AsyncStorage),
-  partialize: ({ workspaces, dirtyUsers }) => ({ workspaces, dirtyUsers }),
-  onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
-}));
+});
 
 export const normalizeWorkspace = (workspace?: Partial<WorkspaceData> | null): WorkspaceData => ({
   ...emptyWorkspace(), ...workspace,

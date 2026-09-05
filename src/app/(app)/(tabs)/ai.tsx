@@ -42,7 +42,7 @@ export default function AIScreen() {
       <SurfaceCard className="gap-3">
         <View className="flex-row items-center gap-2">
           <View className="h-9 w-9 items-center justify-center rounded-[14px] bg-[#EAF2FF]"><Bot size={19} color="#2563EB" /></View>
-          <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Ask Ease</Text><Text className="text-[11px] text-[#475569]">Sales, profit, stock, expenses, debt, or customers</Text></View>
+          <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Ask Rekọda</Text><Text className="text-[11px] text-[#475569]">Sales, profit, stock, expenses, debt, or customers</Text></View>
         </View>
         <TextInput
           value={question}
@@ -53,7 +53,7 @@ export default function AIScreen() {
           placeholderTextColor="#94A3B8"
           className="min-h-[76px] rounded-[5px] bg-[#F2F5FA] px-3 py-3 text-[13px] leading-5 text-[#0F172A]"
         />
-        <Pressable accessibilityRole="button" accessibilityLabel="Ask Ease" disabled={!question.trim()} onPress={() => ask()} className={`self-end flex-row items-center gap-2 rounded-[5px] px-4 py-2.5 ${question.trim() ? 'bg-[#0B1F5E]' : 'bg-[#94A3B8]'}`}>
+        <Pressable accessibilityRole="button" accessibilityLabel="Ask Rekọda" disabled={!question.trim()} onPress={() => ask()} className={`self-end flex-row items-center gap-2 rounded-[5px] px-4 py-2.5 ${question.trim() ? 'bg-[#0B1F5E]' : 'bg-[#94A3B8]'}`}>
           <Text className="text-xs font-bold text-white">Ask</Text><Send size={16} color="white" />
         </Pressable>
       </SurfaceCard>
@@ -66,7 +66,7 @@ export default function AIScreen() {
 
       {advice ? <>
         <SurfaceCard className="gap-3">
-          <View className="flex-row items-center gap-2"><Sparkles size={17} color="#2563EB" /><Text className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">Ease analysis</Text></View>
+          <View className="flex-row items-center gap-2"><Sparkles size={17} color="#2563EB" /><Text className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">Rekọda analysis</Text></View>
           <Text className="text-[11px] text-[#64748B]">You asked: “{lastQuestion}”</Text>
           <Text className="text-lg font-bold text-[#0F172A]">{advice.title}</Text>
           <Text className="text-[13px] leading-5 text-[#0F172A]">{advice.answer}</Text>
@@ -81,7 +81,7 @@ export default function AIScreen() {
           </View>)}
           {advice.dataNote ? <Text className="border-t border-[#BFDBFE] pt-3 text-[10px] leading-4 text-[#64748B]">{advice.dataNote}</Text> : null}
         </SurfaceCard>
-      </> : !hasData ? <EmptyState title="Add business data first" message="Record sales, products, expenses, invoices, or customers so Ease can give useful recommendations." /> : <SurfaceCard className="items-center gap-2 py-7"><Sparkles size={24} color="#2563EB" /><Text className="text-sm font-bold text-[#0F172A]">Ready to analyse your business</Text><Text className="text-center text-xs leading-5 text-[#475569]">Ask what to restock, where money is going, who owes you, or what to focus on next.</Text></SurfaceCard>}
+      </> : !hasData ? <EmptyState title="Add business data first" message="Record sales, products, expenses, invoices, or customers so Rekọda can give useful recommendations." /> : <SurfaceCard className="items-center gap-2 py-7"><Sparkles size={24} color="#2563EB" /><Text className="text-sm font-bold text-[#0F172A]">Ready to analyse your business</Text><Text className="text-center text-xs leading-5 text-[#475569]">Ask what to restock, where money is going, who owes you, or what to focus on next.</Text></SurfaceCard>}
     </ScrollView>
   </SafeAreaView>;
 }

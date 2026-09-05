@@ -1,6 +1,6 @@
 -- Expose the app's workspace data as normal relational tables.
--- The app keeps business_workspaces as its offline-friendly aggregate and this
--- trigger atomically mirrors every cloud save into queryable rows.
+-- The app keeps business_workspaces as its cloud aggregate and this trigger
+-- atomically mirrors every save into queryable rows.
 
 -- Preserve manually-created/older tables whose shape is incompatible with
 -- this app. PostgreSQL's CREATE TABLE IF NOT EXISTS does not add missing

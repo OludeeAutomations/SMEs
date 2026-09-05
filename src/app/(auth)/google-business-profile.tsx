@@ -29,7 +29,7 @@ export default function GoogleBusinessProfileScreen() {
     if (!currentUser) {
       const { data } = await supabase.auth.getUser();
       if (!data.user) { Alert.alert('Sign in required', 'Reconnect your Google account and try again.'); return; }
-      currentUser = { id: data.user.id, fullName: data.user.user_metadata?.full_name || 'Ease User', email: data.user.email || '' };
+      currentUser = { id: data.user.id, fullName: data.user.user_metadata?.full_name || 'Rekọda User', email: data.user.email || '' };
     }
     setSession(currentUser, {
       id: `business_${currentUser.id}`,
@@ -49,11 +49,11 @@ export default function GoogleBusinessProfileScreen() {
         <AuthBackButton fallback="/(auth)/signup" />
         <Text className="mt-1 text-[28px] font-bold leading-[31px] text-[#0F172A]">Set up your business.</Text>
         <Text className="mt-3 text-[15px] leading-[22px] text-[#475569]">
-          Your Google account is connected. Add your business details to finish setting up Ease.
+          Your Google account is connected. Add your business details to finish setting up Rekọda.
         </Text>
         <View className="mt-4 gap-4">
           <BusinessLogoPicker value={logoUrl} onChange={setLogoUrl} />
-          <Input label="Business name" placeholder="Ease Retail Limited" value={businessName} onChangeText={setBusinessName} />
+          <Input label="Business name" placeholder="Rekọda Retail Limited" value={businessName} onChangeText={setBusinessName} />
           <Input label="Category" placeholder="Retail / Wholesale" value={category} onChangeText={setCategory} />
           <Input label="Country" placeholder="Nigeria" value={country} onChangeText={setCountry} />
           <Input label="Currency" placeholder="NGN - Nigerian Naira" value={currency} onChangeText={setCurrency} />

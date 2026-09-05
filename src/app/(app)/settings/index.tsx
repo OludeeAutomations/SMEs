@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/authStore';
 
 const items = [
   ['Business profile', '/(app)/settings/business-config'],
+  ['Subscription', '/(app)/settings/subscription'],
   ['Team and roles', '/(app)/settings/roles'],
   ['Notifications', '/(app)/settings/notifications'],
   ['Customer payments', '/(app)/settings/payments'],
@@ -31,7 +32,7 @@ export default function SettingsScreen() {
     <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5">
       <ScreenHeader title="Settings" subtitle={`${business?.name ?? 'Business'} • ${user?.email ?? ''}`} />
       <SurfaceCard className="py-1">
-        {items.map(([title, route]) => <Pressable key={title} onPress={() => router.push(route)} className="flex-row items-center justify-between py-3">
+        {items.map(([title, route]) => <Pressable key={title} onPress={() => router.push(route as never)} className="flex-row items-center justify-between py-3">
           <Text className="text-[13px] font-semibold text-[#0F172A]">{title}</Text><ChevronRight size={17} color={colors.muted} />
         </Pressable>)}
       </SurfaceCard>

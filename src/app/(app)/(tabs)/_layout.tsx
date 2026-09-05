@@ -31,7 +31,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ai"
         options={{
-          title: 'Ease AI',
+          title: 'Rekọda AI',
           tabBarIcon: () => <View />,
         }}
       />

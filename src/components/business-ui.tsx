@@ -65,7 +65,7 @@ export function SyncStatusPill() {
   if (status === 'offline' || status === 'error') {
     return <View className="rounded-[5px] border border-[#FED7AA] bg-[#FFF7ED] px-3 py-2.5">
       <Text accessibilityHint={error ?? undefined} className="text-[11px] font-medium leading-4 text-[#92400E]">
-        Saved on this device. We’ll sync when you’re online.
+        Waiting for internet. Your changes are queued on this device.
       </Text>
     </View>;
   }

@@ -10,7 +10,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatMoney, todayKey } from '@/utils/format';
 
-export default function EaseHomeScreen() {
+export default function RekodaHomeScreen() {
   const router = useRouter();
   const business = useAuthStore((state) => state.business);
   const workspace = useWorkspace();

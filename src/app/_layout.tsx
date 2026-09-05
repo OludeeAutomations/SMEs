@@ -41,7 +41,7 @@ export default function RootLayout() {
           setSession(
             {
               id: session.user.id,
-              fullName: session.user.user_metadata?.full_name || 'Ease User',
+              fullName: session.user.user_metadata?.full_name || 'Rekọda User',
               email: session.user.email || '',
             },
             undefined
@@ -64,7 +64,7 @@ export default function RootLayout() {
           setSession(
             {
               id: session.user.id,
-              fullName: session.user.user_metadata?.full_name || 'Ease User',
+              fullName: session.user.user_metadata?.full_name || 'Rekọda User',
               email: session.user.email || '',
             },
             undefined

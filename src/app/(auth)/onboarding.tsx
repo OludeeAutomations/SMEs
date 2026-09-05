@@ -37,7 +37,7 @@ const slides = [
   },
 ] as const;
 
-export default function EaseOnboardingScreen() {
+export default function RekodaOnboardingScreen() {
   const router = useRouter();
   const carouselRef = useRef<ScrollView>(null);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -71,7 +71,7 @@ export default function EaseOnboardingScreen() {
             <View className="h-7 w-7 items-center justify-center rounded-[5px] bg-[#2563EB]">
               <ChartNoAxesCombined size={17} color="#FFFFFF" strokeWidth={2.2} />
             </View>
-            <Text className="text-lg font-bold text-[#0F172A]">Ease</Text>
+            <Text className="text-lg font-bold text-[#0F172A]">Rekọda</Text>
           </View>
         </View>
 

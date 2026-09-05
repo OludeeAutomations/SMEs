@@ -21,7 +21,7 @@ function GoogleMark() {
   );
 }
 
-export default function EaseSignUpScreen() {
+export default function RekodaSignUpScreen() {
   const router = useRouter();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -71,7 +71,7 @@ export default function EaseSignUpScreen() {
         if (!data.user) throw new Error('Google did not return a user account.');
         setSession({
           id: data.user.id,
-          fullName: data.user.user_metadata?.full_name || fullName.trim() || 'Ease User',
+          fullName: data.user.user_metadata?.full_name || fullName.trim() || 'Rekọda User',
           email: data.user.email || email.trim(),
         });
         authenticateLaunch();
@@ -90,7 +90,7 @@ export default function EaseSignUpScreen() {
         <AuthBackButton fallback="/(auth)/onboarding" />
         <Text className="mt-1 text-[28px] font-bold leading-[31px] text-[#0F172A]">Set up your business account.</Text>
         <Text className="mt-3 text-[15px] leading-[22px] text-[#475569]">
-          Create your Ease workspace with Google or email, then complete your business profile.
+          Create your Rekọda workspace with Google or email, then complete your business profile.
         </Text>
 
         <View className="mt-4 gap-4">

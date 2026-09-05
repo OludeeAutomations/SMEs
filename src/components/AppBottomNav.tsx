@@ -18,6 +18,8 @@ export default function AppBottomNav() {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
 
+  if (pathname === '/settings/subscription') return null;
+
   const activeLabel = pathname.startsWith('/sales')
     ? 'Sales'
     : pathname.endsWith('/ai')

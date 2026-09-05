@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
     const amount = Number(invoice.total);
     if (!Number.isFinite(amount) || amount <= 0) return json({ message: 'The invoice amount is invalid.' }, 400);
     const currency = normalizeCurrency(row.business?.currency);
-    const reference = `ease_${crypto.randomUUID().replaceAll('-', '')}`;
+    const reference = `rekoda_${crypto.randomUUID().replaceAll('-', '')}`;
     const redirectUrl = `${url}/functions/v1/payment-complete`;
     let checkoutUrl = '';
 

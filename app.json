@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "SMEs",
+    "name": "Rekọda",
     "slug": "SMEs",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,7 +28,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow Ease to access your photos so you can choose a business logo."
+          "photosPermission": "Allow Rekọda to access your photos so you can choose a business logo."
         }
       ],
       [

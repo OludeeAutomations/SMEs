@@ -36,7 +36,7 @@ export const aiService = {
     } else if (query.includes('invoice') || query.includes('debt') || query.includes('owed')) {
       aiResponse = `You have ₦1.2M in unpaid invoices. The largest outstanding invoice is POS-2041 for Blue Nile Foods (₦82,000) which was due 2 days ago.`;
     } else if (query.includes('hello') || query.includes('hi')) {
-      aiResponse = `Hello! I am Ease AI, your business operating assistant. How can I help you manage sales, inventory, or billing today?`;
+      aiResponse = `Hello! I am Rekọda AI, your business operating assistant. How can I help you manage sales, inventory, or billing today?`;
     }
 
     return {

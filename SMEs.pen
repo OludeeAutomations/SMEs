@@ -6,7 +6,7 @@
       "id": "ctcOm",
       "x": 880,
       "y": 0,
-      "name": "Ease Splash",
+      "name": "Rekọda Splash",
       "clip": true,
       "width": 390,
       "height": 844,
@@ -150,7 +150,7 @@
               "id": "DKNLe",
               "name": "Logo",
               "fill": "$text-primary",
-              "content": "Ease",
+              "content": "Rekọda",
               "fontFamily": "Geist",
               "fontSize": 28,
               "fontWeight": "700"
@@ -226,7 +226,7 @@
       "id": "zuwQm",
       "x": 1350,
       "y": 0,
-      "name": "Ease Onboarding",
+      "name": "Rekọda Onboarding",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -340,7 +340,7 @@
                 {
                   "type": "frame",
                   "id": "y9EeC",
-                  "name": "Ease Brand",
+                  "name": "Rekọda Brand",
                   "gap": 8,
                   "alignItems": "center",
                   "children": [
@@ -372,7 +372,7 @@
                       "id": "u6VB4",
                       "name": "Brand Name",
                       "fill": "$text-primary",
-                      "content": "Ease",
+                      "content": "Rekọda",
                       "fontFamily": "Geist",
                       "fontSize": 18,
                       "fontWeight": "700"
@@ -917,7 +917,7 @@
       "id": "oTFMt",
       "x": 1820,
       "y": 0,
-      "name": "Ease Login",
+      "name": "Rekọda Login",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -1284,7 +1284,7 @@
       "id": "OeBjq",
       "x": 2290,
       "y": 0,
-      "name": "Ease Sign Up",
+      "name": "Rekọda Sign Up",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -1393,7 +1393,7 @@
               "fill": "$text-secondary",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "content": "Create your Ease workspace with Google or email, then complete your business profile.",
+              "content": "Create your Rekọda workspace with Google or email, then complete your business profile.",
               "lineHeight": 1.45,
               "fontFamily": "Inter",
               "fontSize": 15,
@@ -1751,7 +1751,7 @@
       "id": "W86M03",
       "x": 2760,
       "y": 0,
-      "name": "Ease Reset",
+      "name": "Rekọda Reset",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -1978,7 +1978,7 @@
                   "fill": "$text-secondary",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "If you are locked out, contact your workspace admin or support@ease.africa for recovery.",
+                  "content": "If you are locked out, contact your workspace admin or support@rekoda.africa for recovery.",
                   "lineHeight": 1.45,
                   "fontFamily": "Inter",
                   "fontSize": 13,
@@ -2008,7 +2008,7 @@
       "id": "jbcwi",
       "x": 3230,
       "y": 0,
-      "name": "Ease OTP",
+      "name": "Rekọda OTP",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -2345,7 +2345,7 @@
       "id": "WCcLf",
       "x": 3700,
       "y": 0,
-      "name": "Ease Business Profile",
+      "name": "Rekọda Business Profile",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -2454,7 +2454,7 @@
               "fill": "$text-secondary",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "content": "Tell Ease about your company so reports, invoices, and reminders are set up correctly.",
+              "content": "Tell Rekọda about your company so reports, invoices, and reminders are set up correctly.",
               "lineHeight": 1.45,
               "fontFamily": "Inter",
               "fontSize": 15,
@@ -2603,7 +2603,7 @@
                       "id": "qfXFy",
                       "name": "Business name Placeholder",
                       "fill": "$text-muted",
-                      "content": "Ease Retail Limited",
+                      "content": "Rekọda Retail Limited",
                       "fontFamily": "Inter",
                       "fontSize": 14,
                       "fontWeight": "normal"
@@ -2860,7 +2860,7 @@
       "id": "REStz",
       "x": 4170,
       "y": 0,
-      "name": "Ease Home",
+      "name": "Rekọda Home",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -2991,7 +2991,7 @@
                           "id": "TJtRP",
                           "name": "Business Name",
                           "fill": "$text-primary",
-                          "content": "Ease Retail",
+                          "content": "Rekọda Retail",
                           "fontFamily": "Inter",
                           "fontSize": 12,
                           "fontWeight": "700"
@@ -4328,7 +4328,7 @@
       "id": "PRccY",
       "x": 4600,
       "y": 0,
-      "name": "Ease Sales Dashboard",
+      "name": "Rekọda Sales Dashboard",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -5194,7 +5194,7 @@
       "id": "mgMwN",
       "x": 5030,
       "y": 0,
-      "name": "Ease Customers",
+      "name": "Rekọda Customers",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -5960,7 +5960,7 @@
       "id": "S1aOZ",
       "x": 5460,
       "y": 0,
-      "name": "Ease Customer Profile",
+      "name": "Rekọda Customer Profile",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -6655,7 +6655,7 @@
       "id": "LR1MK",
       "x": 5930,
       "y": 0,
-      "name": "Ease Inventory Dashboard",
+      "name": "Rekọda Inventory Dashboard",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -7463,7 +7463,7 @@
       "id": "S0oGPh",
       "x": 6360,
       "y": 0,
-      "name": "Ease Product Details",
+      "name": "Rekọda Product Details",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -8340,7 +8340,7 @@
       "id": "VQesW",
       "x": 6790,
       "y": 0,
-      "name": "Ease Invoice Dashboard",
+      "name": "Rekọda Invoice Dashboard",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -9163,7 +9163,7 @@
       "id": "i3Rduz",
       "x": 7220,
       "y": 0,
-      "name": "Ease Create Invoice",
+      "name": "Rekọda Create Invoice",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -9912,7 +9912,7 @@
       "id": "d0QAWW",
       "x": 7650,
       "y": 0,
-      "name": "Ease Expense Dashboard",
+      "name": "Rekọda Expense Dashboard",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -10671,7 +10671,7 @@
       "id": "b0RyKv",
       "x": 8080,
       "y": 0,
-      "name": "Ease Supplier List",
+      "name": "Rekọda Supplier List",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -11266,7 +11266,7 @@
       "id": "eUMFb",
       "x": 8510,
       "y": 0,
-      "name": "Ease Supplier Profile",
+      "name": "Rekọda Supplier Profile",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -11923,7 +11923,7 @@
       "id": "ULt74",
       "x": 9840,
       "y": 0,
-      "name": "Ease Sales Detail",
+      "name": "Rekọda Sales Detail",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -12531,7 +12531,7 @@
       "id": "iMOW7",
       "x": 10270,
       "y": 0,
-      "name": "Ease Receipt Preview",
+      "name": "Rekọda Receipt Preview",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -12669,7 +12669,7 @@
                   "id": "V2jIcO",
                   "name": "Brand Text",
                   "fill": "$text-primary",
-                  "content": "Ease",
+                  "content": "Rekọda",
                   "fontFamily": "Geist",
                   "fontSize": 22,
                   "fontWeight": "700"
@@ -12786,7 +12786,7 @@
       "id": "SomyI",
       "x": 10700,
       "y": 0,
-      "name": "Ease Payment Confirmation",
+      "name": "Rekọda Payment Confirmation",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -13155,7 +13155,7 @@
       "id": "KmvUk",
       "x": 11130,
       "y": 0,
-      "name": "Ease Invoice Details",
+      "name": "Rekọda Invoice Details",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -13578,7 +13578,7 @@
       "id": "VYph3",
       "x": 11560,
       "y": 0,
-      "name": "Ease AI Assistant",
+      "name": "Rekọda AI Assistant",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -13896,7 +13896,7 @@
                 {
                   "type": "frame",
                   "id": "eF5J9",
-                  "name": "Ease Row",
+                  "name": "Rekọda Row",
                   "width": "fill_container",
                   "padding": [
                     12,
@@ -13908,14 +13908,14 @@
                     {
                       "type": "frame",
                       "id": "VPQbG",
-                      "name": "Ease Left",
+                      "name": "Rekọda Left",
                       "gap": 12,
                       "alignItems": "center",
                       "children": [
                         {
                           "type": "frame",
                           "id": "f1lJv",
-                          "name": "Ease Dot",
+                          "name": "Rekọda Dot",
                           "width": 36,
                           "height": 36,
                           "fill": "#E8FBF4",
@@ -13926,7 +13926,7 @@
                         {
                           "type": "icon",
                           "id": "NcABa",
-                          "name": "Ease Icon",
+                          "name": "Rekọda Icon",
                           "width": 18,
                           "height": 18,
                           "icon": "stars",
@@ -13936,16 +13936,16 @@
                         {
                           "type": "frame",
                           "id": "nTEgb",
-                          "name": "Ease Text",
+                          "name": "Rekọda Text",
                           "layout": "vertical",
                           "gap": 3,
                           "children": [
                             {
                               "type": "text",
                               "id": "CvpDN",
-                              "name": "Ease Title",
+                              "name": "Rekọda Title",
                               "fill": "$text-primary",
-                              "content": "Ease",
+                              "content": "Rekọda",
                               "fontFamily": "Inter",
                               "fontSize": 13,
                               "fontWeight": "600"
@@ -13953,7 +13953,7 @@
                             {
                               "type": "text",
                               "id": "Oz9V4",
-                              "name": "Ease Subtitle",
+                              "name": "Rekọda Subtitle",
                               "fill": "$text-secondary",
                               "content": "Revenue may grow 14% if stock gaps are fixed",
                               "fontFamily": "Inter",
@@ -13967,7 +13967,7 @@
                     {
                       "type": "text",
                       "id": "oi9nK",
-                      "name": "Ease Value",
+                      "name": "Rekọda Value",
                       "fill": "$text-primary",
                       "content": "₦5.1M",
                       "fontFamily": "Geist Mono",
@@ -14248,7 +14248,7 @@
       "id": "FyPne",
       "x": 11990,
       "y": 0,
-      "name": "Ease Reports",
+      "name": "Rekọda Reports",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -14776,7 +14776,7 @@
       "id": "jqnKC",
       "x": 12420,
       "y": 0,
-      "name": "Ease Automation",
+      "name": "Rekọda Automation",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -15419,7 +15419,7 @@
       "id": "ZZwkj",
       "x": 12850,
       "y": 0,
-      "name": "Ease Settings",
+      "name": "Rekọda Settings",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -16141,7 +16141,7 @@
       "id": "IhkFU",
       "x": 13320,
       "y": 0,
-      "name": "Ease Notifications Center",
+      "name": "Rekọda Notifications Center",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -16971,7 +16971,7 @@
       "id": "Y3wNzd",
       "x": 13750,
       "y": 0,
-      "name": "Ease Add Product",
+      "name": "Rekọda Add Product",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -17440,7 +17440,7 @@
       "id": "yW74w",
       "x": 14180,
       "y": 0,
-      "name": "Ease Add Expense",
+      "name": "Rekọda Add Expense",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -17860,7 +17860,7 @@
       "id": "husT0",
       "x": 880,
       "y": 1030,
-      "name": "Ease Design System Showcase",
+      "name": "Rekọda Design System Showcase",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -18468,7 +18468,7 @@
       "id": "dD2g6",
       "x": 14650,
       "y": 0,
-      "name": "Ease Sales History",
+      "name": "Rekọda Sales History",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -19427,7 +19427,7 @@
       "id": "BOvXK",
       "x": 15080,
       "y": 0,
-      "name": "Ease Record Sale",
+      "name": "Rekọda Record Sale",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -19988,7 +19988,7 @@
       "id": "lGN9g",
       "x": 15510,
       "y": 0,
-      "name": "Ease Add Customer",
+      "name": "Rekọda Add Customer",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -20360,7 +20360,7 @@
       "id": "x0atTY",
       "x": 15940,
       "y": 0,
-      "name": "Ease Inventory Categories",
+      "name": "Rekọda Inventory Categories",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -20860,7 +20860,7 @@
       "id": "vtgSN",
       "x": 16410,
       "y": 0,
-      "name": "Ease Invoice History",
+      "name": "Rekọda Invoice History",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -21421,7 +21421,7 @@
       "id": "rZdKj",
       "x": 16840,
       "y": 0,
-      "name": "Ease Expense Analytics",
+      "name": "Rekọda Expense Analytics",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -21894,7 +21894,7 @@
       "id": "HegOC",
       "x": 17270,
       "y": 0,
-      "name": "Ease Supplier Bills",
+      "name": "Rekọda Supplier Bills",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -22384,7 +22384,7 @@
       "id": "PzFQd",
       "x": 18170,
       "y": 0,
-      "name": "Ease Sales History Cash",
+      "name": "Rekọda Sales History Cash",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -23343,7 +23343,7 @@
       "id": "Z2TGN",
       "x": 18640,
       "y": 0,
-      "name": "Ease Sales History Transfer",
+      "name": "Rekọda Sales History Transfer",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -24302,7 +24302,7 @@
       "id": "LaHgm",
       "x": 19110,
       "y": 0,
-      "name": "Ease More Hub",
+      "name": "Rekọda More Hub",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -25419,7 +25419,7 @@
       "id": "drSal1",
       "x": 19580,
       "y": 0,
-      "name": "Ease Draft Sales",
+      "name": "Rekọda Draft Sales",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -25921,7 +25921,7 @@
       "id": "stAdj2",
       "x": 20050,
       "y": 0,
-      "name": "Ease Inventory Stock Adjustments",
+      "name": "Rekọda Inventory Stock Adjustments",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -26288,7 +26288,7 @@
       "id": "lwStk3",
       "x": 20520,
       "y": 0,
-      "name": "Ease Low-Stock Alert Monitor",
+      "name": "Rekọda Low-Stock Alert Monitor",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -26696,7 +26696,7 @@
       "id": "dbBok4",
       "x": 20990,
       "y": 0,
-      "name": "Ease Debtor Book",
+      "name": "Rekọda Debtor Book",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -27113,7 +27113,7 @@
       "id": "rcTpl5",
       "x": 21460,
       "y": 0,
-      "name": "Ease Receipts Template Editor",
+      "name": "Rekọda Receipts Template Editor",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -27250,7 +27250,7 @@
                   "id": "rcTpl5_prev_logo_5hGw",
                   "name": "Prev Logo",
                   "fill": "$accent-blue",
-                  "content": "[EASE LOGO]",
+                  "content": "[REKỌDA LOGO]",
                   "textAlign": "center",
                   "fontFamily": "Geist",
                   "fontSize": 12,
@@ -27261,7 +27261,7 @@
                   "id": "rcTpl5_prev_title_WlG1",
                   "name": "Prev Title",
                   "fill": "$text-primary",
-                  "content": "Ease Retail Limited",
+                  "content": "Rekọda Retail Limited",
                   "textAlign": "center",
                   "fontFamily": "Geist",
                   "fontSize": 15,
@@ -27356,7 +27356,7 @@
                           "id": "rcTpl5_header_text_val_CLar",
                           "name": "Header Text Val",
                           "fill": "$text-primary",
-                          "content": "Welcome to Ease Retail HQ",
+                          "content": "Welcome to Rekọda Retail HQ",
                           "fontFamily": "Inter",
                           "fontSize": 13,
                           "fontWeight": "normal"
@@ -27430,7 +27430,7 @@
       "id": "exCat6",
       "x": 21930,
       "y": 0,
-      "name": "Ease Expense Categories Registry",
+      "name": "Rekọda Expense Categories Registry",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -27843,7 +27843,7 @@
       "id": "pjTsk8",
       "x": 22870,
       "y": 0,
-      "name": "Ease Projects & Tasks",
+      "name": "Rekọda Projects & Tasks",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -28258,7 +28258,7 @@
       "id": "bbCfg9",
       "x": 23340,
       "y": 0,
-      "name": "Ease Business & Branch Configuration",
+      "name": "Rekọda Business & Branch Configuration",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -28405,7 +28405,7 @@
                   "id": "bbCfg9_det_name_4GD6",
                   "name": "Det Name",
                   "fill": "$text-primary",
-                  "content": "Ease Retail Limited",
+                  "content": "Rekọda Retail Limited",
                   "fontFamily": "Geist",
                   "fontSize": 15,
                   "fontWeight": "700"
@@ -28588,7 +28588,7 @@
       "id": "urPerA",
       "x": 23810,
       "y": 0,
-      "name": "Ease User Roles & Permissions Access Matrix",
+      "name": "Rekọda User Roles & Permissions Access Matrix",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -28924,7 +28924,7 @@
       "id": "pyGtwB",
       "x": 24280,
       "y": 0,
-      "name": "Ease Payment Integration Gateway Setup",
+      "name": "Rekọda Payment Integration Gateway Setup",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -29218,7 +29218,7 @@
       "id": "csTplC",
       "x": 24750,
       "y": 0,
-      "name": "Ease Custom Templates",
+      "name": "Rekọda Custom Templates",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -29511,7 +29511,7 @@
       "id": "ZB2Q0",
       "x": 2290,
       "y": 900,
-      "name": "Ease Google Business Setup",
+      "name": "Rekọda Google Business Setup",
       "clip": true,
       "width": 390,
       "fill": "#FAFAFA",
@@ -29620,7 +29620,7 @@
               "fill": "$text-secondary",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "content": "Your Google account is connected. Add your business details to finish setting up Ease.",
+              "content": "Your Google account is connected. Add your business details to finish setting up Rekọda.",
               "lineHeight": 1.45,
               "fontFamily": "Inter",
               "fontSize": 15,
@@ -29769,7 +29769,7 @@
                       "id": "Zr01Y",
                       "name": "Business name Placeholder",
                       "fill": "$text-muted",
-                      "content": "Ease Retail Limited",
+                      "content": "Rekọda Retail Limited",
                       "fontFamily": "Inter",
                       "fontSize": 14,
                       "fontWeight": "normal"
@@ -30016,6 +30016,598 @@
               "icon": "arrow_back",
               "library": "Material Symbols Outlined",
               "fill": "#0F172A"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "X7mgmX",
+      "x": 12850,
+      "y": 954,
+      "name": "Rekọda Subscription",
+      "clip": true,
+      "width": 390,
+      "fill": "#FAFAFA",
+      "cornerRadius": 32,
+      "layout": "vertical",
+      "padding": [
+        0,
+        0,
+        24,
+        0
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "sd6K5",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "height": 62,
+          "fill": "$surface",
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "s0mCJ",
+              "name": "Time",
+              "fill": "$text-primary",
+              "content": "9:41 AM",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "zuwZ2",
+              "name": "Indicators",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "F0Irrh",
+                  "name": "Signal",
+                  "fill": "$text-primary",
+                  "width": 18,
+                  "height": 10
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "AjPP4",
+                  "name": "WiFi",
+                  "fill": "$text-primary",
+                  "width": 14,
+                  "height": 10
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "y2U2t",
+                  "name": "Battery",
+                  "fill": "$text-primary",
+                  "width": 24,
+                  "height": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rahDD",
+          "name": "Subscription Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            20,
+            20,
+            0,
+            20
+          ],
+          "children": [
+            {
+              "type": "icon",
+              "id": "N8AkX",
+              "name": "Back Arrow",
+              "width": 24,
+              "height": 24,
+              "icon": "arrow_back",
+              "library": "Material Symbols Outlined",
+              "fill": "#0F172A"
+            },
+            {
+              "type": "frame",
+              "id": "yQVEK",
+              "name": "Subscription Header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "w0QjKm",
+                  "name": "Title",
+                  "fill": "#0F172A",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Start your free trial.",
+                  "lineHeight": 1.08,
+                  "fontFamily": "Geist",
+                  "fontSize": 28,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "yB8lr",
+                  "name": "Subtitle",
+                  "fill": "#475569",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Use every Rekọda feature free for 30 days, then continue on one simple monthly plan.",
+                  "lineHeight": 1.45,
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "bMrew",
+              "name": "Trial Offer",
+              "width": "fill_container",
+              "height": 184,
+              "fill": "#0B1F5E",
+              "cornerRadius": 5,
+              "layout": "vertical",
+              "gap": 10,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "JdfwD",
+                  "name": "Free Trial Badge",
+                  "fill": "#1D4ED8",
+                  "cornerRadius": 5,
+                  "padding": [
+                    6,
+                    9
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ImAsZ",
+                      "name": "Free Trial Badge Label",
+                      "fill": "#FFFFFF",
+                      "content": "30 DAYS FREE",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "mk3P0",
+                  "name": "Offer Title",
+                  "fill": "#FFFFFF",
+                  "content": "Rekọda Pro",
+                  "fontFamily": "Geist",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "A3dbb",
+                  "name": "Monthly Price",
+                  "gap": 7,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "kaU9P",
+                      "name": "Price",
+                      "fill": "#FFFFFF",
+                      "content": "₦5,000",
+                      "fontFamily": "Geist Mono",
+                      "fontSize": 30,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xA1Db",
+                      "name": "Price Period",
+                      "fill": "#BFDBFE",
+                      "content": "/ month after trial",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "x5eue9",
+                  "name": "No Charge Note",
+                  "fill": "#93C5FD",
+                  "content": "No charge today. Cancel anytime.",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "veUwV",
+              "name": "Plan Benefits",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 11,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "k4Jxjc",
+                  "name": "Benefits Title",
+                  "fill": "#0F172A",
+                  "content": "Everything you need to run your business",
+                  "fontFamily": "Geist",
+                  "fontSize": 16,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "eaeWp",
+                  "name": "Sales, invoices, and customer records Benefit",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "C0a0K",
+                      "name": "Sales, invoices, and customer records Icon Wrap",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#EAF2FF",
+                      "cornerRadius": 5,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "rZn8b",
+                          "name": "Sales, invoices, and customer records Icon",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "point_of_sale",
+                          "library": "Material Symbols Rounded",
+                          "fill": "#1D4ED8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "BufkX",
+                      "name": "Sales, invoices, and customer records Label",
+                      "fill": "#334155",
+                      "content": "Sales, invoices, and customer records",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "X4y7o",
+                  "name": "Inventory and low-stock alerts Benefit",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kitBH",
+                      "name": "Inventory and low-stock alerts Icon Wrap",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#EAF2FF",
+                      "cornerRadius": 5,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "fCcOA",
+                          "name": "Inventory and low-stock alerts Icon",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "inventory_2",
+                          "library": "Material Symbols Rounded",
+                          "fill": "#1D4ED8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "H912v",
+                      "name": "Inventory and low-stock alerts Label",
+                      "fill": "#334155",
+                      "content": "Inventory and low-stock alerts",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "PCdAw",
+                  "name": "Reports and AI business insights Benefit",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "zXbHa",
+                      "name": "Reports and AI business insights Icon Wrap",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#EAF2FF",
+                      "cornerRadius": 5,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "vpk52",
+                          "name": "Reports and AI business insights Icon",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "monitoring",
+                          "library": "Material Symbols Rounded",
+                          "fill": "#1D4ED8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "MajrD",
+                      "name": "Reports and AI business insights Label",
+                      "fill": "#334155",
+                      "content": "Reports and AI business insights",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qhKZN",
+                  "name": "Branches, teams, and automated reminders Benefit",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "eG46C",
+                      "name": "Branches, teams, and automated reminders Icon Wrap",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#EAF2FF",
+                      "cornerRadius": 5,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "uPtCj",
+                          "name": "Branches, teams, and automated reminders Icon",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "groups",
+                          "library": "Material Symbols Rounded",
+                          "fill": "#1D4ED8"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "WPJLK",
+                      "name": "Branches, teams, and automated reminders Label",
+                      "fill": "#334155",
+                      "content": "Branches, teams, and automated reminders",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Qw2Gd",
+              "name": "Trial Timeline",
+              "width": "fill_container",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "i6ThRN",
+                  "name": "Today Step",
+                  "width": "fill_container",
+                  "fill": "#EFF6FF",
+                  "cornerRadius": 5,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BdS31",
+                      "name": "Today Label",
+                      "fill": "#2563EB",
+                      "content": "TODAY",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "CfFAD",
+                      "name": "Today Value",
+                      "fill": "#0F172A",
+                      "content": "Start free",
+                      "fontFamily": "Geist",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fBEmK",
+                  "name": "Day 30 Step",
+                  "width": "fill_container",
+                  "fill": "#F2F5FA",
+                  "cornerRadius": 5,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "a4LLZU",
+                      "name": "Day 30 Label",
+                      "fill": "#64748B",
+                      "content": "DAY 30",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "uUtb7",
+                      "name": "Day 30 Value",
+                      "fill": "#0F172A",
+                      "content": "₦5,000 monthly",
+                      "fontFamily": "Geist",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mvqhN",
+              "name": "Subscription Actions",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "o92Ud",
+                  "name": "Start Free Trial Button",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "#0B1F5E",
+                  "cornerRadius": 5,
+                  "stroke": "#0B1F5E",
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#0B1F5E20",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 20
+                  },
+                  "gap": 8,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "lepTR",
+                      "name": "Start Free Trial Label",
+                      "fill": "#FFFFFF",
+                      "content": "Start 30-day free trial",
+                      "fontFamily": "Geist",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "F96Ry",
+                      "name": "Continue Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow_forward",
+                      "library": "Material Symbols Outlined",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "LfAKV",
+                  "name": "Billing Assurance",
+                  "fill": "#64748B",
+                  "content": "You won’t be charged until your trial ends.",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "s1L5L",
+                  "name": "Restore Purchase Link",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vdb19",
+                      "name": "Restore Prompt",
+                      "fill": "#64748B",
+                      "content": "Already subscribed?",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "QMUc1",
+                      "name": "Restore Label",
+                      "fill": "#2563EB",
+                      "content": "Restore purchase",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

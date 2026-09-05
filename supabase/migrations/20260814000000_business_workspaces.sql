@@ -1,4 +1,4 @@
--- Ease cloud workspace. Run with `supabase db push` or paste into the Supabase SQL editor.
+-- Rekọda cloud workspace. Run with `supabase db push` or paste into the Supabase SQL editor.
 create table if not exists public.business_workspaces (
   user_id uuid primary key references auth.users(id) on delete cascade,
   business jsonb not null default '{}'::jsonb,

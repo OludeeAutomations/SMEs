@@ -41,7 +41,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function EaseLoginScreen() {
+export default function RekodaLoginScreen() {
   const router = useRouter();
   const [isSigningIn, setIsSigningIn] = React.useState(false);
   const [googleLoading, setGoogleLoading] = React.useState(false);
@@ -64,7 +64,7 @@ export default function EaseLoginScreen() {
       if (!sessionData.user) throw new Error('No user session was returned.');
       setSession({
         id: sessionData.user.id,
-        fullName: sessionData.user.user_metadata?.full_name || 'Ease User',
+        fullName: sessionData.user.user_metadata?.full_name || 'Rekọda User',
         email: sessionData.user.email || data.email,
       });
       authenticateLaunch();
@@ -86,7 +86,7 @@ export default function EaseLoginScreen() {
         if (!data.user) throw new Error('Google did not return a user account.');
         setSession({
           id: data.user.id,
-          fullName: data.user.user_metadata?.full_name || 'Ease User',
+          fullName: data.user.user_metadata?.full_name || 'Rekọda User',
           email: data.user.email || '',
         });
         authenticateLaunch();

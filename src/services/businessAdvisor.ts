@@ -200,7 +200,7 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
       title: 'Customer insight',
       answer: topCustomer ? `${topCustomer.fullName} is the highest-value recorded customer with ${formatMoney(topCustomer.totalBought, currency)} in purchases.` : 'There is not enough customer purchase history yet.',
       insights: [`${workspace.customers.length} customers are saved.`, `${workspace.customers.filter((customer) => customer.amountOwed > 0).length} have an outstanding balance.`],
-      actions: topCustomer ? ['Thank high-value customers and offer a relevant repeat-purchase incentive.', 'Follow up customers with balances before extending more credit.'] : ['Attach customers to sales so Ease can identify loyal and at-risk customers.'],
+      actions: topCustomer ? ['Thank high-value customers and offer a relevant repeat-purchase incentive.', 'Follow up customers with balances before extending more credit.'] : ['Attach customers to sales so Rekọda can identify loyal and at-risk customers.'],
     };
   }
 
@@ -217,6 +217,6 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
     answer: `Revenue this month is ${formatMoney(revenue, currency)}, estimated profit is ${formatMoney(estimatedProfit, currency)}, and ${formatMoney(receivables, currency)} is still unpaid.`,
     insights: [changeText(revenue, previousRevenue), `${lowStock.length} low-stock items and ${overdue.length} overdue invoices need attention.`],
     actions: priorities.slice(0, 3),
-    dataNote: 'Advice is based only on transactions and stock recorded in Ease.',
+    dataNote: 'Advice is based only on transactions and stock recorded in Rekọda.',
   };
 }

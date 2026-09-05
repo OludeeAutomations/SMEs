@@ -22,7 +22,7 @@ export const paystackService = {
     accessCode: string;
     reference: string;
   }> => {
-    const reference = params.reference || `EASE-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const reference = params.reference || `REKODA-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Simulate API round-trip delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
