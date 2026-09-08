@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -13,16 +13,30 @@ import { formatMoney, parseAmount } from '@/utils/format';
 
 export default function RecordSaleScreen() {
   const router = useRouter();
+  const { draftId } = useLocalSearchParams<{ draftId?: string }>();
   const workspace = useWorkspace();
   const addSale = useBusinessStore((state) => state.addSale);
+  const saveSaleDraft = useBusinessStore((state) => state.saveSaleDraft);
+  const deleteSaleDraft = useBusinessStore((state) => state.deleteSaleDraft);
   const currency = useAuthStore((state) => state.business?.currency ?? 'NGN');
-  const [customerId, setCustomerId] = useState('');
-  const [productId, setProductId] = useState('');
-  const [item, setItem] = useState('');
-  const [amount, setAmount] = useState('');
-  const [quantity, setQuantity] = useState('1');
-  const [payment, setPayment] = useState<'CASH' | 'TRANSFER' | 'CARD'>('CASH');
+  const draft = workspace.saleDrafts.find((candidate) => candidate.id === draftId);
+  const [customerId, setCustomerId] = useState(draft?.customerId ?? '');
+  const [productId, setProductId] = useState(draft?.productId ?? '');
+  const [item, setItem] = useState(draft?.item ?? '');
+  const [amount, setAmount] = useState(draft ? String(draft.amount) : '');
+  const [quantity, setQuantity] = useState(draft ? String(draft.quantity) : '1');
+  const [payment, setPayment] = useState<'CASH' | 'TRANSFER' | 'CARD'>(draft?.paymentMethod ?? 'CASH');
   const selectedProduct = workspace.products.find((product) => product.id === productId);
+
+  useEffect(() => {
+    if (!draft) return;
+    setCustomerId(draft.customerId ?? '');
+    setProductId(draft.productId ?? '');
+    setItem(draft.item);
+    setAmount(String(draft.amount));
+    setQuantity(String(draft.quantity));
+    setPayment(draft.paymentMethod);
+  }, [draft]);
 
   const selectProduct = (id: string) => {
     const product = workspace.products.find((candidate) => candidate.id === id);
@@ -46,7 +60,24 @@ export default function RecordSaleScreen() {
       total,
       paymentMethod: payment,
     });
-    router.replace(`/(app)/sales/${sale.id}` as never);
+    if (draftId) deleteSaleDraft(draftId);
+    router.replace(`/(app)/sales/payment-confirmation?saleId=${sale.id}` as never);
+  };
+
+  const saveDraft = () => {
+    const cleanItem = item.trim();
+    const price = parseAmount(amount);
+    if (!cleanItem || price <= 0) return Alert.alert('Check draft', 'Enter an item and a valid unit price first.');
+    saveSaleDraft({
+      id: draftId,
+      customerId: customerId || undefined,
+      productId: productId || undefined,
+      item: cleanItem,
+      amount: price,
+      quantity: Math.max(1, Math.floor(parseAmount(quantity))),
+      paymentMethod: payment,
+    });
+    Alert.alert('Draft saved', 'You can resume this sale from Draft sales.', [{ text: 'Done', onPress: () => router.replace('/(app)/sales/drafts') }]);
   };
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
@@ -98,6 +129,7 @@ export default function RecordSaleScreen() {
         <Text className="mt-2 font-mono text-xl font-bold text-[#2563EB]">{formatMoney(total, currency)}</Text>
       </SurfaceCard>
       <Button title="Complete sale" onPress={save} className="h-14 rounded-[5px]" />
+      <Button title={draftId ? 'Update draft' : 'Save as draft'} variant="secondary" onPress={saveDraft} />
     </ScrollView>
   </SafeAreaView>;
 }

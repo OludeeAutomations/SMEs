@@ -1,9 +1,9 @@
 # Supabase setup
 
 The app uses Supabase Auth and treats `public.business_workspaces` as the source of truth for each
-user's complete business workspace. Every in-app mutation starts a cloud save immediately. Local
-AsyncStorage is used only as a temporary outbox after a cloud write fails, and that queued snapshot
-is retried automatically. The relational data migration mirrors each cloud save into
+user's complete business workspace. Every in-app mutation is saved to local AsyncStorage first and
+then starts a cloud save. Failed cloud writes stay queued and retry automatically, so restarting the
+app does not discard local work. The relational data migration mirrors each cloud save into
 `business_profiles`, `products`, `customers`, `sales`, `sale_items`, `invoices`, `invoice_items`,
 `expenses`, and `suppliers` so records are visible and queryable as normal Supabase rows.
 

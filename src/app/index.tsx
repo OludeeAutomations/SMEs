@@ -24,7 +24,7 @@ export default function RekodaSplashScreen() {
       <View />
 
       <View className="items-center px-6 gap-y-4">
-        <BrandLogo variant="mark" width={156} />
+        <BrandLogo width={236} />
 
         <Text className="max-w-[280px] text-center font-inter text-base leading-relaxed text-text-secondary-light">
           The AI business operating system for SMEs across Africa.

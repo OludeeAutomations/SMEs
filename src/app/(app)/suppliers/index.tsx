@@ -50,6 +50,7 @@ export default function SuppliersScreen() {
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
     <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
       <ScreenHeader title="Suppliers" actionLabel="Supplier" onAction={() => setAdding((value) => !value)} />
+      <SurfaceCard className="py-0"><DataRow title="Supplier bills" subtitle="Track amounts due and paid" onPress={() => router.push('/(app)/suppliers/bills')} /></SurfaceCard>
       {adding ? <SurfaceCard className="gap-3">
         <Input label="Supplier name" placeholder="Business name" value={name} onChangeText={setName} />
         <Input label="Phone number" placeholder="+234..." value={phone} onChangeText={setPhone} keyboardType="phone-pad" />

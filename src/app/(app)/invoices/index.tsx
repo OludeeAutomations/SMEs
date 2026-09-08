@@ -8,6 +8,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { recentMonthBuckets, sumByBuckets } from '@/utils/analytics';
 import { formatDate, formatMoney } from '@/utils/format';
+import { effectiveInvoiceStatus } from '@/utils/businessMetrics';
 
 export default function InvoicesScreen() {
   const router = useRouter();
@@ -26,6 +27,11 @@ export default function InvoicesScreen() {
         <MetricCard label="Outstanding" value={formatMoney(outstanding, currency)} color={colors.amber} />
         <MetricCard label="Invoices" value={String(workspace.invoices.length)} color={colors.blue} />
       </View>
+      <SurfaceCard className="py-0">
+        <DataRow title="Invoice history" subtitle="Filter by payment status" onPress={() => router.push('/(app)/invoices/history')} />
+        <Divider />
+        <DataRow title="Invoice settings" subtitle="Prefix and footer message" onPress={() => router.push('/(app)/invoices/templates')} />
+      </SurfaceCard>
 
       {hasTrend ? <SurfaceCard className="gap-4">
         <View className="flex-row items-center justify-between">
@@ -37,7 +43,7 @@ export default function InvoicesScreen() {
 
       {workspace.invoices.length ? <SurfaceCard className="py-0">
         {workspace.invoices.map((invoice, index) => <React.Fragment key={invoice.id}>
-          <DataRow title={invoice.customerName} subtitle={`${invoice.status} · due ${formatDate(invoice.dueDate)}`} value={formatMoney(invoice.total, currency)} onPress={() => router.push(`/(app)/invoices/${invoice.id}` as never)} />
+          <DataRow title={invoice.customerName} subtitle={`${effectiveInvoiceStatus(invoice)} · due ${formatDate(invoice.dueDate)}`} value={formatMoney(invoice.total, currency)} onPress={() => router.push(`/(app)/invoices/${invoice.id}` as never)} />
           {index < workspace.invoices.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No invoices yet" message="Create an invoice after adding a customer." actionLabel="Create invoice" onAction={() => router.push('/(app)/invoices/create')} />}

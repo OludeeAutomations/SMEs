@@ -34,6 +34,8 @@ const mergeWorkspaces = (cloud: WorkspaceData, local: WorkspaceData): WorkspaceD
   inventoryMovements: mergeRows(cloud.inventoryMovements, local.inventoryMovements),
   aiConversations: mergeRows(cloud.aiConversations, local.aiConversations),
   aiMessages: mergeRows(cloud.aiMessages, local.aiMessages),
+  saleDrafts: mergeRows(cloud.saleDrafts, local.saleDrafts),
+  supplierBills: mergeRows(cloud.supplierBills, local.supplierBills),
 });
 
 const hasWorkspaceContent = (workspace: WorkspaceData) =>
@@ -42,7 +44,7 @@ const hasWorkspaceContent = (workspace: WorkspaceData) =>
   workspace.projects.length > 0 || workspace.expenseCategories.length > 0 ||
   workspace.inventoryCategories.length > 0 || workspace.teamMembers.length > 0 ||
   workspace.inventoryMovements.length > 0 || workspace.aiConversations.length > 0 ||
-  workspace.aiMessages.length > 0 || Object.keys(workspace.automations).length > 0 ||
+  workspace.aiMessages.length > 0 || workspace.saleDrafts.length > 0 || workspace.supplierBills.length > 0 || Object.keys(workspace.automations).length > 0 ||
   Object.keys(workspace.preferences).length > 0;
 
 export function useBusinessSync() {
@@ -61,7 +63,10 @@ export function useBusinessSync() {
     let initializing = false;
     let saving = false;
     let applyingCloudState = false;
-    let pendingBeforeBaseline: WorkspaceData | null = null;
+    const persistedState = useBusinessStore.getState();
+    let pendingBeforeBaseline: WorkspaceData | null = persistedState.dirtyUsers[userId]
+      ? normalizeWorkspace(persistedState.workspaces[userId])
+      : null;
     let recoveryWorkspace: WorkspaceData | null = null;
     let pending: PendingSave | null = null;
     let retryTimer: ReturnType<typeof setTimeout> | null = null;
@@ -159,9 +164,7 @@ export function useBusinessSync() {
           const queuedWorkspace = remote
             ? mergeWorkspaces(normalizeWorkspace(remote.data), queued.workspace)
             : queued.workspace;
-          const workspace = pendingBeforeBaseline
-            ? mergeWorkspaces(queuedWorkspace, pendingBeforeBaseline)
-            : queuedWorkspace;
+          const workspace = pendingBeforeBaseline ?? queuedWorkspace;
           pendingBeforeBaseline = null;
           recoveryWorkspace = workspace;
           replaceFromCloud(workspace);
@@ -182,9 +185,7 @@ export function useBusinessSync() {
         const remote = await businessSyncService.load(userId);
         if (legacy && (legacy.dirty || !remote)) {
           const currentBusiness = useAuthStore.getState().business;
-          const workspace = pendingBeforeBaseline
-            ? mergeWorkspaces(legacy.workspace, pendingBeforeBaseline)
-            : legacy.workspace;
+          const workspace = pendingBeforeBaseline ?? legacy.workspace;
           pendingBeforeBaseline = null;
           recoveryWorkspace = workspace;
           replaceFromCloud(workspace);
@@ -198,9 +199,7 @@ export function useBusinessSync() {
 
         if (remote) {
           const remoteWorkspace = normalizeWorkspace(remote.data);
-          const workspace = pendingBeforeBaseline
-            ? mergeWorkspaces(remoteWorkspace, pendingBeforeBaseline)
-            : remoteWorkspace;
+          const workspace = pendingBeforeBaseline ?? remoteWorkspace;
           const hadPendingChanges = pendingBeforeBaseline !== null;
           pendingBeforeBaseline = null;
           recoveryWorkspace = hadPendingChanges ? workspace : null;
@@ -229,9 +228,7 @@ export function useBusinessSync() {
       } catch (error) {
         const fallback = recoveryWorkspace ?? legacy?.workspace;
         if (fallback) {
-          const workspace = pendingBeforeBaseline
-            ? mergeWorkspaces(fallback, pendingBeforeBaseline)
-            : fallback;
+          const workspace = pendingBeforeBaseline ?? fallback;
           pendingBeforeBaseline = null;
           replaceFromCloud(workspace);
           try {

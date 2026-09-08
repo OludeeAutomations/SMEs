@@ -6,6 +6,7 @@ import { BarChart, MetricCard, SurfaceCard, colors } from '@/components/dashboar
 import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatMoney } from '@/utils/format';
+import { costOfGoodsSold } from '@/utils/businessMetrics';
 
 const bucketForDate = (value: string) => {
   const day = Number(value.slice(8, 10));
@@ -22,7 +23,8 @@ export default function ReportsScreen() {
   const monthlyExpenses = workspace.expenses.filter((expense) => expense.date.startsWith(month));
   const revenue = sales.reduce((total, sale) => total + sale.total, 0);
   const expenses = monthlyExpenses.reduce((total, expense) => total + expense.amount, 0);
-  const profit = revenue - expenses;
+  const costOfSales = costOfGoodsSold(workspace.products, sales);
+  const profit = revenue - expenses - costOfSales;
   const receivables = workspace.invoices.filter((invoice) => invoice.status !== 'PAID').reduce((total, invoice) => total + invoice.total, 0);
   const weeklyRevenue = [0, 0, 0, 0, 0];
   const weeklyExpenses = [0, 0, 0, 0, 0];
@@ -42,12 +44,13 @@ export default function ReportsScreen() {
       <ScreenHeader title="Reports" subtitle="Calculated from your sales, expenses, and invoices." />
       <View className="flex-row gap-3">
         <MetricCard label="Revenue" value={formatMoney(revenue, currency)} color={colors.blue} />
-        <MetricCard label="Net" value={formatMoney(profit, currency)} color={profit >= 0 ? colors.green : colors.amber} />
+        <MetricCard label="Net profit" value={formatMoney(profit, currency)} color={profit >= 0 ? colors.green : colors.amber} />
       </View>
       <View className="flex-row gap-3">
         <MetricCard label="Expenses" value={formatMoney(expenses, currency)} />
-        <MetricCard label="Receivables" value={formatMoney(receivables, currency)} color={colors.amber} />
+        <MetricCard label="Cost of sales" value={formatMoney(costOfSales, currency)} color={colors.purple} />
       </View>
+      <MetricCard label="Receivables" value={formatMoney(receivables, currency)} color={colors.amber} />
 
       {hasMonthlyActivity ? <SurfaceCard className="gap-5">
         <View className="flex-row items-center justify-between">

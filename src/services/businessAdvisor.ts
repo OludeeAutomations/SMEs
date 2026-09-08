@@ -95,6 +95,11 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
   const expenseByCategory = new Map<string, number>();
   currentExpenses.forEach((expense) => expenseByCategory.set(expense.category, (expenseByCategory.get(expense.category) ?? 0) + expense.amount));
   const topExpense = [...expenseByCategory.entries()].sort((a, b) => b[1] - a[1])[0];
+  const unpaidSupplierBills = workspace.supplierBills.filter((bill) => bill.status === 'UNPAID');
+  const supplierPayables = sum(unpaidSupplierBills.map((bill) => bill.amount));
+  const today = `${monthKey(now)}-${String(now.getDate()).padStart(2, '0')}`;
+  const overdueSupplierBills = unpaidSupplierBills.filter((bill) => bill.dueDate < today);
+  const openTasks = workspace.projects.filter((project) => !project.completed);
 
   const namedProduct = workspace.products.find((product) => query.includes(normalize(product.name)));
   if (namedProduct) {
@@ -204,12 +209,37 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
     };
   }
 
+  if (includesAny(query, ['supplier', 'vendor', 'bill', 'payable', 'owe supplier'])) {
+    const largestBill = [...unpaidSupplierBills].sort((a, b) => b.amount - a.amount)[0];
+    return {
+      title: 'Supplier and bills review',
+      answer: `${unpaidSupplierBills.length} unpaid supplier ${unpaidSupplierBills.length === 1 ? 'bill totals' : 'bills total'} ${formatMoney(supplierPayables, currency)}.`,
+      insights: [
+        `${workspace.suppliers.length} suppliers are saved.`,
+        overdueSupplierBills.length ? `${overdueSupplierBills.length} supplier ${overdueSupplierBills.length === 1 ? 'bill is' : 'bills are'} overdue.` : 'No unpaid supplier bill is overdue.',
+      ],
+      actions: largestBill ? [`Plan payment of ${formatMoney(largestBill.amount, currency)} to ${largestBill.supplierName}.`, 'Compare upcoming supplier payments with receivables before committing cash.'] : ['Add supplier bills so cash obligations are visible.'],
+    };
+  }
+
+  if (includesAny(query, ['task', 'project', 'todo', 'to do', 'work plan', 'priority'])) {
+    const oldestTask = [...openTasks].sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0];
+    return {
+      title: 'Work plan',
+      answer: `${openTasks.length} open ${openTasks.length === 1 ? 'task needs' : 'tasks need'} attention and ${workspace.projects.length - openTasks.length} are complete.`,
+      insights: oldestTask ? [`The oldest open task is “${oldestTask.title}”.`] : ['There are no open tasks right now.'],
+      actions: openTasks.length ? openTasks.slice(0, 3).map((task) => `Complete or reschedule: ${task.title}.`) : ['Add the next important business task in Projects.'],
+    };
+  }
+
   const priorities: string[] = [];
   if (overdue.length) priorities.push(`Collect ${formatMoney(sum(overdue.map((invoice) => invoice.total)), currency)} from ${overdue.length} overdue ${overdue.length === 1 ? 'invoice' : 'invoices'}.`);
   if (outOfStock.length) priorities.push(`Restock ${outOfStock.slice(0, 2).map((product) => product.name).join(' and ')}; they are out of stock.`);
   else if (lowStock.length) priorities.push(`Review low stock, starting with ${lowStock[0].name}.`);
   if (estimatedProfit < 0) priorities.push(`Reduce spending or improve product margins; estimated monthly profit is ${formatMoney(estimatedProfit, currency)}.`);
   if (slowStock.length) priorities.push(`Avoid buying more ${slowStock[0].name} until existing stock moves.`);
+  if (overdueSupplierBills.length) priorities.push(`Review ${overdueSupplierBills.length} overdue supplier ${overdueSupplierBills.length === 1 ? 'bill' : 'bills'} worth ${formatMoney(sum(overdueSupplierBills.map((bill) => bill.amount)), currency)}.`);
+  if (openTasks.length) priorities.push(`Complete the oldest open task: ${[...openTasks].sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0].title}.`);
   if (!priorities.length) priorities.push(topProduct ? `Keep ${topProduct.name} available and build on its recorded demand.` : 'Record more sales and expenses to unlock stronger recommendations.');
 
   return {
@@ -217,6 +247,6 @@ export function getBusinessAdvice(question: string, workspace: WorkspaceData, cu
     answer: `Revenue this month is ${formatMoney(revenue, currency)}, estimated profit is ${formatMoney(estimatedProfit, currency)}, and ${formatMoney(receivables, currency)} is still unpaid.`,
     insights: [changeText(revenue, previousRevenue), `${lowStock.length} low-stock items and ${overdue.length} overdue invoices need attention.`],
     actions: priorities.slice(0, 3),
-    dataNote: 'Advice is based only on transactions and stock recorded in Rekọda.',
+    dataNote: 'Advice is calculated privately on this device from sales, stock, expenses, invoices, customers, suppliers, bills, and tasks recorded in Rekọda.',
   };
 }

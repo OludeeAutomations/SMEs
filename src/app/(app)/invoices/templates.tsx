@@ -1,1 +1,4 @@
-import React from 'react'; import { Redirect } from 'expo-router'; export default function Screen(){return <Redirect href="/(app)/invoices"/>}
+import React from 'react';
+import DocumentTemplateSettings from '@/components/DocumentTemplateSettings';
+
+export default function InvoiceSettingsScreen() { return <DocumentTemplateSettings kind="invoice" />; }

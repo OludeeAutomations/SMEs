@@ -10,6 +10,7 @@ import { useBusinessStore, useWorkspace } from '@/store/businessStore';
 export default function RolesScreen() {
   const workspace = useWorkspace();
   const addTeamMember = useBusinessStore((state) => state.addTeamMember);
+  const deleteTeamMember = useBusinessStore((state) => state.deleteTeamMember);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('Cashier');
@@ -42,7 +43,7 @@ export default function RolesScreen() {
       </SurfaceCard>
       {members.length ? <SurfaceCard className="py-0">
         {members.map((member, index) => <React.Fragment key={member.id}>
-          <DataRow title={member.name} subtitle={member.email} value={member.role} />
+          <DataRow title={member.name} subtitle={`${member.email} · ${member.role}`} value="Remove" onPress={() => Alert.alert('Remove team member?', 'This removes the local team record.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Remove', style: 'destructive', onPress: () => deleteTeamMember(member.id) }])} />
           {index < members.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No team members" message="Only the workspace owner currently has access." />}

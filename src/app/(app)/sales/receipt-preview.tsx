@@ -1,1 +1,4 @@
-import React from 'react'; import { Redirect } from 'expo-router'; export default function Screen(){return <Redirect href="/(app)/(tabs)/sales"/>}
+import React from 'react';
+import LatestSaleSummary from '@/components/LatestSaleSummary';
+
+export default function ReceiptPreviewScreen() { return <LatestSaleSummary title="Receipt preview" />; }

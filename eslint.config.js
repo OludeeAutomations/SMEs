@@ -6,5 +6,9 @@ module.exports = defineConfig([
   expoConfig,
   {
     ignores: ["dist/*"],
+    rules: {
+      // Components intentionally expose both named and default exports for compatibility.
+      "import/no-named-as-default": "off",
+    },
   }
 ]);

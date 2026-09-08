@@ -42,7 +42,7 @@ export default function ExpensesScreen() {
 
       {workspace.expenses.length ? <SurfaceCard className="py-0">
         {workspace.expenses.map((expense, index) => <React.Fragment key={expense.id}>
-          <DataRow title={expense.description} subtitle={`${expense.category} · ${formatDate(expense.date)}`} value={formatMoney(expense.amount, currency)} />
+          <DataRow title={expense.description} subtitle={`${expense.category} · ${formatDate(expense.date)}`} value={formatMoney(expense.amount, currency)} onPress={() => router.push(`/(app)/expenses/${expense.id}` as never)} />
           {index < workspace.expenses.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No expenses yet" message="Add operating costs to calculate a meaningful net profit." actionLabel="Add first expense" onAction={() => router.push('/(app)/expenses/add')} />}

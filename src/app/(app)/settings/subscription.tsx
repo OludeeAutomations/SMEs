@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import BrandLogo from '@/components/BrandLogo';
 import { useRouter } from 'expo-router';
 import {
   ArrowLeft,
@@ -120,10 +119,7 @@ export default function SubscriptionScreen() {
           <View className="self-start rounded-[5px] bg-[#1D4ED8] px-[9px] py-1.5">
             <Text className="text-[11px] font-bold text-white">{badge}</Text>
           </View>
-          <View className="flex-row items-center gap-2.5">
-            <View className="h-9 w-9 items-center justify-center rounded-[5px] bg-white"><BrandLogo variant="mark" width={27} /></View>
-            <Text className="text-[22px] font-bold text-white">Rekọda Pro</Text>
-          </View>
+          <Text className="text-[22px] font-bold text-white">Rekọda Pro</Text>
           <View className="flex-row items-end gap-[7px]">
             <Text className="font-mono text-[30px] font-bold leading-9 text-white">₦5,000</Text>
             <Text className="pb-1 text-xs text-[#BFDBFE]">/ month after trial</Text>

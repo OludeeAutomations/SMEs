@@ -252,7 +252,7 @@ function WaitlistModal({ open, submitted, onClose, onSubmitted }: WaitlistModalP
         {submitted ? (
           <div className="waitlist-success">
             <span className="waitlist-success-icon"><CheckCircle2 size={32} /></span>
-            <span className="waitlist-kicker">YOU'RE ON THE LIST</span>
+            <span className="waitlist-kicker">YOU&apos;RE ON THE LIST</span>
             <h2 id="waitlist-title">Thanks for joining the Rekọda waitlist.</h2>
             <p>We’ll let you know as soon as Rekọda is ready for your business.</p>
             <button className="waitlist-submit" type="button" onClick={onClose}>Explore the website <ArrowRight size={17} /></button>

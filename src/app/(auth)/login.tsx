@@ -5,14 +5,15 @@ import { useRouter } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import { Input } from '@/components/Input';
+import { Button } from '@/components/Button';
 import Svg, { Path } from 'react-native-svg';
 import AuthBackButton from '@/components/AuthBackButton';
 import { signInWithGoogle } from '@/services/googleAuth';
 import { supabase } from '@/services/supabase';
 import { useAuthStore } from '@/store/authStore';
 import BrandLogo from '@/components/BrandLogo';
+import { businessSyncService } from '@/services/businessSync';
 
 const GoogleIcon = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24">
@@ -69,7 +70,18 @@ export default function RekodaLoginScreen() {
         email: sessionData.user.email || data.email,
       });
       authenticateLaunch();
-      const business = useAuthStore.getState().business;
+      let business = useAuthStore.getState().business;
+      if (!business) {
+        try {
+          const remote = await businessSyncService.load(sessionData.user.id);
+          if (remote?.business?.id) {
+            useAuthStore.getState().updateBusiness(remote.business);
+            business = remote.business;
+          }
+        } catch (syncError) {
+          console.warn('Could not load the business profile during sign in:', syncError);
+        }
+      }
       router.replace(business ? '/(app)/(tabs)/home' : '/(auth)/business-profile');
     } catch (error) {
       Alert.alert('Sign in failed', error instanceof Error ? error.message : 'Please try again.');
@@ -91,7 +103,18 @@ export default function RekodaLoginScreen() {
           email: data.user.email || '',
         });
         authenticateLaunch();
-        const business = useAuthStore.getState().business;
+        let business = useAuthStore.getState().business;
+        if (!business) {
+          try {
+            const remote = await businessSyncService.load(data.user.id);
+            if (remote?.business?.id) {
+              useAuthStore.getState().updateBusiness(remote.business);
+              business = remote.business;
+            }
+          } catch (syncError) {
+            console.warn('Could not load the business profile during Google sign in:', syncError);
+          }
+        }
         router.replace(business ? '/(app)/(tabs)/home' : '/(auth)/google-business-profile');
       }
     } catch (error) {
@@ -109,8 +132,8 @@ export default function RekodaLoginScreen() {
       >
         <AuthBackButton fallback="/(auth)/onboarding" />
 
-        <View className="mb-6 self-start rounded-[5px] bg-white px-2 py-1">
-          <BrandLogo width={132} />
+        <View className="mb-6 self-start">
+          <BrandLogo variant="mark" width={56} />
         </View>
 
         <Text className="text-xs font-bold tracking-widest text-accent-blue uppercase mb-2">

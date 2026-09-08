@@ -9,6 +9,7 @@ import { EmptyState, SyncStatusPill } from '@/components/business-ui';
 import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatMoney, todayKey } from '@/utils/format';
+import { costOfGoodsSold } from '@/utils/businessMetrics';
 
 export default function RekodaHomeScreen() {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function RekodaHomeScreen() {
   const todayRevenue = todaySales.reduce((sum, sale) => sum + sale.total, 0);
   const monthlyRevenue = monthlySales.reduce((sum, sale) => sum + sale.total, 0);
   const expenses = workspace.expenses.filter((expense) => expense.date.startsWith(month)).reduce((sum, expense) => sum + expense.amount, 0);
+  const costOfSales = costOfGoodsSold(workspace.products, monthlySales);
   const due = workspace.invoices.filter((invoice) => invoice.status !== 'PAID').reduce((sum, invoice) => sum + invoice.total, 0);
   const stockValue = workspace.products.reduce((sum, product) => sum + product.costPrice * product.stockQuantity, 0);
   const activity = [
@@ -66,7 +68,7 @@ export default function RekodaHomeScreen() {
         </View>
       </View>
 
-      <View className="flex-row gap-3"><MetricCard label="Today" value={formatMoney(todayRevenue, currency)} color={colors.blue} /><MetricCard label="Net" value={formatMoney(monthlyRevenue - expenses, currency)} color={colors.green} /></View>
+      <View className="flex-row gap-3"><MetricCard label="Today" value={formatMoney(todayRevenue, currency)} color={colors.blue} /><MetricCard label="Net profit" value={formatMoney(monthlyRevenue - expenses - costOfSales, currency)} color={monthlyRevenue - expenses - costOfSales >= 0 ? colors.green : colors.amber} /></View>
       <View className="flex-row gap-3"><MetricCard label="Invoice due" value={formatMoney(due, currency)} color={colors.amber} /><MetricCard label="Stock value" value={formatMoney(stockValue, currency)} /></View>
       <Text className="text-xs font-bold text-[#475569]">QUICK ACTIONS</Text>
       <View className="flex-row flex-wrap justify-between gap-y-2.5"><QuickAction label="New Sale" icon={ShoppingCart} onPress={() => router.push('/(app)/sales/record')} /><QuickAction label="Invoice" icon={FileText} onPress={() => router.push('/(app)/invoices/create')} /><QuickAction label="Add Stock" icon={Package} onPress={() => router.push('/(app)/inventory/add')} /><QuickAction label="Customers" icon={Users} onPress={() => router.push('/(app)/customers?from=home' as never)} /><QuickAction label="Expense" icon={WalletCards} onPress={() => router.push('/(app)/expenses/add?from=home' as never)} /><QuickAction label="Ask AI" icon={Bot} onPress={() => router.push('/(app)/(tabs)/ai?from=home' as never)} /></View>

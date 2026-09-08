@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
 import BusinessLogoPicker from '@/components/BusinessLogoPicker';
 import { ScreenHeader } from '@/components/business-ui';
 import { useAuthStore } from '@/store/authStore';

@@ -14,6 +14,8 @@ const prompts = [
   'Which stock should I reorder?',
   'How is profit this month?',
   'Who should I collect from?',
+  'Which supplier bills are urgent?',
+  'What tasks should I focus on?',
 ];
 
 export default function AIScreen() {
@@ -43,7 +45,7 @@ export default function AIScreen() {
       <SurfaceCard className="gap-3">
         <View className="flex-row items-center gap-2">
           <View className="h-9 w-9 items-center justify-center rounded-[14px] bg-[#EAF2FF]"><BrandLogo variant="mark" width={25} /></View>
-          <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Ask Rekọda</Text><Text className="text-[11px] text-[#475569]">Sales, profit, stock, expenses, debt, or customers</Text></View>
+          <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Ask Rekọda</Text><Text className="text-[11px] text-[#475569]">Sales, profit, stock, expenses, customers, suppliers, bills, or tasks</Text></View>
         </View>
         <TextInput
           value={question}

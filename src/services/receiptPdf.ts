@@ -9,6 +9,7 @@ type ReceiptPdfInput = {
   business: BusinessProfile;
   user: UserProfile | null;
   customer?: Customer;
+  preferences?: Record<string, string | boolean>;
 };
 
 const escapeHtml = (value?: string | number | null) => String(value ?? '')
@@ -20,9 +21,10 @@ const escapeHtml = (value?: string | number | null) => String(value ?? '')
 
 const safeLogoUrl = (value?: string) => value && /^https:\/\//i.test(value) ? escapeHtml(value) : '';
 
-export function buildReceiptHtml({ sale, business, user, customer }: ReceiptPdfInput) {
+export function buildReceiptHtml({ sale, business, user, customer, preferences }: ReceiptPdfInput) {
   const currency = business.currency || 'NGN';
-  const receiptNumber = sale.id.slice(-6).toUpperCase();
+  const receiptNumber = `${String(preferences?.receiptPrefix ?? 'RCT')}-${sale.id.slice(-6).toUpperCase()}`;
+  const footerMessage = String(preferences?.receiptFooter ?? `Thank you for choosing ${business.name}. Please keep this receipt as proof of payment.`);
   const logo = safeLogoUrl(business.logoUrl);
   const customerName = sale.customerName || 'Walk-in customer';
   const rows = sale.items.map((item, index) => `
@@ -122,7 +124,7 @@ export function buildReceiptHtml({ sale, business, user, customer }: ReceiptPdfI
         </section>
 
         <section class="bottom">
-          <div class="message"><div class="label">Thank you</div><div class="copy">Thank you for choosing ${escapeHtml(business.name)}. Please keep this receipt as proof of payment.</div></div>
+          <div class="message"><div class="label">Thank you</div><div class="copy">${escapeHtml(footerMessage)}</div></div>
           <div class="payment"><div class="label">Payment confirmation</div><div class="copy">Payment received in full by ${escapeHtml(sale.paymentMethod.toLowerCase())}. Reference receipt #${escapeHtml(receiptNumber)} for enquiries.</div></div>
         </section>
         ${sale.notes ? `<section style="margin-top:20px"><div class="label">Notes</div><div class="copy">${escapeHtml(sale.notes)}</div></section>` : ''}

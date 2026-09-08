@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import Svg, { Path } from 'react-native-svg';
 import AuthBackButton from '@/components/AuthBackButton';
-import Button from '@/components/Button';
-import Input from '@/components/Input';
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
 import { signInWithGoogle } from '@/services/googleAuth';
 import { supabase } from '@/services/supabase';
 import { useAuthStore } from '@/store/authStore';
@@ -90,7 +90,7 @@ export default function RekodaSignUpScreen() {
       <ScrollView contentContainerClassName="px-5 pb-6" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <AuthBackButton fallback="/(auth)/onboarding" />
         <View className="mb-5 self-start">
-          <BrandLogo width={132} />
+          <BrandLogo variant="mark" width={56} />
         </View>
         <Text className="mt-1 text-[28px] font-bold leading-[31px] text-[#0F172A]">Set up your business account.</Text>
         <Text className="mt-3 text-[15px] leading-[22px] text-[#475569]">

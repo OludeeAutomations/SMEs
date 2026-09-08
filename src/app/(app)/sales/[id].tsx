@@ -41,6 +41,7 @@ export default function SaleDetail() {
         business,
         user,
         customer: workspace.customers.find((item) => item.id === sale.customerId),
+        preferences: workspace.preferences,
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Please try again.';

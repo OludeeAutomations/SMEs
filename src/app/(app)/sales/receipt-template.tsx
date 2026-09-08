@@ -1,1 +1,4 @@
-import React from 'react'; import { Redirect } from 'expo-router'; export default function Screen(){return <Redirect href="/(app)/settings"/>}
+import React from 'react';
+import DocumentTemplateSettings from '@/components/DocumentTemplateSettings';
+
+export default function ReceiptSettingsScreen() { return <DocumentTemplateSettings kind="receipt" />; }

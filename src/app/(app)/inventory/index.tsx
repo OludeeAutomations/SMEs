@@ -31,6 +31,9 @@ export default function InventoryScreen() {
         <MetricCard label="Low stock" value={String(lowStock.length)} color={colors.amber} />
       </View>
       <MetricCard label="Stock value" value={formatMoney(stockValue, currency)} />
+      <SurfaceCard className="py-0">
+        <Pressable onPress={() => router.push('/(app)/inventory/adjustments')}><Text className="py-4 text-[13px] font-semibold text-[#2563EB]">View stock movement history</Text></Pressable>
+      </SurfaceCard>
 
       {categoryStock.length ? <SurfaceCard className="gap-4">
         <View className="flex-row items-center justify-between">

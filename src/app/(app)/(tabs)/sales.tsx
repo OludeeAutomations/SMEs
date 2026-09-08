@@ -29,6 +29,12 @@ export default function SalesScreen() {
       </View>
       <ChoiceChips options={['All', 'Cash', 'Transfer', 'Card']} value={filter} onChange={setFilter} />
 
+      <SurfaceCard className="py-0">
+        <DataRow title="Draft sales" subtitle={`${workspace.saleDrafts.length} unfinished`} onPress={() => router.push('/(app)/sales/drafts')} />
+        <Divider />
+        <DataRow title="Receipt settings" subtitle="Business details and receipt message" onPress={() => router.push('/(app)/sales/receipt-template')} />
+      </SurfaceCard>
+
       {recentTotal > 0 ? <SurfaceCard className="gap-4">
         <View className="flex-row items-center justify-between">
           <Text className="text-xs font-bold text-[#475569]">LAST 7 DAYS</Text>
