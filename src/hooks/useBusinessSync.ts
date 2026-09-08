@@ -36,6 +36,7 @@ const mergeWorkspaces = (cloud: WorkspaceData, local: WorkspaceData): WorkspaceD
   aiMessages: mergeRows(cloud.aiMessages, local.aiMessages),
   saleDrafts: mergeRows(cloud.saleDrafts, local.saleDrafts),
   supplierBills: mergeRows(cloud.supplierBills, local.supplierBills),
+  customerBalanceAdjustments: mergeRows(cloud.customerBalanceAdjustments, local.customerBalanceAdjustments),
 });
 
 const hasWorkspaceContent = (workspace: WorkspaceData) =>
@@ -44,7 +45,7 @@ const hasWorkspaceContent = (workspace: WorkspaceData) =>
   workspace.projects.length > 0 || workspace.expenseCategories.length > 0 ||
   workspace.inventoryCategories.length > 0 || workspace.teamMembers.length > 0 ||
   workspace.inventoryMovements.length > 0 || workspace.aiConversations.length > 0 ||
-  workspace.aiMessages.length > 0 || workspace.saleDrafts.length > 0 || workspace.supplierBills.length > 0 || Object.keys(workspace.automations).length > 0 ||
+  workspace.aiMessages.length > 0 || workspace.saleDrafts.length > 0 || workspace.supplierBills.length > 0 || workspace.customerBalanceAdjustments.length > 0 || Object.keys(workspace.automations).length > 0 ||
   Object.keys(workspace.preferences).length > 0;
 
 export function useBusinessSync() {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, ScrollView, Share } from 'react-native';
+import { Alert, ScrollView, Share, View } from 'react-native';
+import { Pencil, Trash2, X } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button } from '@/components/Button';
@@ -13,6 +14,7 @@ import { shareInvoicePdf } from '@/services/invoicePdf';
 import { createInvoicePaymentLink, verifyInvoicePayment, type PaymentProvider } from '@/services/onlinePayments';
 import { formatDate, formatMoney } from '@/utils/format';
 import { effectiveInvoiceStatus } from '@/utils/businessMetrics';
+import { displayReference } from '@/utils/references';
 
 export default function InvoiceDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -30,6 +32,7 @@ export default function InvoiceDetail() {
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
   const [dueDate, setDueDate] = useState(invoice?.dueDate ?? '');
   const [terms, setTerms] = useState(invoice?.terms ?? '');
+  const [editing, setEditing] = useState(false);
 
   if (!invoice) {
     return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
@@ -43,6 +46,7 @@ export default function InvoiceDetail() {
   const customer = workspace.customers.find((item) => item.id === invoice.customerId);
   const provider = (workspace.preferences?.paymentProvider as PaymentProvider | undefined) ?? 'Paystack';
   const displayedStatus = effectiveInvoiceStatus(invoice);
+  const invoiceReference = displayReference('INV', invoice);
 
   const share = async () => {
     if (!business) {
@@ -65,6 +69,7 @@ export default function InvoiceDetail() {
   ]);
   const saveDetails = () => {
     updateInvoice(invoice.id, { dueDate, terms: terms.trim() || undefined });
+    setEditing(false);
     Alert.alert('Invoice updated');
   };
   const remove = () => Alert.alert('Delete invoice?', 'The customer balance will be corrected.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Delete', style: 'destructive', onPress: () => { deleteInvoice(invoice.id); router.replace('/(app)/invoices'); } }]);
@@ -107,28 +112,38 @@ export default function InvoiceDetail() {
   };
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5">
-      <ScreenHeader title={`Invoice ${invoice.id.slice(-6).toUpperCase()}`} subtitle={`${invoice.customerName} - due ${formatDate(invoice.dueDate)}`} showBack />
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
+      <ScreenHeader title={invoiceReference} subtitle={`${invoice.customerName} - due ${formatDate(invoice.dueDate)}`} showBack actions={[{ label: editing ? 'Cancel editing' : 'Edit invoice', icon: editing ? X : Pencil, onPress: () => setEditing((value) => !value) }, { label: 'Delete invoice', icon: Trash2, onPress: remove, destructive: true }]} />
       <MetricCard label="Total" value={formatMoney(invoice.total, currency)} color={colors.blue} />
       <MetricCard label="Status" value={displayedStatus} color={displayedStatus === 'PAID' ? colors.green : colors.amber} />
+      <SurfaceCard className="py-0">
+        <DataRow title="Invoice reference" value={invoiceReference} />
+        <Divider />
+        <DataRow title="Customer" value={invoice.customerName} />
+        <Divider />
+        <DataRow title="Issued" value={new Date(invoice.createdAt).toLocaleString('en-NG')} />
+        <Divider />
+        <DataRow title="Due date" value={formatDate(invoice.dueDate)} />
+      </SurfaceCard>
       <SurfaceCard className="py-0">
         {invoice.items.map((item, index) => <React.Fragment key={`${item.productId}-${index}`}>
           <DataRow title={item.productName} subtitle={`${item.quantity} x ${formatMoney(item.price, currency)}`} value={formatMoney(item.price * item.quantity, currency)} />
           {index < invoice.items.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard>
-      <SurfaceCard className="gap-3">
+      {editing ? <SurfaceCard className="gap-3">
         <DatePickerField label="Due date" value={dueDate} onChange={setDueDate} minimumDate={new Date()} />
         <Input label="Terms" value={terms} onChangeText={setTerms} multiline />
         <Button title="Save invoice details" variant="secondary" onPress={saveDetails} />
-      </SurfaceCard>
+      </SurfaceCard> : null}
       {invoice.status !== 'PAID' ? <>
-        <Button title={isCreatingPayment ? 'Creating secure link...' : 'Create payment link'} onPress={createPaymentLink} isLoading={isCreatingPayment} />
-        <Button title={isCheckingPayment ? 'Checking payment...' : 'Check online payment'} variant="secondary" onPress={checkPayment} isLoading={isCheckingPayment} />
+        <View className="flex-row gap-3">
+          <Button title={isCreatingPayment ? 'Creating...' : 'Payment link'} onPress={createPaymentLink} isLoading={isCreatingPayment} className="flex-1" />
+          <Button title={isCheckingPayment ? 'Checking...' : 'Check payment'} variant="secondary" onPress={checkPayment} isLoading={isCheckingPayment} className="flex-1" />
+        </View>
         <Button title="Record cash or transfer payment" variant="secondary" onPress={recordPayment} />
       </> : null}
       <Button title={isSharing ? 'Preparing PDF...' : 'Share invoice PDF'} variant="secondary" onPress={share} isLoading={isSharing} />
-      <Button title="Delete invoice" variant="secondary" onPress={remove} />
     </ScrollView>
   </SafeAreaView>;
 }

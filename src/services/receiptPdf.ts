@@ -3,6 +3,7 @@ import * as Sharing from 'expo-sharing';
 import type { Customer, Sale } from '@/types';
 import type { BusinessProfile, UserProfile } from '@/store/authStore';
 import { formatDate, formatMoney } from '@/utils/format';
+import { displayReference } from '@/utils/references';
 
 type ReceiptPdfInput = {
   sale: Sale;
@@ -23,7 +24,7 @@ const safeLogoUrl = (value?: string) => value && /^https:\/\//i.test(value) ? es
 
 export function buildReceiptHtml({ sale, business, user, customer, preferences }: ReceiptPdfInput) {
   const currency = business.currency || 'NGN';
-  const receiptNumber = `${String(preferences?.receiptPrefix ?? 'RCT')}-${sale.id.slice(-6).toUpperCase()}`;
+  const receiptNumber = displayReference(String(preferences?.receiptPrefix ?? 'RCT'), sale);
   const footerMessage = String(preferences?.receiptFooter ?? `Thank you for choosing ${business.name}. Please keep this receipt as proof of payment.`);
   const logo = safeLogoUrl(business.logoUrl);
   const customerName = sale.customerName || 'Walk-in customer';
@@ -141,7 +142,7 @@ export async function shareReceiptPdf(input: ReceiptPdfInput) {
     await Sharing.shareAsync(uri, {
       mimeType: 'application/pdf',
       UTI: 'com.adobe.pdf',
-      dialogTitle: `Share receipt ${input.sale.id.slice(-6).toUpperCase()}`,
+      dialogTitle: `Share receipt ${displayReference(String(input.preferences?.receiptPrefix ?? 'RCT'), input.sale)}`,
     });
     return;
   }

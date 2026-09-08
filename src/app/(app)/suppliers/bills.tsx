@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CheckCircle2, RotateCcw, Trash2 } from 'lucide-react-native';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ChoiceChips, DataRow, Divider, EmptyState, ScreenHeader } from '@/components/business-ui';
@@ -31,7 +32,7 @@ export default function SupplierBillsScreen() {
   const remove = (id: string) => Alert.alert('Delete bill?', 'The supplier balance will also be corrected.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Delete', style: 'destructive', onPress: () => deleteBill(id) }]);
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
       <ScreenHeader title="Supplier bills" subtitle="Track what you owe and what has been paid." showBack />
       <View className="flex-row gap-3"><MetricCard label="Outstanding" value={formatMoney(outstanding, currency)} color={colors.amber} /><MetricCard label="Bills" value={String(workspace.supplierBills.length)} color={colors.blue} /></View>
       {workspace.suppliers.length ? <SurfaceCard className="gap-3">
@@ -43,8 +44,7 @@ export default function SupplierBillsScreen() {
       </SurfaceCard> : <EmptyState title="Add a supplier first" message="A bill must be attached to a supplier." />}
       {workspace.supplierBills.length ? <SurfaceCard className="py-0">
         {workspace.supplierBills.map((bill, index) => <React.Fragment key={bill.id}>
-          <DataRow title={bill.description} subtitle={`${bill.supplierName} · ${bill.status} · due ${formatDate(bill.dueDate)}`} value={formatMoney(bill.amount, currency)} onPress={() => updateStatus(bill.id, bill.status === 'PAID' ? 'UNPAID' : 'PAID')} />
-          <DataRow title="Delete bill" subtitle="Tap the row above to toggle payment" onPress={() => remove(bill.id)} />
+          <DataRow title={bill.description} subtitle={`${bill.supplierName} · ${bill.status} · due ${formatDate(bill.dueDate)}`} value={formatMoney(bill.amount, currency)} actions={[{ label: bill.status === 'PAID' ? 'Mark unpaid' : 'Mark paid', icon: bill.status === 'PAID' ? RotateCcw : CheckCircle2, onPress: () => updateStatus(bill.id, bill.status === 'PAID' ? 'UNPAID' : 'PAID') }, { label: 'Delete bill', icon: Trash2, onPress: () => remove(bill.id), destructive: true }]} />
           {index < workspace.supplierBills.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : null}

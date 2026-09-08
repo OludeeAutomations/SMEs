@@ -127,7 +127,9 @@ export default function RekodaLoginScreen() {
   return (
     <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark">
       <ScrollView 
-        contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 20, paddingBottom: 32 }}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 20, paddingBottom: 160 }}
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         <AuthBackButton fallback="/(auth)/onboarding" />

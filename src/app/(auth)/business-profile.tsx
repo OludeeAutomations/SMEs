@@ -26,7 +26,7 @@ export default function RekodaBusinessProfileScreen() {
     setSession(account, { id: `business_${account.id}`, name: businessName.trim(), category: category.trim(), country: country.trim(), currency: currency.trim(), branchName: branchName.trim(), logoUrl: logoUrl || undefined });
     router.replace('/(app)/(tabs)/home');
   };
-  return <SafeAreaView className="flex-1 bg-[#FAFAFA]"><ScrollView contentContainerClassName="px-5 pb-6" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+  return <SafeAreaView className="flex-1 bg-[#FAFAFA]"><ScrollView contentContainerClassName="px-5 pb-40" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
     <AuthBackButton fallback="/(auth)/signup" />
     <Text className="mt-1 text-[28px] font-bold leading-[31px] text-[#0F172A]">Create your business profile.</Text>
     <Text className="mt-3 text-[15px] leading-[22px] text-[#475569]">Tell Rekọda about your company so reports, invoices, and reminders are set up correctly.</Text>

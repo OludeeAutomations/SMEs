@@ -9,6 +9,7 @@ import { useWorkspace } from '@/store/businessStore';
 import { recentMonthBuckets, sumByBuckets } from '@/utils/analytics';
 import { formatDate, formatMoney } from '@/utils/format';
 import { effectiveInvoiceStatus } from '@/utils/businessMetrics';
+import { displayReference } from '@/utils/references';
 
 export default function InvoicesScreen() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function InvoicesScreen() {
 
       {workspace.invoices.length ? <SurfaceCard className="py-0">
         {workspace.invoices.map((invoice, index) => <React.Fragment key={invoice.id}>
-          <DataRow title={invoice.customerName} subtitle={`${effectiveInvoiceStatus(invoice)} · due ${formatDate(invoice.dueDate)}`} value={formatMoney(invoice.total, currency)} onPress={() => router.push(`/(app)/invoices/${invoice.id}` as never)} />
+          <DataRow title={displayReference('INV', invoice)} subtitle={`${invoice.customerName} · ${effectiveInvoiceStatus(invoice)} · due ${formatDate(invoice.dueDate)}`} value={formatMoney(invoice.total, currency)} onPress={() => router.push(`/(app)/invoices/${invoice.id}` as never)} />
           {index < workspace.invoices.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No invoices yet" message="Create an invoice after adding a customer." actionLabel="Create invoice" onAction={() => router.push('/(app)/invoices/create')} />}

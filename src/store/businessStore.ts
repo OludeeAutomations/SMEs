@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import type { Customer, Expense, Invoice, Product, Sale, Supplier } from '@/types';
+import { createReference } from '@/utils/references';
 
 export interface Project { id: string; title: string; completed: boolean; createdAt: string }
 export interface TeamMember { id: string; name: string; email: string; role: string; createdAt: string }
@@ -10,13 +11,14 @@ export interface AIConversation { id: string; title: string; createdAt: string }
 export interface AIMessage { id: string; conversationId: string; role: 'USER' | 'ASSISTANT'; content: string; createdAt: string }
 export interface SaleDraft { id: string; customerId?: string; productId?: string; item: string; amount: number; quantity: number; paymentMethod: Sale['paymentMethod']; createdAt: string; updatedAt: string }
 export interface SupplierBill { id: string; supplierId: string; supplierName: string; description: string; amount: number; dueDate: string; status: 'UNPAID' | 'PAID'; createdAt: string }
+export interface CustomerBalanceAdjustment { id: string; customerId: string; type: 'INCREASE' | 'DECREASE'; amount: number; reason: string; createdAt: string }
 export interface WorkspaceData {
   products: Product[]; customers: Customer[]; sales: Sale[]; invoices: Invoice[];
   expenses: Expense[]; suppliers: Supplier[]; projects: Project[];
   expenseCategories: string[]; inventoryCategories: string[]; automations: Record<string, boolean>;
   teamMembers: TeamMember[]; preferences: Record<string, string | boolean>;
   inventoryMovements: InventoryMovement[]; aiConversations: AIConversation[]; aiMessages: AIMessage[];
-  saleDrafts: SaleDraft[]; supplierBills: SupplierBill[];
+  saleDrafts: SaleDraft[]; supplierBills: SupplierBill[]; customerBalanceAdjustments: CustomerBalanceAdjustment[];
 }
 type ProductInput = Omit<Product, 'id' | 'createdAt'>;
 type CustomerInput = Omit<Customer, 'id' | 'createdAt' | 'totalBought' | 'amountOwed'> & Partial<Pick<Customer, 'totalBought' | 'amountOwed'>>;
@@ -31,6 +33,7 @@ interface BusinessState {
   addProduct: (input: ProductInput) => Product; updateProductImage: (productId: string, imageUrl: string) => void; adjustStock: (productId: string, quantity: number) => void;
   updateProduct: (productId: string, input: Partial<ProductInput>) => void; deleteProduct: (productId: string) => void;
   addCustomer: (input: CustomerInput) => Customer; updateCustomer: (customerId: string, input: Partial<CustomerInput>) => void; deleteCustomer: (customerId: string) => void;
+  addCustomerBalanceAdjustment: (customerId: string, type: CustomerBalanceAdjustment['type'], amount: number, reason: string) => CustomerBalanceAdjustment | undefined;
   addExpense: (input: ExpenseInput) => Expense; updateExpense: (expenseId: string, input: Partial<ExpenseInput>) => void; deleteExpense: (expenseId: string) => void;
   addInvoice: (input: InvoiceInput) => Invoice; updateInvoice: (invoiceId: string, input: Partial<InvoiceInput>) => void; updateInvoiceStatus: (invoiceId: string, status: Invoice['status']) => void; deleteInvoice: (invoiceId: string) => void;
   addSale: (input: SaleInput) => Sale; addSupplier: (input: SupplierInput) => Supplier;
@@ -52,7 +55,7 @@ export const emptyWorkspace = (): WorkspaceData => ({
   products: [], customers: [], sales: [], invoices: [], expenses: [], suppliers: [], projects: [],
   expenseCategories: [], inventoryCategories: [], automations: {}, teamMembers: [], preferences: {},
   inventoryMovements: [], aiConversations: [], aiMessages: [],
-  saleDrafts: [], supplierBills: [],
+  saleDrafts: [], supplierBills: [], customerBalanceAdjustments: [],
 });
 const makeId = (prefix: string) => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
@@ -102,7 +105,28 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
       update((workspace) => ({ ...workspace, customers: [customer, ...workspace.customers] })); return customer;
     },
     updateCustomer: (customerId, input) => update((workspace) => ({ ...workspace, customers: workspace.customers.map((customer) => customer.id === customerId ? { ...customer, ...input } : customer) })),
-    deleteCustomer: (customerId) => update((workspace) => ({ ...workspace, customers: workspace.customers.filter((customer) => customer.id !== customerId) })),
+    deleteCustomer: (customerId) => update((workspace) => ({
+      ...workspace,
+      customers: workspace.customers.filter((customer) => customer.id !== customerId),
+      customerBalanceAdjustments: workspace.customerBalanceAdjustments.filter((adjustment) => adjustment.customerId !== customerId),
+    })),
+    addCustomerBalanceAdjustment: (customerId, type, amount, reason) => {
+      let adjustment: CustomerBalanceAdjustment | undefined;
+      update((workspace) => {
+        const customer = workspace.customers.find((item) => item.id === customerId);
+        const cleanReason = reason.trim();
+        if (!customer || !Number.isFinite(amount) || amount <= 0 || !cleanReason) return workspace;
+        if (type === 'DECREASE' && amount > customer.amountOwed) return workspace;
+        adjustment = { id: makeId('balance'), customerId, type, amount, reason: cleanReason, createdAt: new Date().toISOString() };
+        const change = type === 'INCREASE' ? amount : -amount;
+        return {
+          ...workspace,
+          customers: workspace.customers.map((item) => item.id === customerId ? { ...item, amountOwed: item.amountOwed + change } : item),
+          customerBalanceAdjustments: [adjustment, ...workspace.customerBalanceAdjustments],
+        };
+      });
+      return adjustment;
+    },
     addExpense: (input) => {
       const expense = { ...input, id: makeId('expense'), createdAt: new Date().toISOString() };
       update((workspace) => ({ ...workspace, expenses: [expense, ...workspace.expenses], expenseCategories: workspace.expenseCategories.includes(expense.category) ? workspace.expenseCategories : [...workspace.expenseCategories, expense.category] })); return expense;
@@ -110,7 +134,8 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     updateExpense: (expenseId, input) => update((workspace) => ({ ...workspace, expenses: workspace.expenses.map((expense) => expense.id === expenseId ? { ...expense, ...input } : expense) })),
     deleteExpense: (expenseId) => update((workspace) => ({ ...workspace, expenses: workspace.expenses.filter((expense) => expense.id !== expenseId) })),
     addInvoice: (input) => {
-      const invoice = { ...input, id: makeId('invoice'), createdAt: new Date().toISOString() };
+      const invoice: Invoice = { ...input, id: makeId('invoice'), createdAt: new Date().toISOString() };
+      invoice.reference = createReference('INV', invoice.createdAt, get().activeUserId ? get().workspaces[get().activeUserId!]?.invoices ?? [] : []);
       update((workspace) => ({ ...workspace, invoices: [invoice, ...workspace.invoices], customers: workspace.customers.map((customer) => customer.id === invoice.customerId ? { ...customer, amountOwed: customer.amountOwed + invoice.total } : customer) })); return invoice;
     },
     updateInvoice: (invoiceId, input) => update((workspace) => {
@@ -149,7 +174,8 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
       };
     }),
     addSale: (input) => {
-      const sale = { ...input, id: makeId('sale'), createdAt: new Date().toISOString() };
+      const sale: Sale = { ...input, id: makeId('sale'), createdAt: new Date().toISOString() };
+      sale.reference = createReference('SALE', sale.createdAt, get().activeUserId ? get().workspaces[get().activeUserId!]?.sales ?? [] : []);
       update((workspace) => ({
         ...workspace, sales: [sale, ...workspace.sales],
         inventoryMovements: [...sale.items.filter((item) => workspace.products.some((product) => product.id === item.productId)).map((item) => ({ id: makeId('movement'), productId: item.productId, productName: item.productName, quantity: -item.quantity, type: 'SALE' as const, createdAt: sale.createdAt })), ...(workspace.inventoryMovements ?? [])],
@@ -239,6 +265,7 @@ export const normalizeWorkspace = (workspace?: Partial<WorkspaceData> | null): W
   teamMembers: workspace?.teamMembers ?? [], preferences: workspace?.preferences ?? {},
   inventoryMovements: workspace?.inventoryMovements ?? [], aiConversations: workspace?.aiConversations ?? [], aiMessages: workspace?.aiMessages ?? [],
   saleDrafts: workspace?.saleDrafts ?? [], supplierBills: workspace?.supplierBills ?? [],
+  customerBalanceAdjustments: workspace?.customerBalanceAdjustments ?? [],
 });
 
 const EMPTY = emptyWorkspace();

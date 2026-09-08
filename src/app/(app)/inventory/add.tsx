@@ -23,7 +23,7 @@ export default function AddProductScreen() {
     addProduct({ name: name.trim(), category: category.trim(), imageUrl: imageUrl || undefined, costPrice, sellingPrice, stockQuantity, lowStockThreshold });
     Alert.alert('Product added', `${name.trim()} is now in inventory.`, [{ text: 'View inventory', onPress: () => router.replace('/(app)/inventory') }]);
   };
-  return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
+  return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
     <ScreenHeader title="Add product" subtitle="Sales reduce stock automatically and adjustments stay in history." />
     <ProductImagePicker value={imageUrl} onChange={setImageUrl} />
     <Input label="Product name" placeholder="e.g. Cooking Oil 5L" value={name} onChangeText={setName} />

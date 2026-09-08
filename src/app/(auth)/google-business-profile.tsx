@@ -45,7 +45,7 @@ export default function GoogleBusinessProfileScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#FAFAFA]">
-      <ScrollView contentContainerClassName="px-5 pb-6" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerClassName="px-5 pb-40" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <AuthBackButton fallback="/(auth)/signup" />
         <Text className="mt-1 text-[28px] font-bold leading-[31px] text-[#0F172A]">Set up your business.</Text>
         <Text className="mt-3 text-[15px] leading-[22px] text-[#475569]">

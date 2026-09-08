@@ -39,8 +39,8 @@ export default function AIScreen() {
   };
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
-      <ScreenHeader title="Business Assistant" subtitle={`Advice based on ${business?.name ?? 'your business'} data.`} />
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
+      <ScreenHeader title="Business Assistant" subtitle={`Advice based on ${business?.name ?? 'your business'} data.`} showBack />
 
       <SurfaceCard className="gap-3">
         <View className="flex-row items-center gap-2">

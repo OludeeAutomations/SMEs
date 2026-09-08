@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
+import { Pencil, Trash2, X } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button } from '@/components/Button';
@@ -26,6 +27,7 @@ export default function ProductDetail() {
   const [category, setCategory] = useState(product?.category ?? '');
   const [cost, setCost] = useState(product ? String(product.costPrice) : '');
   const [price, setPrice] = useState(product ? String(product.sellingPrice) : '');
+  const [editing, setEditing] = useState(false);
 
   if (!product) {
     return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
@@ -46,29 +48,27 @@ export default function ProductDetail() {
   const saveDetails = () => {
     if (!name.trim() || !category.trim() || parseAmount(price) <= 0) return Alert.alert('Check details', 'Name, category, and a valid selling price are required.');
     updateProduct(product.id, { name: name.trim(), category: category.trim(), costPrice: parseAmount(cost), sellingPrice: parseAmount(price) });
+    setEditing(false);
     Alert.alert('Product updated');
   };
   const remove = () => Alert.alert('Delete product?', 'Historical sales will be kept.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Delete', style: 'destructive', onPress: () => { deleteProduct(product.id); router.replace('/(app)/inventory'); } }]);
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5">
-      <ScreenHeader title={product.name} subtitle={product.category} showBack />
-      <ProductImagePicker value={product.imageUrl} onChange={(imageUrl) => updateProductImage(product.id, imageUrl)} />
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
+      <ScreenHeader title={product.name} subtitle={product.category} showBack actions={[{ label: editing ? 'Cancel editing' : 'Edit product', icon: editing ? X : Pencil, onPress: () => setEditing((value) => !value) }, { label: 'Delete product', icon: Trash2, onPress: remove, destructive: true }]} />
       <MetricCard label="In stock" value={`${product.stockQuantity} units`} color={product.stockQuantity <= product.lowStockThreshold ? colors.amber : colors.green} />
       <MetricCard label="Selling price" value={formatMoney(product.sellingPrice, currency)} color={colors.blue} />
-      <SurfaceCard className="gap-3">
+      {editing ? <><ProductImagePicker value={product.imageUrl} onChange={(imageUrl) => updateProductImage(product.id, imageUrl)} /><SurfaceCard className="gap-3">
         <Input label="Product name" value={name} onChangeText={setName} />
         <Input label="Category" value={category} onChangeText={setCategory} />
         <Input label="Cost price" value={cost} onChangeText={setCost} keyboardType="numeric" />
         <Input label="Selling price" value={price} onChangeText={setPrice} keyboardType="numeric" />
         <Button title="Save product details" onPress={saveDetails} />
-      </SurfaceCard>
+      </SurfaceCard></> : null}
       <SurfaceCard className="gap-3">
         <Input label="Adjustment quantity" placeholder="0" value={quantity} onChangeText={setQuantity} keyboardType="numeric" />
-        <Button title="Add stock" onPress={() => adjust(1)} />
-        <Button title="Remove stock" variant="secondary" onPress={() => adjust(-1)} />
+        <View className="flex-row gap-3"><Button title="Add stock" onPress={() => adjust(1)} className="flex-1" /><Button title="Remove stock" variant="secondary" onPress={() => adjust(-1)} className="flex-1" /></View>
       </SurfaceCard>
-      <Button title="Delete product" variant="secondary" onPress={remove} />
     </ScrollView>
   </SafeAreaView>;
 }

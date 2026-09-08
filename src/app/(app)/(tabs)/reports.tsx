@@ -41,7 +41,7 @@ export default function ReportsScreen() {
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
     <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" showsVerticalScrollIndicator={false}>
-      <ScreenHeader title="Reports" subtitle="Calculated from your sales, expenses, and invoices." />
+      <ScreenHeader title="Reports" subtitle="Calculated from your sales, expenses, and invoices." showBack />
       <View className="flex-row gap-3">
         <MetricCard label="Revenue" value={formatMoney(revenue, currency)} color={colors.blue} />
         <MetricCard label="Net profit" value={formatMoney(profit, currency)} color={profit >= 0 ? colors.green : colors.amber} />

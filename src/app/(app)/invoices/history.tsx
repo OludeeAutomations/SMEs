@@ -8,6 +8,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { effectiveInvoiceStatus } from '@/utils/businessMetrics';
 import { formatDate, formatMoney } from '@/utils/format';
+import { displayReference } from '@/utils/references';
 
 export default function InvoiceHistoryScreen() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function InvoiceHistoryScreen() {
       <ChoiceChips options={['ALL', 'PAID', 'UNPAID', 'OVERDUE']} value={filter} onChange={setFilter} />
       {invoices.length ? <SurfaceCard className="py-0">
         {invoices.map((invoice, index) => <React.Fragment key={invoice.id}>
-          <DataRow title={invoice.customerName} subtitle={`${effectiveInvoiceStatus(invoice)} · due ${formatDate(invoice.dueDate)}`} value={formatMoney(invoice.total, currency)} onPress={() => router.push(`/(app)/invoices/${invoice.id}` as never)} />
+          <DataRow title={displayReference('INV', invoice)} subtitle={`${invoice.customerName} · ${effectiveInvoiceStatus(invoice)} · due ${formatDate(invoice.dueDate)}`} value={formatMoney(invoice.total, currency)} onPress={() => router.push(`/(app)/invoices/${invoice.id}` as never)} />
           {index < invoices.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No matching invoices" message="Invoices matching this status will appear here." />}

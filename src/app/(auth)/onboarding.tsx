@@ -1,5 +1,4 @@
 import { useRouter } from 'expo-router';
-import { ArrowLeft } from 'lucide-react-native';
 import React, { useRef, useState } from 'react';
 import {
   Image,
@@ -55,34 +54,10 @@ export default function RekodaOnboardingScreen() {
     carouselRef.current?.scrollTo({ x: index * slideWidth, animated: true });
   };
 
-  const goBack = () => {
-    if (activeSlide > 0) {
-      showSlide(activeSlide - 1);
-      return;
-    }
-
-    if (router.canGoBack()) {
-      router.back();
-      return;
-    }
-
-    router.replace('/(auth)/login');
-  };
-
   return (
     <SafeAreaView className="flex-1 bg-[#FAFAFA]">
       <View className="flex-1 pb-6 pt-3">
         <View className="h-10 flex-row items-center justify-center px-5">
-          <Pressable
-            accessibilityLabel="Go back"
-            accessibilityRole="button"
-            hitSlop={12}
-            onPress={goBack}
-            className="absolute left-5 z-10 h-8 w-8 items-center justify-center"
-          >
-            <ArrowLeft size={20} color="#0F172A" strokeWidth={1.8} />
-          </Pressable>
-
           <BrandLogo width={118} />
         </View>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Redirect, Stack } from 'expo-router';
 import AppBottomNav from '@/components/AppBottomNav';
 import { useAuthStore } from '@/store/authStore';
@@ -19,7 +19,7 @@ export default function AppLayout() {
   if (activeUserId !== user.id) return null;
 
   return (
-    <View className="flex-1 bg-[#F5F7FB]">
+    <KeyboardAvoidingView className="flex-1 bg-[#F5F7FB]" behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="sales" />
@@ -33,6 +33,6 @@ export default function AppLayout() {
         <Stack.Screen name="projects" />
       </Stack>
       <AppBottomNav />
-    </View>
+    </KeyboardAvoidingView>
   );
 }

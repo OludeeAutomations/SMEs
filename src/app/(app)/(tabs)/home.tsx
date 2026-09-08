@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatMoney, todayKey } from '@/utils/format';
 import { costOfGoodsSold } from '@/utils/businessMetrics';
+import { displayReference } from '@/utils/references';
 
 export default function RekodaHomeScreen() {
   const router = useRouter();
@@ -27,8 +28,8 @@ export default function RekodaHomeScreen() {
   const due = workspace.invoices.filter((invoice) => invoice.status !== 'PAID').reduce((sum, invoice) => sum + invoice.total, 0);
   const stockValue = workspace.products.reduce((sum, product) => sum + product.costPrice * product.stockQuantity, 0);
   const activity = [
-    ...workspace.sales.map((sale) => ({ id: sale.id, at: sale.createdAt, title: 'Sale recorded', subtitle: sale.customerName || 'Walk-in customer', value: formatMoney(sale.total, currency), route: `/(app)/sales/${sale.id}` })),
-    ...workspace.invoices.map((invoice) => ({ id: invoice.id, at: invoice.createdAt, title: 'Invoice created', subtitle: invoice.customerName, value: formatMoney(invoice.total, currency), route: `/(app)/invoices/${invoice.id}` })),
+    ...workspace.sales.map((sale) => ({ id: sale.id, at: sale.createdAt, title: displayReference('SALE', sale), subtitle: sale.customerName || 'Walk-in customer', value: formatMoney(sale.total, currency), route: `/(app)/sales/${sale.id}` })),
+    ...workspace.invoices.map((invoice) => ({ id: invoice.id, at: invoice.createdAt, title: displayReference('INV', invoice), subtitle: invoice.customerName, value: formatMoney(invoice.total, currency), route: `/(app)/invoices/${invoice.id}` })),
   ].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 3);
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
@@ -64,7 +65,7 @@ export default function RekodaHomeScreen() {
           <Text className="text-[11px] font-bold text-[#93C5FD]">BUSINESS OVERVIEW</Text>
           <Text className="text-2xl font-bold text-white">{formatMoney(monthlyRevenue, currency)}</Text>
           <Text className="text-[13px] leading-4 text-[#BFDBFE]">Revenue across all branches</Text>
-          <Pressable onPress={() => router.push('/(app)/(tabs)/reports')} className="mt-auto h-[38px] w-32 flex-row items-center justify-center gap-1.5 rounded-[5px] bg-white"><Text className="text-xs font-bold text-[#0B1F5E]">View report</Text><ArrowRight size={16} color="#2563EB" /></Pressable>
+          <Pressable onPress={() => router.push('/(app)/(tabs)/reports?from=home' as never)} className="mt-auto h-[38px] w-32 flex-row items-center justify-center gap-1.5 rounded-[5px] bg-white"><Text className="text-xs font-bold text-[#0B1F5E]">View report</Text><ArrowRight size={16} color="#2563EB" /></Pressable>
         </View>
       </View>
 

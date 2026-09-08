@@ -81,7 +81,7 @@ export default function RecordSaleScreen() {
   };
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
       <ScreenHeader title="Record new sale" subtitle="Choose an inventory product or enter a custom item/service." showBack />
 
       {workspace.customers.length ? <>
@@ -128,8 +128,10 @@ export default function RecordSaleScreen() {
         <Text className="text-[11px] text-[#475569]">TOTAL</Text>
         <Text className="mt-2 font-mono text-xl font-bold text-[#2563EB]">{formatMoney(total, currency)}</Text>
       </SurfaceCard>
-      <Button title="Complete sale" onPress={save} className="h-14 rounded-[5px]" />
-      <Button title={draftId ? 'Update draft' : 'Save as draft'} variant="secondary" onPress={saveDraft} />
+      <View className="flex-row gap-3">
+        <Button title={draftId ? 'Update draft' : 'Save draft'} variant="secondary" onPress={saveDraft} className="flex-1 border border-[#CBD5E1] bg-white" />
+        <Button title="Complete sale" onPress={save} className="h-14 flex-1 rounded-[5px]" />
+      </View>
     </ScrollView>
   </SafeAreaView>;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Redirect, Stack } from 'expo-router';
 import { useAuthStore } from '@/store/authStore';
 
@@ -13,14 +14,16 @@ export default function AuthLayout() {
   if (user && business && isLaunchAuthenticated) return <Redirect href="/(app)/(tabs)/home" />;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="onboarding" />
-      <Stack.Screen name="login" />
-      <Stack.Screen name="signup" />
-      <Stack.Screen name="reset" />
-      <Stack.Screen name="otp" />
-      <Stack.Screen name="business-profile" />
-      <Stack.Screen name="google-business-profile" />
-    </Stack>
+    <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="onboarding" />
+        <Stack.Screen name="login" />
+        <Stack.Screen name="signup" />
+        <Stack.Screen name="reset" />
+        <Stack.Screen name="otp" />
+        <Stack.Screen name="business-profile" />
+        <Stack.Screen name="google-business-profile" />
+      </Stack>
+    </KeyboardAvoidingView>
   );
 }

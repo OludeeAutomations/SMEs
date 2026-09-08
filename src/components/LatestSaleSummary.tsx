@@ -8,6 +8,7 @@ import { MetricCard, SurfaceCard, colors } from '@/components/dashboard-ui';
 import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatDate, formatMoney } from '@/utils/format';
+import { displayReference } from '@/utils/references';
 
 export default function LatestSaleSummary({ title }: { title: string }) {
   const { saleId } = useLocalSearchParams<{ saleId?: string }>();
@@ -18,6 +19,7 @@ export default function LatestSaleSummary({ title }: { title: string }) {
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5">
     <ScreenHeader title={title} subtitle="Completed sale summary" showBack />
     {sale ? <>
+      <DataRow title="Sale reference" value={displayReference('SALE', sale)} />
       <MetricCard label="Amount paid" value={formatMoney(sale.total, currency)} color={colors.green} />
       <SurfaceCard className="py-0">{sale.items.map((item, index) => <React.Fragment key={`${item.productId}-${index}`}><DataRow title={item.productName} subtitle={`${item.quantity} × ${formatMoney(item.price, currency)}`} value={formatMoney(item.quantity * item.price, currency)} />{index < sale.items.length - 1 ? <Divider /> : null}</React.Fragment>)}</SurfaceCard>
       <DataRow title="Payment method" subtitle={formatDate(sale.createdAt)} value={sale.paymentMethod} />

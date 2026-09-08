@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Trash2 } from 'lucide-react-native';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { ChoiceChips, DataRow, Divider, EmptyState, ScreenHeader } from '@/components/business-ui';
@@ -33,7 +34,7 @@ export default function RolesScreen() {
 
   const members = workspace.teamMembers ?? [];
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
       <ScreenHeader title="Team and roles" subtitle="Add people who work in this business." showBack />
       <SurfaceCard className="gap-3">
         <Input label="Name" value={name} onChangeText={setName} placeholder="Team member" />
@@ -43,7 +44,7 @@ export default function RolesScreen() {
       </SurfaceCard>
       {members.length ? <SurfaceCard className="py-0">
         {members.map((member, index) => <React.Fragment key={member.id}>
-          <DataRow title={member.name} subtitle={`${member.email} · ${member.role}`} value="Remove" onPress={() => Alert.alert('Remove team member?', 'This removes the local team record.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Remove', style: 'destructive', onPress: () => deleteTeamMember(member.id) }])} />
+          <DataRow title={member.name} subtitle={`${member.email} · ${member.role}`} actions={[{ label: 'Remove team member', icon: Trash2, destructive: true, onPress: () => Alert.alert('Remove team member?', 'This removes the local team record.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Remove', style: 'destructive', onPress: () => deleteTeamMember(member.id) }]) }]} />
           {index < members.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No team members" message="Only the workspace owner currently has access." />}

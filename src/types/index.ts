@@ -49,6 +49,7 @@ export interface SaleItem {
 
 export interface Sale {
   id: string;
+  reference?: string;
   customerId?: string;
   customerName?: string;
   items: SaleItem[];
@@ -61,6 +62,7 @@ export interface Sale {
 
 export interface Invoice {
   id: string;
+  reference?: string;
   customerId: string;
   customerName: string;
   items: SaleItem[];

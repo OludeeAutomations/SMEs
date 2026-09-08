@@ -37,7 +37,7 @@ export default function AddExpenseScreen() {
   };
 
   return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}>
-    <ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
+    <ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
       <ScreenHeader title="Add expense" />
       <Input label="Category" placeholder="e.g. Fuel" value={category} onChangeText={setCategory} />
       {workspace.expenseCategories.length ? <ChoiceChips options={workspace.expenseCategories} value={category} onChange={setCategory} /> : null}

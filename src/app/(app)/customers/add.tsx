@@ -27,7 +27,7 @@ export default function AddCustomerScreen() {
     addCustomer({ fullName: cleanName, phoneNumber: cleanPhone, emailAddress: cleanEmail || undefined, address: address.trim() || undefined, amountOwed: parseAmount(balance), notes: undefined });
     Alert.alert('Customer added', cleanName, [{ text: 'Done', onPress: () => router.replace('/(app)/customers') }]);
   };
-  return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-28 pt-5" keyboardShouldPersistTaps="handled">
+  return <SafeAreaView className="flex-1 bg-[#F5F7FB]" edges={['top']}><ScrollView contentContainerClassName="gap-4 px-5 pb-40 pt-5" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled">
     <ScreenHeader title="Add customer" subtitle="Customer balances and purchase history update from real transactions." />
     <Input label="Full name" placeholder="Customer or business name" value={name} onChangeText={setName} />
     <Input label="Phone number" placeholder="+234..." value={phone} onChangeText={setPhone} keyboardType="phone-pad" />

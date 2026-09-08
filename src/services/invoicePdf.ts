@@ -3,6 +3,7 @@ import * as Sharing from 'expo-sharing';
 import type { Customer, Invoice } from '@/types';
 import type { BusinessProfile, UserProfile } from '@/store/authStore';
 import { formatDate, formatMoney } from '@/utils/format';
+import { displayReference } from '@/utils/references';
 
 type InvoicePdfInput = {
   invoice: Invoice;
@@ -23,7 +24,7 @@ const safeLogoUrl = (value?: string) => value && /^https:\/\//i.test(value) ? es
 
 export function buildInvoiceHtml({ invoice, business, user, customer, preferences }: InvoicePdfInput) {
   const currency = business.currency || 'NGN';
-  const invoiceNumber = `${String(preferences?.invoicePrefix ?? 'INV')}-${invoice.id.slice(-6).toUpperCase()}`;
+  const invoiceNumber = displayReference(String(preferences?.invoicePrefix ?? 'INV'), invoice);
   const logo = safeLogoUrl(business.logoUrl);
   const subtotal = invoice.items.reduce((total, item) => total + item.quantity * item.price, 0);
   const statusClass = invoice.status === 'PAID' ? 'paid' : invoice.status === 'OVERDUE' ? 'overdue' : 'unpaid';
@@ -143,7 +144,7 @@ export async function shareInvoicePdf(input: InvoicePdfInput) {
     await Sharing.shareAsync(uri, {
       mimeType: 'application/pdf',
       UTI: 'com.adobe.pdf',
-      dialogTitle: `Share invoice ${input.invoice.id.slice(-6).toUpperCase()}`,
+      dialogTitle: `Share invoice ${displayReference(String(input.preferences?.invoicePrefix ?? 'INV'), input.invoice)}`,
     });
     return;
   }

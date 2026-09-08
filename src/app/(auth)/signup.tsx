@@ -87,7 +87,7 @@ export default function RekodaSignUpScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#FAFAFA]">
-      <ScrollView contentContainerClassName="px-5 pb-6" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerClassName="px-5 pb-40" keyboardDismissMode="on-drag" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <AuthBackButton fallback="/(auth)/onboarding" />
         <View className="mb-5 self-start">
           <BrandLogo variant="mark" width={56} />

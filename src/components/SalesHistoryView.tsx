@@ -8,6 +8,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useWorkspace } from '@/store/businessStore';
 import { formatDate, formatMoney } from '@/utils/format';
 import type { Sale } from '@/types';
+import { displayReference } from '@/utils/references';
 
 export default function SalesHistoryView({ paymentMethod }: { paymentMethod?: Sale['paymentMethod'] }) {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function SalesHistoryView({ paymentMethod }: { paymentMethod?: Sa
       </View>
       {sales.length ? <SurfaceCard className="py-0">
         {sales.map((sale, index) => <React.Fragment key={sale.id}>
-          <DataRow title={sale.customerName || 'Walk-in customer'} subtitle={`${formatDate(sale.createdAt)} · ${sale.paymentMethod} · ${sale.items.length} item(s)`} value={formatMoney(sale.total, currency)} onPress={() => router.push(`/(app)/sales/${sale.id}` as never)} />
+          <DataRow title={displayReference('SALE', sale)} subtitle={`${sale.customerName || 'Walk-in customer'} · ${formatDate(sale.createdAt)} · ${sale.paymentMethod}`} value={formatMoney(sale.total, currency)} onPress={() => router.push(`/(app)/sales/${sale.id}` as never)} />
           {index < sales.length - 1 ? <Divider /> : null}
         </React.Fragment>)}
       </SurfaceCard> : <EmptyState title="No matching sales" message="Completed transactions for this view will appear here." actionLabel="Record sale" onAction={() => router.push('/(app)/sales/record')} />}

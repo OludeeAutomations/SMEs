@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { ChevronLeft, Plus } from 'lucide-react-native';
+import { ChevronLeft, Plus, type LucideIcon } from 'lucide-react-native';
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 import { colors, SurfaceCard } from './dashboard-ui';
 import { useSyncStore } from '@/store/syncStore';
 
 const rootScreens = new Set(['/home', '/sales', '/ai', '/reports', '/hub', '/inventory', '/customers', '/expenses', '/invoices', '/suppliers', '/settings', '/automation', '/projects']);
 
-export function ScreenHeader({ title, subtitle, actionLabel, onAction, showBack }: { title: string; subtitle?: string; actionLabel?: string; onAction?: () => void; showBack?: boolean }) {
+export type CompactAction = { label: string; icon: LucideIcon; onPress: () => void; destructive?: boolean; disabled?: boolean };
+
+export function ScreenHeader({ title, subtitle, actionLabel, onAction, showBack, actions = [] }: { title: string; subtitle?: string; actionLabel?: string; onAction?: () => void; showBack?: boolean; actions?: CompactAction[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const { from } = useLocalSearchParams<{ from?: string | string[] }>();
@@ -20,7 +22,10 @@ export function ScreenHeader({ title, subtitle, actionLabel, onAction, showBack 
     </Pressable> : null}
     <View className="flex-row items-start justify-between gap-3">
       <View className="flex-1"><Text className="text-2xl font-bold text-[#0F172A]">{title}</Text>{subtitle ? <Text className="mt-1 text-[13px] leading-[18px] text-[#475569]">{subtitle}</Text> : null}</View>
-      {onAction ? <Pressable accessibilityRole="button" onPress={onAction} className="min-h-11 flex-row items-center gap-1 rounded-[5px] bg-[#0B1F5E] px-3 active:bg-[#071845]"><Plus size={16} color="white" /><Text className="text-xs font-bold text-white">{actionLabel ?? 'Add'}</Text></Pressable> : null}
+      <View className="flex-row items-center gap-2">
+        {actions.map(({ label, icon: Icon, onPress, destructive, disabled }) => <Pressable key={label} accessibilityRole="button" accessibilityLabel={label} disabled={disabled} hitSlop={6} onPress={onPress} className={`h-11 w-11 items-center justify-center rounded-full border ${destructive ? 'border-[#FECACA] bg-[#FEF2F2]' : 'border-[#DCE3EE] bg-white'} ${disabled ? 'opacity-50' : ''}`}><Icon size={19} color={destructive ? '#DC2626' : '#2563EB'} /></Pressable>)}
+        {onAction ? <Pressable accessibilityRole="button" onPress={onAction} className="min-h-11 flex-row items-center gap-1 rounded-[5px] bg-[#0B1F5E] px-3 active:bg-[#071845]"><Plus size={16} color="white" /><Text className="text-xs font-bold text-white">{actionLabel ?? 'Add'}</Text></Pressable> : null}
+      </View>
     </View>
   </View>;
 }
@@ -34,11 +39,14 @@ export function EmptyState({ title, message, actionLabel, onAction }: { title: s
   </SurfaceCard>;
 }
 
-export function DataRow({ title, subtitle, value, onPress }: { title: string; subtitle?: string; value?: string; onPress?: () => void }) {
-  return <Pressable disabled={!onPress} onPress={onPress} className="flex-row items-center justify-between gap-3 py-3">
-    <View className="min-w-0 flex-1"><Text numberOfLines={1} className="text-[13px] font-semibold text-[#0F172A]">{title}</Text>{subtitle ? <Text numberOfLines={1} className="mt-0.5 text-[11px] text-[#475569]">{subtitle}</Text> : null}</View>
-    {value ? <Text className="font-mono text-xs font-bold text-[#0F172A]">{value}</Text> : null}
-  </Pressable>;
+export function DataRow({ title, subtitle, value, onPress, actions = [] }: { title: string; subtitle?: string; value?: string; onPress?: () => void; actions?: CompactAction[] }) {
+  return <View className="flex-row items-center gap-2 py-1">
+    <Pressable disabled={!onPress} onPress={onPress} className="min-h-12 min-w-0 flex-1 flex-row items-center justify-between gap-3 py-2">
+      <View className="min-w-0 flex-1"><Text numberOfLines={1} className="text-[13px] font-semibold text-[#0F172A]">{title}</Text>{subtitle ? <Text numberOfLines={1} className="mt-0.5 text-[11px] text-[#475569]">{subtitle}</Text> : null}</View>
+      {value ? <Text className="font-mono text-xs font-bold text-[#0F172A]">{value}</Text> : null}
+    </Pressable>
+    {actions.map(({ label, icon: Icon, onPress: onActionPress, destructive, disabled }) => <Pressable key={label} accessibilityRole="button" accessibilityLabel={label} disabled={disabled} hitSlop={5} onPress={onActionPress} className={`h-10 w-10 items-center justify-center rounded-full ${destructive ? 'bg-[#FEF2F2]' : 'bg-[#F2F5FA]'} ${disabled ? 'opacity-50' : ''}`}><Icon size={17} color={destructive ? '#DC2626' : '#2563EB'} /></Pressable>)}
+  </View>;
 }
 
 export function Divider() { return <View className="h-px bg-[#DCE3EE]" />; }
