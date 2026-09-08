@@ -12,6 +12,7 @@ import AuthBackButton from '@/components/AuthBackButton';
 import { signInWithGoogle } from '@/services/googleAuth';
 import { supabase } from '@/services/supabase';
 import { useAuthStore } from '@/store/authStore';
+import BrandLogo from '@/components/BrandLogo';
 
 const GoogleIcon = () => (
   <Svg width={18} height={18} viewBox="0 0 24 24">
@@ -107,6 +108,10 @@ export default function RekodaLoginScreen() {
         showsVerticalScrollIndicator={false}
       >
         <AuthBackButton fallback="/(auth)/onboarding" />
+
+        <View className="mb-6 self-start rounded-[5px] bg-white px-2 py-1">
+          <BrandLogo width={132} />
+        </View>
 
         <Text className="text-xs font-bold tracking-widest text-accent-blue uppercase mb-2">
           SECURE SIGN IN

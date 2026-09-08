@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Bot, Lightbulb, Send, Sparkles } from 'lucide-react-native';
+import { Lightbulb, Send, Sparkles } from 'lucide-react-native';
 import { EmptyState, ScreenHeader } from '@/components/business-ui';
 import { SurfaceCard } from '@/components/dashboard-ui';
+import BrandLogo from '@/components/BrandLogo';
 import { useAuthStore } from '@/store/authStore';
 import { useBusinessStore, useWorkspace } from '@/store/businessStore';
 import { BusinessAdvice, getBusinessAdvice } from '@/services/businessAdvisor';
@@ -41,7 +42,7 @@ export default function AIScreen() {
 
       <SurfaceCard className="gap-3">
         <View className="flex-row items-center gap-2">
-          <View className="h-9 w-9 items-center justify-center rounded-[14px] bg-[#EAF2FF]"><Bot size={19} color="#2563EB" /></View>
+          <View className="h-9 w-9 items-center justify-center rounded-[14px] bg-[#EAF2FF]"><BrandLogo variant="mark" width={25} /></View>
           <View className="flex-1"><Text className="text-sm font-bold text-[#0F172A]">Ask Rekọda</Text><Text className="text-[11px] text-[#475569]">Sales, profit, stock, expenses, debt, or customers</Text></View>
         </View>
         <TextInput

@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { ArrowLeft, ChartNoAxesCombined } from 'lucide-react-native';
+import { ArrowLeft } from 'lucide-react-native';
 import React, { useRef, useState } from 'react';
 import {
   Image,
@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BrandLogo from '@/components/BrandLogo';
 
 const slides = [
   {
@@ -67,12 +68,7 @@ export default function RekodaOnboardingScreen() {
             <ArrowLeft size={20} color="#0F172A" strokeWidth={1.8} />
           </Pressable>
 
-          <View className="flex-row items-center gap-2">
-            <View className="h-7 w-7 items-center justify-center rounded-[5px] bg-[#2563EB]">
-              <ChartNoAxesCombined size={17} color="#FFFFFF" strokeWidth={2.2} />
-            </View>
-            <Text className="text-lg font-bold text-[#0F172A]">Rekọda</Text>
-          </View>
+          <BrandLogo variant="mark" width={38} />
         </View>
 
         <View className="flex-1 justify-center">

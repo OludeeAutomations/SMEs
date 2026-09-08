@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import BrandLogo from '@/components/BrandLogo';
 import { useAuthStore } from '@/store/authStore';
 
 export default function RekodaSplashScreen() {
@@ -19,30 +20,13 @@ export default function RekodaSplashScreen() {
   }, [hasHydrated, isLoading, router, user]);
 
   return (
-    <SafeAreaView className="flex-1 bg-bg-light dark:bg-bg-dark justify-between py-12">
+    <SafeAreaView className="flex-1 justify-between bg-[#F7F8F4] py-12">
       <View />
 
       <View className="items-center px-6 gap-y-4">
-        <View 
-          className="w-[110px] h-[110px] bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-[34px] relative"
-          style={{
-            shadowColor: '#2563EB',
-            shadowOffset: { width: 0, height: 10 },
-            shadowOpacity: 0.1,
-            shadowRadius: 26,
-            elevation: 8,
-          }}
-        >
-          <View className="w-[66px] h-[66px] rounded-full bg-accent-blue opacity-[0.95] absolute top-[22px] left-[22px]" />
-          
-          <View className="w-[50px] h-[50px] rounded-full bg-accent-emerald opacity-[0.92] absolute top-[30px] left-[36px]" />
-        </View>
+        <BrandLogo variant="mark" width={156} />
 
-        <Text className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark font-inter mt-2">
-          Rekọda
-        </Text>
-
-        <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark text-center leading-relaxed max-w-[260px] font-inter">
+        <Text className="max-w-[280px] text-center font-inter text-base leading-relaxed text-text-secondary-light">
           The AI business operating system for SMEs across Africa.
         </Text>
 
@@ -52,7 +36,7 @@ export default function RekodaSplashScreen() {
       </View>
 
       <View className="items-center px-6">
-        <Text className="text-xs font-medium text-text-muted-light dark:text-text-muted-dark tracking-wider uppercase font-inter">
+        <Text className="font-inter text-xs font-medium uppercase tracking-wider text-text-muted-light">
           Sales • Invoicing • Inventory • AI insights
         </Text>
       </View>
