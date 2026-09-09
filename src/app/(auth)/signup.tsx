@@ -10,6 +10,7 @@ import { signInWithGoogle } from '@/services/googleAuth';
 import { supabase } from '@/services/supabase';
 import { useAuthStore } from '@/store/authStore';
 import BrandLogo from '@/components/BrandLogo';
+import { EMAIL_CONFIRMATION_URL } from '@/constants/auth';
 
 function GoogleMark() {
   return (
@@ -34,29 +35,28 @@ export default function RekodaSignUpScreen() {
   const authenticateLaunch = useAuthStore((state) => state.authenticateLaunch);
 
   const continueWithEmail = async () => {
-    if (!fullName.trim() || !email.includes('@') || password.length < 6 || !companySize.trim()) {
+    const cleanEmail = email.trim().toLowerCase();
+    if (!fullName.trim() || !cleanEmail.includes('@') || password.length < 6 || !companySize.trim()) {
       Alert.alert('Complete your details', 'Enter your name, business email, password, and company size.');
       return;
     }
     try {
       setEmailLoading(true);
       const { data, error } = await supabase.auth.signUp({
-        email: email.trim(),
+        email: cleanEmail,
         password,
         options: {
           data: { full_name: fullName.trim(), company_size: companySize.trim() },
-          emailRedirectTo: 'https://www.rekodaapp.com/auth/confirm',
+          emailRedirectTo: EMAIL_CONFIRMATION_URL,
         },
       });
       if (error) throw error;
       if (!data.user) throw new Error('Your account could not be created.');
       if (!data.session) {
-        Alert.alert('Check your email', 'Confirm your email address, then sign in to finish creating your business.', [
-          { text: 'Go to sign in', onPress: () => router.replace('/(auth)/login') },
-        ]);
+        router.replace({ pathname: '/(auth)/check-email', params: { email: cleanEmail } } as never);
         return;
       }
-      setSession({ id: data.user.id, fullName: fullName.trim(), email: email.trim() }, null);
+      setSession({ id: data.user.id, fullName: fullName.trim(), email: cleanEmail }, null);
       authenticateLaunch();
       router.push('/(auth)/business-profile');
     } catch (error) {
