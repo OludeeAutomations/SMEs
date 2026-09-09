@@ -43,7 +43,10 @@ export default function RekodaSignUpScreen() {
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
-        options: { data: { full_name: fullName.trim(), company_size: companySize.trim() } },
+        options: {
+          data: { full_name: fullName.trim(), company_size: companySize.trim() },
+          emailRedirectTo: 'https://www.rekodaapp.com/auth/confirm',
+        },
       });
       if (error) throw error;
       if (!data.user) throw new Error('Your account could not be created.');
