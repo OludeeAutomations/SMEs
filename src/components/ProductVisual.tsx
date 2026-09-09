@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Image } from 'expo-image';
 import {
@@ -51,12 +51,10 @@ function categoryVisual(name: string, category: string): CategoryVisual {
 }
 
 export default function ProductVisual({ imageUrl, name, category, iconSize = 24 }: ProductVisualProps) {
-  const [imageFailed, setImageFailed] = useState(false);
+  const [failedImageUrl, setFailedImageUrl] = useState<string>();
 
-  useEffect(() => setImageFailed(false), [imageUrl]);
-
-  if (imageUrl && !imageFailed) {
-    return <Image accessibilityLabel={`${name} product image`} source={{ uri: imageUrl }} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={150} onError={() => setImageFailed(true)} />;
+  if (imageUrl && imageUrl !== failedImageUrl) {
+    return <Image accessibilityLabel={`${name} product image`} source={{ uri: imageUrl }} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={150} onError={() => setFailedImageUrl(imageUrl)} />;
   }
 
   const { Icon, color, tint } = categoryVisual(name, category);

@@ -292,13 +292,17 @@ export function MarketingSite() {
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
 
   useEffect(() => {
-    try {
-      const hasJoined = window.localStorage.getItem('rekoda-waitlist-joined') === 'true';
-      setWaitlistSubmitted(hasJoined);
-      setWaitlistOpen(!hasJoined);
-    } catch {
-      setWaitlistOpen(true);
-    }
+    const initializeWaitlist = setTimeout(() => {
+      try {
+        const hasJoined = window.localStorage.getItem('rekoda-waitlist-joined') === 'true';
+        setWaitlistSubmitted(hasJoined);
+        setWaitlistOpen(!hasJoined);
+      } catch {
+        setWaitlistOpen(true);
+      }
+    }, 0);
+
+    return () => clearTimeout(initializeWaitlist);
   }, []);
 
   useEffect(() => {

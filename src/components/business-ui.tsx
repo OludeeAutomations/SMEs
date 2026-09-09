@@ -63,11 +63,13 @@ export function SyncStatusPill() {
   useEffect(() => {
     const completedSave = previousStatus.current === 'saving' && status === 'synced';
     previousStatus.current = status;
-    if (status === 'saving') setShowSaved(false);
     if (!completedSave) return;
-    setShowSaved(true);
-    const timer = setTimeout(() => setShowSaved(false), 1800);
-    return () => clearTimeout(timer);
+    const showTimer = setTimeout(() => setShowSaved(true), 0);
+    const hideTimer = setTimeout(() => setShowSaved(false), 1800);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, [status]);
 
   if (status === 'offline' || status === 'error') {
@@ -77,7 +79,7 @@ export function SyncStatusPill() {
       </Text>
     </View>;
   }
-  if (!showSaved) return null;
+  if (!showSaved || status !== 'synced') return null;
   return <View className="self-start rounded-full bg-[#E8FBF4] px-3 py-1.5">
     <Text className="text-[10px] font-semibold text-[#047857]">Saved</Text>
   </View>;

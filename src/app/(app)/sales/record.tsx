@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -27,16 +27,6 @@ export default function RecordSaleScreen() {
   const [quantity, setQuantity] = useState(draft ? String(draft.quantity) : '1');
   const [payment, setPayment] = useState<'CASH' | 'TRANSFER' | 'CARD'>(draft?.paymentMethod ?? 'CASH');
   const selectedProduct = workspace.products.find((product) => product.id === productId);
-
-  useEffect(() => {
-    if (!draft) return;
-    setCustomerId(draft.customerId ?? '');
-    setProductId(draft.productId ?? '');
-    setItem(draft.item);
-    setAmount(String(draft.amount));
-    setQuantity(String(draft.quantity));
-    setPayment(draft.paymentMethod);
-  }, [draft]);
 
   const selectProduct = (id: string) => {
     const product = workspace.products.find((candidate) => candidate.id === id);

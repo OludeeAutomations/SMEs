@@ -20,23 +20,23 @@ export default function RekodaSplashScreen() {
   }, [hasHydrated, isLoading, router, user]);
 
   return (
-    <SafeAreaView className="flex-1 justify-between bg-[#F7F8F4] py-12">
+    <SafeAreaView className="flex-1 justify-between bg-[#0B1F5E] py-12">
       <View />
 
       <View className="items-center px-6 gap-y-4">
-        <BrandLogo width={236} />
+        <BrandLogo tone="white" width={236} />
 
-        <Text className="max-w-[280px] text-center font-inter text-base leading-relaxed text-text-secondary-light">
+        <Text className="max-w-[280px] text-center font-inter text-base leading-relaxed text-[#DCE7FF]">
           The AI business operating system for SMEs across Africa.
         </Text>
 
-        <View className="w-[180px] h-2 bg-surface-2-light dark:bg-surface-2-dark rounded-full overflow-hidden mt-2">
-          <View className="w-[96px] h-full bg-accent-blue rounded-full" />
+        <View className="mt-2 h-2 w-[180px] overflow-hidden rounded-full bg-white/20">
+          <View className="h-full w-[96px] rounded-full bg-white" />
         </View>
       </View>
 
       <View className="items-center px-6">
-        <Text className="font-inter text-xs font-medium uppercase tracking-wider text-text-muted-light">
+        <Text className="font-inter text-xs font-medium uppercase tracking-wider text-[#AFC3EE]">
           Sales • Invoicing • Inventory • AI insights
         </Text>
       </View>
