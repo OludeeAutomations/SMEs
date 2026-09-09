@@ -5,7 +5,7 @@ import type { Customer, Expense, Invoice, Product, Sale, Supplier } from '@/type
 import { createReference } from '@/utils/references';
 
 export interface Project { id: string; title: string; completed: boolean; createdAt: string }
-export interface TeamMember { id: string; name: string; email: string; role: string; createdAt: string }
+export interface TeamMember { id: string; name: string; email: string; role: string; status?: 'PENDING' | 'ACTIVE'; createdAt: string; acceptedAt?: string }
 export interface InventoryMovement { id: string; productId: string; productName: string; quantity: number; type: 'OPENING' | 'ADJUSTMENT' | 'SALE'; createdAt: string }
 export interface AIConversation { id: string; title: string; createdAt: string }
 export interface AIMessage { id: string; conversationId: string; role: 'USER' | 'ASSISTANT'; content: string; createdAt: string }
@@ -43,7 +43,7 @@ interface BusinessState {
   addSupplierBill: (input: Omit<SupplierBill, 'id' | 'createdAt' | 'status'>) => SupplierBill; updateSupplierBillStatus: (id: string, status: SupplierBill['status']) => void; deleteSupplierBill: (id: string) => void;
   addExpenseCategory: (category: string) => void; addInventoryCategory: (category: string) => void;
   setAutomation: (key: string, enabled: boolean) => void; clearWorkspace: () => void;
-  addTeamMember: (name: string, email: string, role: string) => void;
+  addTeamMember: (name: string, email: string, role: string, id?: string, status?: TeamMember['status']) => void;
   deleteTeamMember: (id: string) => void;
   addAIExchange: (question: string, answer: string) => void;
   setPreference: (key: string, value: string | boolean) => void;
@@ -231,7 +231,10 @@ export const useBusinessStore = create<BusinessState>()(persist((set, get) => {
     addExpenseCategory: (category) => update((workspace) => ({ ...workspace, expenseCategories: workspace.expenseCategories.includes(category) ? workspace.expenseCategories : [...workspace.expenseCategories, category] })),
     addInventoryCategory: (category) => update((workspace) => ({ ...workspace, inventoryCategories: workspace.inventoryCategories.includes(category) ? workspace.inventoryCategories : [...workspace.inventoryCategories, category] })),
     setAutomation: (key, enabled) => update((workspace) => ({ ...workspace, automations: { ...workspace.automations, [key]: enabled } })),
-    addTeamMember: (name, email, role) => update((workspace) => ({ ...workspace, teamMembers: [{ id: makeId('member'), name, email, role, createdAt: new Date().toISOString() }, ...(workspace.teamMembers ?? [])] })),
+    addTeamMember: (name, email, role, id, status = 'PENDING') => update((workspace) => ({
+      ...workspace,
+      teamMembers: [{ id: id ?? makeId('member'), name, email, role, status, createdAt: new Date().toISOString() }, ...(workspace.teamMembers ?? [])],
+    })),
     deleteTeamMember: (memberId) => update((workspace) => ({ ...workspace, teamMembers: workspace.teamMembers.filter((member) => member.id !== memberId) })),
     addAIExchange: (question, answer) => update((workspace) => {
       const createdAt = new Date().toISOString();

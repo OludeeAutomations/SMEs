@@ -170,7 +170,7 @@ function MarketingHeader({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
-      <a className="brand" href="#top" aria-label="Rekọda home">
+      <a className="brand" href="/" aria-label="Rekọda home">
         <img className="brand-logo" src={logoImage} alt="" />
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
@@ -340,7 +340,7 @@ export function MarketingSite() {
   const openWaitlist = () => setWaitlistOpen(true);
 
   return (
-    <div className={`marketing-page${waitlistOpen ? ' waitlist-is-open' : ''}`} id="top">
+    <div className={`marketing-page${waitlistOpen ? ' waitlist-is-open' : ''}`}>
       <MarketingHeader onJoinWaitlist={openWaitlist} />
       <WaitlistModal open={waitlistOpen} submitted={waitlistSubmitted} onClose={() => setWaitlistOpen(false)} onSubmitted={completeWaitlist} />
 
@@ -439,10 +439,10 @@ export function MarketingSite() {
 
       <footer className="site-footer" id="contact">
         <div className="footer-main">
-          <div className="footer-brand"><a className="brand" href="#top" aria-label="Rekọda home"><img className="brand-logo" src={logoImage} alt="" /></a><p>A clearer way to run and understand your business.</p></div>
+          <div className="footer-brand"><a className="brand" href="/" aria-label="Rekọda home"><img className="brand-logo" src={logoImage} alt="" /></a><p>A clearer way to run and understand your business.</p></div>
           <div className="footer-links">
             <div><strong>Product</strong><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#how-it-works">How it works</a></div>
-            <div><strong>Company</strong><a href="#top">About</a><a href="mailto:info@rekodaapp.com">info@rekodaapp.com</a></div>
+            <div><strong>Company</strong><a href="/">About</a><a href="mailto:info@rekodaapp.com">info@rekodaapp.com</a></div>
             <div><strong>Legal</strong><a href="#contact">Privacy</a><a href="#contact">Terms</a><a href="#contact">Security</a></div>
           </div>
         </div>

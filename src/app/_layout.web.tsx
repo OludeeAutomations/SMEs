@@ -8,6 +8,7 @@ export default function WebRootLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="auth/confirm" />
       <Stack.Screen name="auth/reset-password" />
+      <Stack.Screen name="auth/team-invite" />
     </Stack>
   );
 }
