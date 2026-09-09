@@ -5,15 +5,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import BrandLogo from '@/components/BrandLogo';
 import { Button } from '@/components/Button';
-import { EMAIL_CONFIRMATION_URL } from '@/constants/auth';
+import { EMAIL_CONFIRMATION_URL, PASSWORD_RESET_URL } from '@/constants/auth';
 import { supabase } from '@/services/supabase';
 
 const firstParam = (value?: string | string[]) => Array.isArray(value) ? value[0] : value;
 
 export default function CheckEmailScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ email?: string | string[] }>();
+  const params = useLocalSearchParams<{ email?: string | string[]; mode?: string | string[] }>();
   const email = firstParam(params.email) ?? '';
+  const isRecovery = firstParam(params.mode) === 'recovery';
   const [resending, setResending] = useState(false);
   const [cooldown, setCooldown] = useState(60);
 
@@ -27,14 +28,16 @@ export default function CheckEmailScreen() {
     if (!email || cooldown > 0) return;
     try {
       setResending(true);
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email,
-        options: { emailRedirectTo: EMAIL_CONFIRMATION_URL },
-      });
+      const { error } = isRecovery
+        ? await supabase.auth.resetPasswordForEmail(email, { redirectTo: PASSWORD_RESET_URL })
+        : await supabase.auth.resend({
+            type: 'signup',
+            email,
+            options: { emailRedirectTo: EMAIL_CONFIRMATION_URL },
+          });
       if (error) throw error;
       setCooldown(60);
-      Alert.alert('Email sent', 'A new confirmation email is on its way.');
+      Alert.alert('Email sent', isRecovery ? 'A new password reset email is on its way.' : 'A new confirmation email is on its way.');
     } catch (error) {
       Alert.alert('Could not resend email', error instanceof Error ? error.message : 'Please try again shortly.');
     } finally {
@@ -52,18 +55,20 @@ export default function CheckEmailScreen() {
           </View>
           <Text className="mt-5 text-center text-[26px] font-bold text-[#0B1F5E]">Check your email</Text>
           <Text className="mt-3 text-center text-sm leading-6 text-[#475569]">
-            We sent a confirmation link to{email ? ` ${email}` : ' your email address'}. Open it to activate your Rekọda account before signing in.
+            {isRecovery
+              ? `We sent a password reset link to${email ? ` ${email}` : ' your email address'}. Open it to choose a new password.`
+              : `We sent a confirmation link to${email ? ` ${email}` : ' your email address'}. Open it to activate your Rekoda account before signing in.`}
           </Text>
-          <Button title="I’ve confirmed my email" onPress={() => router.replace('/(auth)/login')} className="mt-7 w-full" />
+          <Button title={isRecovery ? 'Back to sign in' : "I've confirmed my email"} onPress={() => router.replace('/(auth)/login')} className="mt-7 w-full" />
           <Button
-            title={cooldown > 0 ? `Resend email in ${cooldown}s` : 'Resend confirmation email'}
+            title={cooldown > 0 ? `Resend email in ${cooldown}s` : isRecovery ? 'Resend reset email' : 'Resend confirmation email'}
             variant="outline"
             disabled={!email || cooldown > 0}
             isLoading={resending}
             onPress={resend}
             className="mt-3 w-full"
           />
-          <Pressable onPress={() => router.replace('/(auth)/signup')} className="mt-5 p-2">
+          <Pressable onPress={() => router.replace(isRecovery ? '/(auth)/reset' : '/(auth)/signup')} className="mt-5 p-2">
             <Text className="text-sm font-semibold text-[#2563EB]">Use a different email</Text>
           </Pressable>
         </View>

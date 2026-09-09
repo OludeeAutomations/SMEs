@@ -7,6 +7,7 @@ export default function WebRootLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="auth/confirm" />
+      <Stack.Screen name="auth/reset-password" />
     </Stack>
   );
 }
