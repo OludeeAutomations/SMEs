@@ -1,6 +1,5 @@
-import { Image } from 'expo-image';
 import React from 'react';
-import { ImageStyle, StyleProp } from 'react-native';
+import { Image, ImageStyle, StyleProp } from 'react-native';
 
 type BrandLogoProps = {
   variant?: 'wordmark' | 'mark';
@@ -22,7 +21,7 @@ export default function BrandLogo({ variant = 'wordmark', tone = 'brand', width,
     <Image
       accessibilityLabel="Rekọda"
       accessible
-      contentFit="contain"
+      resizeMode="contain"
       source={source}
       style={[
         {

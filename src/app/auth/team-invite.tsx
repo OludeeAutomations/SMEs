@@ -15,8 +15,13 @@ const firstParam = (value?: string | string[]) => Array.isArray(value) ? value[0
 
 export default function TeamInviteScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ token_hash?: string | string[] }>();
-  const tokenHash = firstParam(params.token_hash);
+  const params = useLocalSearchParams<{
+    token_hash?: string | string[];
+    token?: string | string[];
+    code?: string | string[];
+  }>();
+  const tokenHash = firstParam(params.token_hash) ?? firstParam(params.token);
+  const authCode = firstParam(params.code);
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [state, setState] = useState<InviteState>('ready');
@@ -25,7 +30,7 @@ export default function TeamInviteScreen() {
   const [passwordUpdated, setPasswordUpdated] = useState(false);
 
   const joinTeam = async () => {
-    if (!tokenHash) {
+    if (!tokenHash && !authCode) {
       setState('error');
       setMessage('This invitation link is incomplete. Ask the business owner to send another invitation.');
       return;
@@ -45,7 +50,9 @@ export default function TeamInviteScreen() {
     setMessage('We are securely setting up your team access.');
 
     if (!sessionVerified) {
-      const { error: verificationError } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'invite' });
+      const { error: verificationError } = tokenHash
+        ? await supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'invite' })
+        : await supabase.auth.exchangeCodeForSession(authCode!);
       if (verificationError) {
         setState('error');
         setMessage('This invitation link may have expired or already been used. Ask the business owner to send another invitation.');

@@ -81,7 +81,7 @@ export default function RekodaOnboardingScreen() {
                   accessibilityIgnoresInvertColors
                   resizeMode="contain"
                   source={slide.image}
-                  className="h-[250px] w-[280px]"
+                  style={{ width: 280, height: 250 }}
                 />
                 <Text className="w-full text-center text-[27px] font-bold leading-[29px] text-[#0F172A]">
                   {slide.title}

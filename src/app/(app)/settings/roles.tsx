@@ -57,6 +57,7 @@ export default function RolesScreen() {
             setRemovingId(memberId);
             await revokeTeamInvitation(memberId);
             deleteTeamMember(memberId);
+            Alert.alert('Team member removed', `${memberName} no longer has access to this workspace.`);
           } catch (error) {
             Alert.alert('Could not remove team member', error instanceof Error ? error.message : 'Please try again shortly.');
           } finally {

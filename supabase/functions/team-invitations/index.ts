@@ -155,11 +155,33 @@ Deno.serve(async (req) => {
       if (!memberId) return json({ message: 'Choose a team member to remove.' }, 400);
       const data = workspace.data ?? {};
       const currentMembers = Array.isArray(data.teamMembers) ? data.teamMembers : [];
+      const member = currentMembers.find((candidate: Record<string, unknown>) => candidate.id === memberId);
+      const { data: membership, error: membershipError } = await admin
+        .from('workspace_memberships')
+        .select('id,member_user_id,status')
+        .eq('owner_user_id', user.id)
+        .eq('id', memberId)
+        .maybeSingle();
+      if (membershipError) throw membershipError;
+      if (!member && !membership) return json({ removed: true });
+
       data.teamMembers = currentMembers.filter((member: Record<string, unknown>) => member.id !== memberId);
       const { error: updateError } = await admin.from('business_workspaces').update({ data, updated_at: new Date().toISOString() }).eq('user_id', user.id);
       if (updateError) throw updateError;
-      const { error: revokeError } = await admin.from('workspace_memberships').update({ status: 'REVOKED' }).eq('owner_user_id', user.id).eq('id', memberId);
-      if (revokeError) throw revokeError;
+
+      if (membership) {
+        const { error: removeError } = await admin
+          .from('workspace_memberships')
+          .delete()
+          .eq('owner_user_id', user.id)
+          .eq('id', memberId);
+        if (removeError) throw removeError;
+
+        if (membership.status === 'PENDING' && membership.member_user_id) {
+          const { error: invitedUserError } = await admin.auth.admin.deleteUser(membership.member_user_id);
+          if (invitedUserError) console.warn('Could not remove the pending invited auth user:', invitedUserError.message);
+        }
+      }
       return json({ removed: true });
     }
 

@@ -27,7 +27,11 @@ export default function ConfirmEmailScreen() {
     }
     setState('confirming');
     setMessage('We are securely confirming your email address.');
-    const confirmationType: 'signup' | 'email' = requestedType === 'email' ? 'email' : 'signup';
+    const confirmationType: 'signup' | 'email' | 'email_change' = requestedType === 'email_change'
+      ? 'email_change'
+      : requestedType === 'email'
+        ? 'email'
+        : 'signup';
     const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: confirmationType });
     if (error) {
       setState('error');

@@ -41,3 +41,5 @@ The service-role key stays inside Supabase and is never added to the mobile app.
 
 4. In Authentication > Email Templates > Invite user, paste the contents of
    `supabase/email-templates/team-invitation.html` and save it.
+5. In Mailtrap, turn off click tracking for authentication emails. Email-security
+   scanners and privacy relays can otherwise rewrite or pre-open one-time links.
