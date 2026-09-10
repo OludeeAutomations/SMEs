@@ -39,7 +39,10 @@ The service-role key stays inside Supabase and is never added to the mobile app.
 
    `https://www.rekodaapp.com/auth/team-invite`
 
-4. In Authentication > Email Templates > Invite user, paste the contents of
+4. Deploy the website. The production build generates a lightweight invitation
+   page at `/auth/team-invite` and the email logo at `/rekoda-email-logo.png`.
+5. In Authentication > Email Templates > Invite user, paste the contents of
    `supabase/email-templates/team-invitation.html` and save it.
-5. In Mailtrap, turn off click tracking for authentication emails. Email-security
-   scanners and privacy relays can otherwise rewrite or pre-open one-time links.
+6. Send a new invitation after changing the template. The template excludes its
+   one-time links from Mailtrap tracking with `data-mt-no-track` so scanners and
+   tracking redirects cannot break them.

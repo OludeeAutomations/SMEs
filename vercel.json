@@ -4,7 +4,7 @@
   "rewrites": [
     { "source": "/auth/confirm", "destination": "/index.html" },
     { "source": "/auth/reset-password", "destination": "/index.html" },
-    { "source": "/auth/team-invite", "destination": "/index.html" }
+    { "source": "/auth/team-invite", "destination": "/auth/team-invite.html" }
   ],
   "headers": [
     {

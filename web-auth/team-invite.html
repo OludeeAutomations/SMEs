@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1f5e" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Join the team | Rekoda</title>
+    <style>
+      :root { color-scheme: light; font-family: Arial, sans-serif; }
+      * { box-sizing: border-box; }
+      html, body { min-height: 100%; margin: 0; }
+      body {
+        background: #f5f7fb;
+        color: #0f172a;
+        padding: max(28px, env(safe-area-inset-top)) 18px max(28px, env(safe-area-inset-bottom));
+      }
+      main { min-height: calc(100vh - 56px); display: grid; place-items: center; }
+      .card {
+        width: 100%; max-width: 520px; padding: 36px 28px; text-align: center;
+        background: #fff; border: 1px solid #dce3ee; border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, .07);
+      }
+      .logo { display: block; width: 190px; max-width: 70%; height: auto; margin: 0 auto; }
+      .brand-text { display: none; margin: 0; color: #0b1f5e; font-size: 30px; font-weight: 800; }
+      .icon {
+        width: 56px; height: 56px; display: grid; place-items: center; margin: 28px auto 0;
+        border-radius: 50%; background: #eaf2ff; color: #2563eb; font-size: 26px; font-weight: 700;
+      }
+      h1 { margin: 20px 0 0; color: #0b1f5e; font-size: 28px; line-height: 1.2; }
+      .message { max-width: 390px; margin: 12px auto 0; color: #475569; font-size: 15px; line-height: 1.65; }
+      form { margin-top: 28px; text-align: left; }
+      .field + .field { margin-top: 16px; }
+      label { display: block; margin: 0 0 7px 4px; color: #334155; font-size: 13px; font-weight: 700; }
+      input {
+        width: 100%; height: 54px; padding: 0 15px; border: 1px solid #dce3ee; border-radius: 7px;
+        background: #fff; color: #0f172a; font: inherit; font-size: 15px; outline: none;
+      }
+      input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, .12); }
+      button, .button {
+        width: 100%; min-height: 52px; display: inline-flex; align-items: center; justify-content: center;
+        margin-top: 22px; padding: 13px 20px; border: 0; border-radius: 7px; cursor: pointer;
+        background: #0b1f5e; color: #fff; font: inherit; font-size: 15px; font-weight: 700;
+        text-decoration: none;
+      }
+      button:disabled { cursor: wait; opacity: .65; }
+      .footer { margin: 24px 0 0; color: #94a3b8; font-size: 12px; }
+      .error .icon { background: #fef2f2; color: #dc2626; }
+      .error .message { color: #b91c1c; }
+      .success .icon { background: #e8fbf4; color: #047857; }
+      .success .message { color: #475569; }
+      [hidden] { display: none !important; }
+      @media (max-width: 480px) {
+        body { padding-left: 14px; padding-right: 14px; }
+        main { min-height: calc(100vh - 48px); }
+        .card { padding: 30px 20px; }
+        h1 { font-size: 25px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card" id="card" aria-live="polite">
+        <img
+          class="logo"
+          src="/rekoda-email-logo.png"
+          width="190"
+          alt="Rekoda"
+          onerror="this.hidden=true;document.getElementById('brand-text').style.display='block'"
+        />
+        <p class="brand-text" id="brand-text">Rekoda</p>
+        <div class="icon" id="state-icon" aria-hidden="true">+</div>
+        <h1 id="title">Join the team</h1>
+        <p class="message" id="message">Create a password to accept your Rekoda team invitation.</p>
+
+        <form id="invite-form">
+          <div class="field">
+            <label for="password">Create password</label>
+            <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" placeholder="At least 8 characters" required />
+          </div>
+          <div class="field">
+            <label for="confirmation">Confirm password</label>
+            <input id="confirmation" name="confirmation" type="password" minlength="8" autocomplete="new-password" placeholder="Enter the password again" required />
+          </div>
+          <button id="submit" type="submit">Join team</button>
+        </form>
+
+        <a class="button" id="open-app" href="smes://" hidden>Open Rekoda</a>
+        <p class="footer">Run your business with clarity.</p>
+      </section>
+    </main>
+
+    <script>
+      const SUPABASE_URL = __SUPABASE_URL__;
+      const SUPABASE_ANON_KEY = __SUPABASE_ANON_KEY__;
+      const params = new URLSearchParams(window.location.search);
+      const tokenHash = params.get('token_hash') || params.get('token');
+      const card = document.getElementById('card');
+      const form = document.getElementById('invite-form');
+      const submit = document.getElementById('submit');
+      const title = document.getElementById('title');
+      const message = document.getElementById('message');
+      const stateIcon = document.getElementById('state-icon');
+      const openApp = document.getElementById('open-app');
+      let accessToken = '';
+
+      function setState(state, heading, detail) {
+        card.classList.remove('error', 'success');
+        if (state === 'error' || state === 'success') card.classList.add(state);
+        stateIcon.textContent = state === 'success' ? '✓' : state === 'error' ? '!' : '+';
+        title.textContent = heading;
+        message.textContent = detail;
+      }
+
+      async function request(path, options) {
+        const response = await fetch(SUPABASE_URL + path, options);
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(payload.message || payload.msg || payload.error_description || payload.error || 'The request could not be completed.');
+        }
+        return payload;
+      }
+
+      async function verifyInvitation() {
+        if (accessToken) return accessToken;
+        const payload = await request('/auth/v1/verify', {
+          method: 'POST',
+          headers: { apikey: SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token_hash: tokenHash, type: 'invite' }),
+        });
+        accessToken = payload.access_token || (payload.session && payload.session.access_token) || '';
+        if (!accessToken) throw new Error('The invitation could not create a secure session. Request a new invitation.');
+        history.replaceState(null, '', '/auth/team-invite');
+        return accessToken;
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const password = document.getElementById('password').value;
+        const confirmation = document.getElementById('confirmation').value;
+
+        if (!tokenHash && !accessToken) {
+          setState('error', 'Invitation link incomplete', 'Ask the business owner to send you a new invitation.');
+          return;
+        }
+        if (password.length < 8) {
+          setState('error', 'Check your password', 'Your password must contain at least 8 characters.');
+          return;
+        }
+        if (password !== confirmation) {
+          setState('error', 'Passwords do not match', 'Enter the same password in both fields.');
+          return;
+        }
+
+        submit.disabled = true;
+        submit.textContent = 'Joining team…';
+        setState('ready', 'Setting up your access', 'We are securely accepting your team invitation.');
+
+        try {
+          const token = await verifyInvitation();
+          await request('/auth/v1/user', {
+            method: 'PUT',
+            headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password }),
+          });
+          const result = await request('/functions/v1/team-invitations', {
+            method: 'POST',
+            headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'accept' }),
+          });
+          fetch(SUPABASE_URL + '/auth/v1/logout?scope=local', {
+            method: 'POST',
+            headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + token },
+          }).catch(() => undefined);
+
+          form.hidden = true;
+          openApp.hidden = false;
+          const business = result.businessName || 'the business';
+          const role = result.role ? ' as ' + result.role : '';
+          setState('success', 'Welcome to the team', 'You have joined ' + business + role + '. Open Rekoda and sign in with your new password.');
+        } catch (error) {
+          submit.disabled = false;
+          submit.textContent = 'Try again';
+          setState('error', 'Could not accept invitation', error instanceof Error ? error.message : 'Request a new invitation and try again.');
+        }
+      });
+
+      if (!tokenHash) {
+        setState('error', 'Invitation link incomplete', 'Ask the business owner to send you a new invitation.');
+      }
+    </script>
+  </body>
+</html>
