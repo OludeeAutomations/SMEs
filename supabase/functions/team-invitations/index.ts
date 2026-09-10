@@ -7,6 +7,7 @@ const cors = {
 };
 
 const inviteUrl = 'https://www.rekodaapp.com/auth/team-invite';
+const emailLogoUrl = 'https://www.rekodaapp.com/rekoda-email-logo-v2.png';
 const allowedRoles = new Set(['Manager', 'Cashier', 'Storekeeper']);
 
 const json = (body: Record<string, unknown>, status = 200) => new Response(JSON.stringify(body), {
@@ -15,6 +16,121 @@ const json = (body: Record<string, unknown>, status = 200) => new Response(JSON.
 });
 
 const cleanEmail = (value: unknown) => String(value ?? '').trim().toLowerCase();
+
+const escapeHtml = (value: unknown) => String(value ?? '')
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#039;');
+
+const bytesToBase64 = (bytes: Uint8Array) => {
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+  return btoa(binary);
+};
+
+const invitationEmail = ({ name, businessName, role, inviteLink }: {
+  name: string;
+  businessName: string;
+  role: string;
+  inviteLink: string;
+}) => {
+  const safeName = escapeHtml(name);
+  const safeBusinessName = escapeHtml(businessName);
+  const safeRole = escapeHtml(role);
+  const safeInviteLink = escapeHtml(inviteLink);
+
+  return `<!doctype html>
+<html lang="en">
+  <body style="margin:0;padding:0;background:#f5f7fb;font-family:Arial,sans-serif;color:#0f172a;">
+    <div style="display:none;max-height:0;overflow:hidden;">${safeBusinessName} invited you to join their team on Rekoda.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f5f7fb;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;background:#ffffff;border:1px solid #dce3ee;border-radius:12px;overflow:hidden;">
+            <tr>
+              <td align="center" style="padding:28px 32px 16px;">
+                <img src="cid:rekoda-logo.png" width="140" alt="Rekoda" style="display:block;width:140px;max-width:100%;height:auto;border:0;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 40px 36px;">
+                <h1 style="margin:0 0 16px;font-size:26px;line-height:34px;text-align:center;color:#0b1f5e;">Join ${safeBusinessName}</h1>
+                <p style="margin:0 0 12px;text-align:center;font-size:15px;line-height:24px;color:#475569;">Hello ${safeName}, you have been invited to join ${safeBusinessName} on Rekoda as ${safeRole}.</p>
+                <p style="margin:0 0 16px;text-align:center;font-size:15px;line-height:24px;color:#475569;">Create your password to accept the invitation and access the workspace securely.</p>
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td align="center" style="padding:12px 0 24px;">
+                      <a data-mt-no-track href="${safeInviteLink}" style="display:inline-block;background:#0b1f5e;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;padding:14px 28px;border-radius:6px;">Join ${safeBusinessName}</a>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:0;text-align:center;font-size:13px;line-height:20px;color:#64748b;">This secure invitation link can only be used once and expires automatically.</p>
+                <p style="margin:18px 0 6px;font-size:13px;line-height:20px;color:#64748b;">If the button does not open, copy and paste this address into your browser:</p>
+                <p style="margin:0;word-break:break-all;font-size:12px;line-height:19px;"><a data-mt-no-track href="${safeInviteLink}" style="color:#2563eb;text-decoration:underline;">${safeInviteLink}</a></p>
+              </td>
+            </tr>
+            <tr>
+              <td style="border-top:1px solid #e7ebf1;padding:20px 32px;text-align:center;">
+                <p style="margin:0;font-size:12px;line-height:18px;color:#64748b;">If you were not expecting this invitation, you can safely ignore this email.</p>
+                <p style="margin:8px 0 0;font-size:12px;color:#94a3b8;">Rekoda &middot; Run your business with clarity</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+};
+
+async function sendInvitationEmail({ email, name, businessName, role, inviteLink }: {
+  email: string;
+  name: string;
+  businessName: string;
+  role: string;
+  inviteLink: string;
+}) {
+  const token = Deno.env.get('MAILTRAP_API_TOKEN')?.trim();
+  const fromEmail = Deno.env.get('MAILTRAP_FROM_EMAIL')?.trim();
+  const fromName = Deno.env.get('MAILTRAP_FROM_NAME')?.trim() || 'Rekoda';
+  if (!token || !fromEmail) throw new Error('Mailtrap invitation email secrets are not configured.');
+
+  const logoResponse = await fetch(emailLogoUrl);
+  if (!logoResponse.ok) throw new Error('The Rekoda email logo could not be loaded.');
+  const logo = bytesToBase64(new Uint8Array(await logoResponse.arrayBuffer()));
+  const cleanBusinessName = businessName.replace(/[\r\n]+/g, ' ').trim() || 'A Rekoda business';
+  const response = await fetch('https://send.api.mailtrap.io/api/send', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: { email: fromEmail, name: fromName },
+      to: [{ email, name }],
+      subject: `${cleanBusinessName} invited you to join their team on Rekoda`,
+      html: invitationEmail({ name, businessName: cleanBusinessName, role, inviteLink }),
+      text: `Hello ${name},\n\nYou have been invited to join ${cleanBusinessName} on Rekoda as ${role}.\n\nCreate your password and accept the invitation: ${inviteLink}\n\nThis secure link can only be used once.`,
+      category: 'Team invitation',
+      attachments: [{
+        filename: 'rekoda-logo.png',
+        content_id: 'rekoda-logo.png',
+        disposition: 'inline',
+        content: logo,
+      }],
+    }),
+  });
+
+  if (!response.ok) {
+    const payload = await response.json().catch(() => ({}));
+    throw new Error(payload?.errors?.join?.(', ') || payload?.message || `Mailtrap rejected the invitation email (${response.status}).`);
+  }
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
@@ -124,14 +240,19 @@ Deno.serve(async (req) => {
         throw updateError;
       }
 
-      const { data: inviteData, error: inviteError } = await admin.auth.admin.inviteUserByEmail(email, {
-        redirectTo: inviteUrl,
-        data: {
-          full_name: name,
-          team_invitation_id: invitationId,
-          workspace_owner_id: user.id,
-          business_name: workspace.business?.name ?? 'a Rekoda business',
-          role,
+      const businessName = String(workspace.business?.name ?? 'A Rekoda business');
+      const { data: inviteData, error: inviteError } = await admin.auth.admin.generateLink({
+        type: 'invite',
+        email,
+        options: {
+          redirectTo: inviteUrl,
+          data: {
+            full_name: name,
+            team_invitation_id: invitationId,
+            workspace_owner_id: user.id,
+            business_name: businessName,
+            role,
+          },
         },
       });
       if (inviteError) {
@@ -144,9 +265,44 @@ Deno.serve(async (req) => {
         return json({ message: existingAccount ? 'This email already has a Rekoda account. Existing-account team invitations are not supported yet.' : inviteError.message }, 400);
       }
 
-      if (inviteData.user?.id) {
-        await admin.from('workspace_memberships').update({ member_user_id: inviteData.user.id }).eq('id', invitationId);
+      const hashedToken = inviteData.properties?.hashed_token;
+      if (!hashedToken || !inviteData.user?.id) {
+        workspaceData.teamMembers = currentMembers;
+        await Promise.all([
+          admin.from('business_workspaces').update({ data: workspaceData, updated_at: new Date().toISOString() }).eq('user_id', user.id),
+          admin.from('workspace_memberships').delete().eq('id', invitationId),
+        ]);
+        if (inviteData.user?.id) await admin.auth.admin.deleteUser(inviteData.user.id);
+        return json({ message: 'Supabase did not create a valid invitation link.' }, 500);
       }
+
+      const { error: memberLinkError } = await admin
+        .from('workspace_memberships')
+        .update({ member_user_id: inviteData.user.id })
+        .eq('id', invitationId);
+      if (memberLinkError) {
+        workspaceData.teamMembers = currentMembers;
+        await Promise.all([
+          admin.from('business_workspaces').update({ data: workspaceData, updated_at: new Date().toISOString() }).eq('user_id', user.id),
+          admin.from('workspace_memberships').delete().eq('id', invitationId),
+          admin.auth.admin.deleteUser(inviteData.user.id),
+        ]);
+        throw memberLinkError;
+      }
+
+      const secureInviteLink = `${inviteUrl}?token_hash=${encodeURIComponent(hashedToken)}&type=invite`;
+      try {
+        await sendInvitationEmail({ email, name, businessName, role, inviteLink: secureInviteLink });
+      } catch (emailError) {
+        workspaceData.teamMembers = currentMembers;
+        await Promise.all([
+          admin.from('business_workspaces').update({ data: workspaceData, updated_at: new Date().toISOString() }).eq('user_id', user.id),
+          admin.from('workspace_memberships').delete().eq('id', invitationId),
+          admin.auth.admin.deleteUser(inviteData.user.id),
+        ]);
+        return json({ message: emailError instanceof Error ? emailError.message : 'The invitation email could not be sent.' }, 502);
+      }
+
       return json({ member: { id: invitationId, name, email, role, status: 'PENDING', createdAt } });
     }
 

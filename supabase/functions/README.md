@@ -31,18 +31,20 @@ Team invitations use Supabase Auth and the SMTP provider already configured for 
 The service-role key stays inside Supabase and is never added to the mobile app.
 
 1. Apply `20260909010000_team_invitations.sql` in the Supabase SQL editor.
-2. Deploy the authenticated function:
+2. Add the Mailtrap API secrets used by the function:
+
+   `supabase secrets set MAILTRAP_API_TOKEN=your-token MAILTRAP_FROM_EMAIL=info@rekodaapp.com MAILTRAP_FROM_NAME=Rekoda`
+
+3. Deploy the authenticated function:
 
    `supabase functions deploy team-invitations`
 
-3. In Authentication > URL Configuration, add:
+4. In Authentication > URL Configuration, add:
 
    `https://www.rekodaapp.com/auth/team-invite`
 
-4. Deploy the website. The production build generates a lightweight invitation
+5. Deploy the website. The production build generates a lightweight invitation
    page at `/auth/team-invite` and the email logo at `/rekoda-email-logo-v2.png`.
-5. In Authentication > Email Templates > Invite user, paste the contents of
-   `supabase/email-templates/team-invitation.html` and save it.
-6. Send a new invitation after changing the template. The template excludes its
-   one-time links from Mailtrap tracking with `data-mt-no-track` so scanners and
-   tracking redirects cannot break them.
+6. Team invitations are sent directly through Mailtrap API with an inline CID
+   logo. Supabase's Invite user template is retained only as a fallback and is
+   not used by the deployed function.
