@@ -39,7 +39,7 @@ if (!supabaseAnonKey || supabaseAnonKey.length < 40) {
 const templatePath = resolve(projectDirectory, 'web-auth', 'team-invite.html');
 const outputPath = resolve(projectDirectory, 'dist', 'auth', 'team-invite.html');
 const logoSource = resolve(projectDirectory, 'assets', 'website', 'rekoda-logo.png');
-const logoOutput = resolve(projectDirectory, 'dist', 'rekoda-email-logo.png');
+const logoOutput = resolve(projectDirectory, 'dist', 'rekoda-email-logo-v2.png');
 
 const page = readFileSync(templatePath, 'utf8')
   .replace('__SUPABASE_URL__', JSON.stringify(supabaseUrl))

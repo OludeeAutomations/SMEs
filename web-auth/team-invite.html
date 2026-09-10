@@ -9,27 +9,23 @@
     <style>
       :root { color-scheme: light; font-family: Arial, sans-serif; }
       * { box-sizing: border-box; }
-      html, body { min-height: 100%; margin: 0; }
+      html, body { min-height: 100%; margin: 0; overflow-x: hidden; }
       body {
         background: #f5f7fb;
         color: #0f172a;
         padding: max(28px, env(safe-area-inset-top)) 18px max(28px, env(safe-area-inset-bottom));
       }
-      main { min-height: calc(100vh - 56px); display: grid; place-items: center; }
+      main { width: 100%; min-height: calc(100vh - 56px); display: flex; align-items: center; justify-content: center; }
       .card {
-        width: 100%; max-width: 520px; padding: 36px 28px; text-align: center;
+        width: 100%; min-width: 0; max-width: 520px; padding: 36px 28px; text-align: center;
         background: #fff; border: 1px solid #dce3ee; border-radius: 14px;
         box-shadow: 0 12px 32px rgba(15, 23, 42, .07);
       }
       .logo { display: block; width: 190px; max-width: 70%; height: auto; margin: 0 auto; }
       .brand-text { display: none; margin: 0; color: #0b1f5e; font-size: 30px; font-weight: 800; }
-      .icon {
-        width: 56px; height: 56px; display: grid; place-items: center; margin: 28px auto 0;
-        border-radius: 50%; background: #eaf2ff; color: #2563eb; font-size: 26px; font-weight: 700;
-      }
-      h1 { margin: 20px 0 0; color: #0b1f5e; font-size: 28px; line-height: 1.2; }
-      .message { max-width: 390px; margin: 12px auto 0; color: #475569; font-size: 15px; line-height: 1.65; }
-      form { margin-top: 28px; text-align: left; }
+      h1 { margin: 28px 0 0; color: #0b1f5e; font-size: 28px; line-height: 1.2; }
+      .message { max-width: 390px; margin: 12px auto 0; overflow-wrap: anywhere; color: #475569; font-size: 15px; line-height: 1.65; }
+      form { width: 100%; margin-top: 28px; text-align: left; }
       .field + .field { margin-top: 16px; }
       label { display: block; margin: 0 0 7px 4px; color: #334155; font-size: 13px; font-weight: 700; }
       input {
@@ -45,9 +41,7 @@
       }
       button:disabled { cursor: wait; opacity: .65; }
       .footer { margin: 24px 0 0; color: #94a3b8; font-size: 12px; }
-      .error .icon { background: #fef2f2; color: #dc2626; }
       .error .message { color: #b91c1c; }
-      .success .icon { background: #e8fbf4; color: #047857; }
       .success .message { color: #475569; }
       [hidden] { display: none !important; }
       @media (max-width: 480px) {
@@ -63,13 +57,12 @@
       <section class="card" id="card" aria-live="polite">
         <img
           class="logo"
-          src="/rekoda-email-logo.png"
+          src="/rekoda-email-logo-v2.png"
           width="190"
           alt="Rekoda"
           onerror="this.hidden=true;document.getElementById('brand-text').style.display='block'"
         />
         <p class="brand-text" id="brand-text">Rekoda</p>
-        <div class="icon" id="state-icon" aria-hidden="true">+</div>
         <h1 id="title">Join the team</h1>
         <p class="message" id="message">Create a password to accept your Rekoda team invitation.</p>
 
@@ -100,14 +93,12 @@
       const submit = document.getElementById('submit');
       const title = document.getElementById('title');
       const message = document.getElementById('message');
-      const stateIcon = document.getElementById('state-icon');
       const openApp = document.getElementById('open-app');
       let accessToken = '';
 
       function setState(state, heading, detail) {
         card.classList.remove('error', 'success');
         if (state === 'error' || state === 'success') card.classList.add(state);
-        stateIcon.textContent = state === 'success' ? '✓' : state === 'error' ? '!' : '+';
         title.textContent = heading;
         message.textContent = detail;
       }

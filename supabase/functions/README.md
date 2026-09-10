@@ -40,7 +40,7 @@ The service-role key stays inside Supabase and is never added to the mobile app.
    `https://www.rekodaapp.com/auth/team-invite`
 
 4. Deploy the website. The production build generates a lightweight invitation
-   page at `/auth/team-invite` and the email logo at `/rekoda-email-logo.png`.
+   page at `/auth/team-invite` and the email logo at `/rekoda-email-logo-v2.png`.
 5. In Authentication > Email Templates > Invite user, paste the contents of
    `supabase/email-templates/team-invitation.html` and save it.
 6. Send a new invitation after changing the template. The template excludes its
